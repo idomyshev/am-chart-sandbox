@@ -22,23 +22,63 @@ export default {
   mounted() {
     const root = am5.Root.new(this.$refs.amChart, { useSafeResolution: false });
     const chart = root.container.children.push(
-      am5percent.PieChart.new(root, {})
+      am5percent.PieChart.new(root, {
+        radius: am5.percent(90),
+        innerRadius: am5.percent(55),
+      })
     );
-    console.log(root, "some", am5xy, "some2", am5themes_Animated);
+    console.log(am5xy, am5themes_Animated);
 
     let series = chart.series.push(
       am5percent.PieSeries.new(root, {
         name: "Series",
         valueField: "cafe",
         categoryField: "month",
+        alignLabels: false,
       })
     );
+
+    series.labels.template.setAll({
+      text: "{category}",
+      radius: 70,
+      inside: true,
+      textType: "circular",
+      // centerX: am5.percent(10),
+    });
+
+    series.slices.template.setAll({
+      fillOpacity: 1, // Opacity for the slices.
+      stroke: am5.color(0xffffff),
+      strokeWidth: 3, // Border for the slices.
+    });
+
+    // series.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
+
+    series.slices.template.states.create("active", {
+      shiftRadius: 20,
+      stroke: am5.color(0x666666),
+      strokeWidth: 2,
+    });
+
+    // series.labels.template.set("forceHidden", true);
+
+    series
+      .get("colors")
+      .set("colors", [
+        am5.color(0x095256),
+        am5.color(0x087f8c),
+        am5.color(0x5aaa95),
+        am5.color(0x86a873),
+        am5.color(0xbb9f06),
+      ]);
+
     series.data.setAll(diagramsMockData);
 
     let legend = chart.children.push(
       am5.Legend.new(root, {
         centerX: am5.percent(50),
         x: am5.percent(50),
+        y: am5.percent(1),
         layout: root.horizontalLayout,
       })
     );

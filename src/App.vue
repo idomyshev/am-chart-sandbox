@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <div class="top-menu">
-        <v-btn :to="ROUTES.COLUMNS_CHART" class="mr-3">Columns</v-btn>
+        <v-btn :to="ROUTES.COLUMNS_CHART" class="mr-3">Column</v-btn>
         <v-btn :to="ROUTES.PIE_CHART" class="mr-3">Pie</v-btn>
         <v-btn :to="ROUTES.BAR_CHART" class="mr-3">Bar</v-btn>
       </div>
