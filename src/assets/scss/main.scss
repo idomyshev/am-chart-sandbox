@@ -9,6 +9,16 @@
     div {
       margin-right: 10px
     }
+    .limited-width {
+      max-width: 110px;
+    }
+  }
+  &__title {
+    align-items: center;
+    display: flex;
+    max-width: 80px;
+    padding-right: 120px;
+    text-align: center;
   }
 }
 .am-charts-container {

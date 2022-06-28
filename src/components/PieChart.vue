@@ -3,7 +3,7 @@
     <div class="diagram-settings">
       <div class="diagram-settings__line">
         <v-switch v-model="settings.customColors" label="Custom colors" />
-        <v-switch v-model="settings.customLabels" label="Custom labels" />
+
         <v-switch
           v-model="settings.seriesCustomStyle"
           label="Series custom style"
@@ -18,20 +18,46 @@
         />
       </div>
       <div class="diagram-settings__line">
-        <v-text-field v-model="settings.diagramRadius" label="Radius" />
+        <v-text-field
+          v-model="settings.diagramRadius"
+          label="Radius"
+          class="limited-width"
+        />
         <v-text-field
           v-model="settings.diagramInnerRadius"
           label="Inner radius"
+          class="limited-width"
         />
-        <v-text-field v-model="settings.sliceOpacity" label="Slice opacity" />
+        <v-text-field
+          v-model="settings.sliceOpacity"
+          label="Slice opacity"
+          class="limited-width"
+        />
         <v-text-field
           v-model="settings.sliceBorderColor"
           label="Border color (#)"
+          class="limited-width"
         />
         <v-text-field
           v-model="settings.sliceBorderWidth"
           label="Border width"
+          class="limited-width"
         />
+      </div>
+      <div class="diagram-settings__line">
+        <v-switch v-model="settings.labels.enabled" label="Customize labels" />
+        <template v-if="settings.labels.enabled">
+          <v-checkbox
+            v-model="settings.labels.inside"
+            label="Labels inside"
+            color="info"
+          />
+          <v-text-field
+            v-model="settings.labels.radius"
+            label="Label radius"
+            class="limited-width"
+          />
+        </template>
       </div>
     </div>
     <div class="am-charts-container" ref="amChart"></div>
@@ -53,7 +79,6 @@ export default {
       showXLabels: true,
       settings: {
         customColors: true,
-        customLabels: true,
         seriesCustomStyle: true,
         customStyleOnSliceClick: true,
         enableSliceClick: true,
@@ -62,6 +87,11 @@ export default {
         sliceBorderWidth: 3,
         sliceOpacity: 1,
         sliceBorderColor: "fff",
+        labels: {
+          enabled: true,
+          radius: 70,
+          inside: true,
+        },
       },
     };
   },
@@ -111,11 +141,11 @@ export default {
         })
       );
 
-      if (this.settings.customLabels) {
+      if (this.settings.labels.enabled) {
         series.labels.template.setAll({
           text: "{category}",
-          radius: 70,
-          inside: true,
+          radius: this.settings.labels.radius,
+          inside: this.settings.labels.inside,
           textType: "circular",
           // centerX: am5.percent(10),
         });
