@@ -8,8 +8,7 @@ export default new Vuetify({
     options: { customProperties: true },
     themes: {
       light: {
-        overlay: "#f9fbe7",
-        chocolate: "#8d6e63",
+        checkbox1: "#A1887F",
       },
     },
   },

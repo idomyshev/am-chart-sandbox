@@ -3,44 +3,39 @@
     <div class="diagram-settings">
       <div class="diagram-settings__line">
         <v-switch v-model="settings.customColors" label="Custom colors" />
-
-        <v-switch
-          v-model="settings.seriesCustomStyle"
-          label="Series custom style"
-        />
-        <v-switch
-          v-model="settings.customStyleOnSliceClick"
-          label="Custom style on slice click"
-        />
-        <v-switch
-          v-model="settings.enableSliceClick"
-          label="Enable action on slice click"
-        />
       </div>
       <div class="diagram-settings__line">
+        <v-switch
+          v-model="settings.series.enabled"
+          label="Series custom style"
+        />
+        <template v-if="settings.series.enabled">
+          <v-text-field
+            v-model="settings.series.opacity"
+            label="Slice opacity"
+            class="limited-width"
+          />
+          <v-text-field
+            v-model="settings.series.borderColor"
+            label="Border color (#)"
+            class="limited-width"
+          />
+        </template>
+      </div>
+      <div class="diagram-settings__line">
+        <v-switch
+          v-model="settings.chart.enabled"
+          disabled
+          label="Chart settings"
+        />
         <v-text-field
-          v-model="settings.diagramRadius"
+          v-model="settings.chart.radius"
           label="Radius"
           class="limited-width"
         />
         <v-text-field
-          v-model="settings.diagramInnerRadius"
+          v-model="settings.chart.innerRadius"
           label="Inner radius"
-          class="limited-width"
-        />
-        <v-text-field
-          v-model="settings.sliceOpacity"
-          label="Slice opacity"
-          class="limited-width"
-        />
-        <v-text-field
-          v-model="settings.sliceBorderColor"
-          label="Border color (#)"
-          class="limited-width"
-        />
-        <v-text-field
-          v-model="settings.sliceBorderWidth"
-          label="Border width"
           class="limited-width"
         />
       </div>
@@ -50,12 +45,24 @@
           <v-checkbox
             v-model="settings.labels.inside"
             label="Labels inside"
-            color="info"
+            color="var(--v-checkbox1-base)"
           />
           <v-text-field
             v-model="settings.labels.radius"
             label="Label radius"
             class="limited-width"
+          />
+        </template>
+      </div>
+      <div class="diagram-settings__line">
+        <v-switch
+          v-model="settings.sliceClick.enabled"
+          label="Enable action on slice click"
+        />
+        <template v-if="settings.sliceClick.enabled">
+          <v-switch
+            v-model="settings.sliceClick.customStyle"
+            label="Custom style on slice click"
           />
         </template>
       </div>
@@ -79,18 +86,24 @@ export default {
       showXLabels: true,
       settings: {
         customColors: true,
-        seriesCustomStyle: true,
-        customStyleOnSliceClick: true,
-        enableSliceClick: true,
-        diagramRadius: 80,
-        diagramInnerRadius: 55,
-        sliceBorderWidth: 3,
-        sliceOpacity: 1,
-        sliceBorderColor: "fff",
+        series: {
+          enabled: true,
+          opacity: 1,
+          borderColor: "fff",
+        },
+        chart: {
+          enabled: true,
+          radius: 80,
+          innerRadius: 55,
+        },
         labels: {
           enabled: true,
           radius: 70,
           inside: true,
+        },
+        sliceClick: {
+          enabled: true,
+          customStyle: true,
         },
       },
     };
@@ -127,8 +140,8 @@ export default {
       });
       const chart = root.container.children.push(
         am5percent.PieChart.new(root, {
-          radius: am5.percent(this.settings.diagramRadius),
-          innerRadius: am5.percent(this.settings.diagramInnerRadius),
+          radius: am5.percent(this.settings.chart.radius),
+          innerRadius: am5.percent(this.settings.chart.innerRadius),
         })
       );
 
@@ -151,19 +164,19 @@ export default {
         });
       }
 
-      if (this.settings.seriesCustomStyle) {
+      if (this.settings.series.enabled) {
         series.slices.template.setAll({
-          fillOpacity: this.settings.sliceOpacity,
-          stroke: am5.color(`#${this.settings.sliceBorderColor}`),
-          strokeWidth: this.settings.sliceBorderWidth,
+          fillOpacity: this.settings.series.opacity,
+          stroke: am5.color(`#${this.settings.series.borderColor}`),
+          strokeWidth: this.settings.series.borderWidth,
         });
       }
 
-      if (!this.settings.enableSliceClick) {
+      if (!this.settings.sliceClick.enabled) {
         series.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
       }
 
-      if (this.settings.customStyleOnSliceClick) {
+      if (this.settings.sliceClick.customStyle) {
         series.slices.template.states.create("active", {
           shiftRadius: 20,
           stroke: am5.color(0x00ff00),

@@ -6,11 +6,13 @@
   margin-bottom: 50px;
   &__line {
     display: flex;
+    border-bottom: 1px dashed #aaa;
+    padding-top: 10px;
     div {
       margin-right: 10px
     }
     .limited-width {
-      max-width: 110px;
+      max-width: 150px;
     }
   }
   &__title {
