@@ -5,6 +5,7 @@
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import { diagramsMockData } from "@/mockData/diagramsData";
 
 export default {
   name: "ColumnsChart",
@@ -36,25 +37,6 @@ export default {
       })
     );
 
-    // Data
-    let data = [
-      {
-        month: "March",
-        cafe: 1000,
-        food: 3000,
-      },
-      {
-        month: "April",
-        cafe: 1500,
-        food: 2000,
-      },
-      {
-        month: "May",
-        cafe: 2600,
-        food: 1000,
-      },
-    ];
-
     // Y-axis
     const yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(root, {
@@ -76,7 +58,7 @@ export default {
       })
     );
 
-    xAxis.data.setAll(data);
+    xAxis.data.setAll(diagramsMockData);
 
     if (this.showGrid) {
       const yRenderer = yAxis.get("renderer");
@@ -94,7 +76,7 @@ export default {
 
       if (this.showYLabels) {
         yRenderer.labels.template.setAll({
-          fill: am5.color("rgb(160, 170, 150)"),
+          fill: am5.color("rgb(0, 0, 0)"),
           fontSize: "1em",
         });
       }
@@ -107,7 +89,7 @@ export default {
 
       if (this.showXLabels) {
         xRenderer.labels.template.setAll({
-          fill: am5.color("rgb(160, 170, 170)"),
+          fill: am5.color("rgb(0, 0, 0)"),
           fontSize: "1em",
         });
       }
@@ -139,8 +121,8 @@ export default {
       })
     );
 
-    food.data.setAll(data);
-    cafe.data.setAll(data);
+    food.data.setAll(diagramsMockData);
+    cafe.data.setAll(diagramsMockData);
 
     // Legend
     let legend = chart.children.push(am5.Legend.new(root, {}));
@@ -163,6 +145,6 @@ export default {
 .am-charts-container {
   max-width: 1000px;
   height: 650px;
-  margin: 150px auto 0;
+  margin: 0 auto;
 }
 </style>

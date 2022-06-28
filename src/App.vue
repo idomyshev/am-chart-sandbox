@@ -1,9 +1,10 @@
 <template>
   <v-app>
     <v-main>
-      <div>
-        <v-btn :to="ROUTES.COLUMNS_CHART" class="mr-3">Columns chart</v-btn>
-        <v-btn :to="ROUTES.BAR_CHART" class="mr-3">Bar chart</v-btn>
+      <div class="top-menu">
+        <v-btn :to="ROUTES.COLUMNS_CHART" class="mr-3">Columns</v-btn>
+        <v-btn :to="ROUTES.PIE_CHART" class="mr-3">Pie</v-btn>
+        <v-btn :to="ROUTES.BAR_CHART" class="mr-3">Bar</v-btn>
       </div>
       <router-view />
     </v-main>
@@ -23,6 +24,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .v-main {
-  background: black;
+  background: #ccc;
+}
+.top-menu {
+  width: 1000px;
+  margin: 50px auto 100px;
 }
 </style>

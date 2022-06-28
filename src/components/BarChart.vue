@@ -140,7 +140,8 @@ export default {
     );
 
     food.data.setAll(data);
-    cafe.data.setAll(data);
+    // cafe.data.setAll(data);
+    console.log(cafe);
 
     // Legend
     let legend = chart.children.push(am5.Legend.new(root, {}));
@@ -163,6 +164,6 @@ export default {
 .am-charts-container {
   max-width: 1000px;
   height: 650px;
-  margin: 150px auto 0;
+  margin: 0 auto;
 }
 </style>
