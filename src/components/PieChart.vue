@@ -34,8 +34,7 @@ export default {
 
   watch: {
     settings: {
-      handler(newVal) {
-        console.log(newVal.customColors);
+      handler() {
         this.initDiagram();
       },
       deep: true,
