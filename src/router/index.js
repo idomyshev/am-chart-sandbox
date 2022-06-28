@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import PublicAreaView from "@/views/PublicAreaView";
 import { ROUTES } from "@/settings/routes";
+import BarChart from "@/components/BarChart";
+import ColumnsChart from "@/components/ColumnsChart";
 
 Vue.use(VueRouter);
 
@@ -9,7 +10,12 @@ const routes = [
   {
     path: ROUTES.HOME,
     name: "home",
-    component: PublicAreaView,
+    component: ColumnsChart,
+  },
+  {
+    path: ROUTES.BAR_CHART,
+    name: "bar",
+    component: BarChart,
   },
 ];
 

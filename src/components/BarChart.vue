@@ -7,10 +7,10 @@ import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
 export default {
-  name: "ColumnsCharts",
+  name: "BarCharts",
   data() {
     return {
-      showGrid: true,
+      showGrid: false,
       showGridAboveSeries: false,
       showTicks: true,
       showYLabels: true,
