@@ -2,9 +2,6 @@
   <div class="diagram-page">
     <div class="diagram-settings">
       <div class="diagram-settings__line">
-        <v-switch v-model="settings.customColors" label="Custom colors" />
-      </div>
-      <div class="diagram-settings__line">
         <v-switch
           v-model="settings.series.enabled"
           label="Series custom style"
@@ -38,6 +35,7 @@
           label="Inner radius"
           class="limited-width"
         />
+        <v-switch v-model="settings.customColors" label="Custom colors" />
       </div>
       <div class="diagram-settings__line">
         <v-switch v-model="settings.labels.enabled" label="Customize labels" />
