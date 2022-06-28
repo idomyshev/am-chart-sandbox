@@ -28,6 +28,6 @@ export default {
 }
 .top-menu {
   width: 1000px;
-  margin: 30px auto 0;
+  margin: 10px auto 0;
 }
 </style>

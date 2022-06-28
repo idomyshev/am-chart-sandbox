@@ -1,5 +1,8 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <div class="am-charts-container" ref="amChart"></div>
+  <div class="diagram-page">
+    <div class="diagram-settings"></div>
+    <div class="am-charts-container" ref="amChart"></div>
+  </div>
 </template>
 <script>
 import * as am5 from "@amcharts/amcharts5";
@@ -141,10 +144,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-.am-charts-container {
-  max-width: 1000px;
-  height: 650px;
-  margin: 0 auto;
-}
-</style>
+<style lang="scss" scoped></style>

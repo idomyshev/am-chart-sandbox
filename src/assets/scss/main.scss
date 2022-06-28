@@ -1,11 +1,18 @@
 .diagram-page {
   width: 1000px;
-  margin: 30px auto 0;
+  margin: 10px auto 0;
 }
 .diagram-settings {
-  margin-bottom: 20px;
-  display: flex;
-  div {
-    margin-right: 10px
+  margin-bottom: 50px;
+  &__line {
+    display: flex;
+    div {
+      margin-right: 10px
+    }
   }
+}
+.am-charts-container {
+  max-width: 700px;
+  height: 550px;
+  margin: 0 auto;
 }

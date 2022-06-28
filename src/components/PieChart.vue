@@ -1,20 +1,38 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div class="diagram-page">
     <div class="diagram-settings">
-      <v-switch v-model="settings.customColors" label="Custom colors" />
-      <v-switch v-model="settings.customLabels" label="Custom labels" />
-      <v-switch
-        v-model="settings.seriesCustomStyle"
-        label="Series custom style"
-      />
-      <v-switch
-        v-model="settings.customStyleOnSliceClick"
-        label="Custom style on slice click"
-      />
-      <v-switch
-        v-model="settings.enableSliceClick"
-        label="Enable action on slice click"
-      />
+      <div class="diagram-settings__line">
+        <v-switch v-model="settings.customColors" label="Custom colors" />
+        <v-switch v-model="settings.customLabels" label="Custom labels" />
+        <v-switch
+          v-model="settings.seriesCustomStyle"
+          label="Series custom style"
+        />
+        <v-switch
+          v-model="settings.customStyleOnSliceClick"
+          label="Custom style on slice click"
+        />
+        <v-switch
+          v-model="settings.enableSliceClick"
+          label="Enable action on slice click"
+        />
+      </div>
+      <div class="diagram-settings__line">
+        <v-text-field v-model="settings.diagramRadius" label="Radius" />
+        <v-text-field
+          v-model="settings.diagramInnerRadius"
+          label="Inner radius"
+        />
+        <v-text-field v-model="settings.sliceOpacity" label="Slice opacity" />
+        <v-text-field
+          v-model="settings.sliceBorderColor"
+          label="Border color (#)"
+        />
+        <v-text-field
+          v-model="settings.sliceBorderWidth"
+          label="Border width"
+        />
+      </div>
     </div>
     <div class="am-charts-container" ref="amChart"></div>
   </div>
@@ -39,6 +57,11 @@ export default {
         seriesCustomStyle: true,
         customStyleOnSliceClick: true,
         enableSliceClick: true,
+        diagramRadius: 80,
+        diagramInnerRadius: 55,
+        sliceBorderWidth: 3,
+        sliceOpacity: 1,
+        sliceBorderColor: "fff",
       },
     };
   },
@@ -60,9 +83,9 @@ export default {
 
   methods: {
     initDiagram() {
-      // am5.ready(() => {
-      this.createDiagram();
-      // });
+      am5.ready(() => {
+        this.createDiagram();
+      });
     },
     createDiagram() {
       if (this.root) {
@@ -74,8 +97,8 @@ export default {
       });
       const chart = root.container.children.push(
         am5percent.PieChart.new(root, {
-          radius: am5.percent(90),
-          innerRadius: am5.percent(55),
+          radius: am5.percent(this.settings.diagramRadius),
+          innerRadius: am5.percent(this.settings.diagramInnerRadius),
         })
       );
 
@@ -100,9 +123,9 @@ export default {
 
       if (this.settings.seriesCustomStyle) {
         series.slices.template.setAll({
-          fillOpacity: 1, // Opacity for the slices.
-          stroke: am5.color(0xffffff),
-          strokeWidth: 3, // Border for the slices.
+          fillOpacity: this.settings.sliceOpacity,
+          stroke: am5.color(`#${this.settings.sliceBorderColor}`),
+          strokeWidth: this.settings.sliceBorderWidth,
         });
       }
 
@@ -149,10 +172,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-.am-charts-container {
-  max-width: 1000px;
-  height: 650px;
-  margin: 0 auto;
-}
-</style>
+<style lang="scss" scoped></style>
