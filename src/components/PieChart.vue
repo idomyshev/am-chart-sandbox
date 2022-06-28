@@ -7,6 +7,14 @@
         v-model="settings.seriesCustomStyle"
         label="Series custom style"
       />
+      <v-switch
+        v-model="settings.customStyleOnSliceClick"
+        label="Custom style on slice click"
+      />
+      <v-switch
+        v-model="settings.enableSliceClick"
+        label="Enable action on slice click"
+      />
     </div>
     <div class="am-charts-container" ref="amChart"></div>
   </div>
@@ -29,6 +37,8 @@ export default {
         customColors: true,
         customLabels: true,
         seriesCustomStyle: true,
+        customStyleOnSliceClick: true,
+        enableSliceClick: true,
       },
     };
   },
@@ -42,6 +52,7 @@ export default {
     settings: {
       handler() {
         this.initDiagram();
+        console.log("updated");
       },
       deep: true,
     },
@@ -49,6 +60,11 @@ export default {
 
   methods: {
     initDiagram() {
+      // am5.ready(() => {
+      this.createDiagram();
+      // });
+    },
+    createDiagram() {
       if (this.root) {
         this.root.dispose();
       }
@@ -90,13 +106,17 @@ export default {
         });
       }
 
-      // series.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
+      if (!this.settings.enableSliceClick) {
+        series.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
+      }
 
-      series.slices.template.states.create("active", {
-        shiftRadius: 20,
-        stroke: am5.color(0x666666),
-        strokeWidth: 2,
-      });
+      if (this.settings.customStyleOnSliceClick) {
+        series.slices.template.states.create("active", {
+          shiftRadius: 20,
+          stroke: am5.color(0x00ff00),
+          strokeWidth: 2,
+        });
+      }
 
       // series.labels.template.set("forceHidden", true);
 
