@@ -2,8 +2,12 @@
   <div class="diagram-page">
     <div class="diagram-settings">
       <v-switch v-model="settings.customColors" label="Custom colors" />
+      <v-switch v-model="settings.customLabels" label="Custom labels" />
+      <v-switch
+        v-model="settings.seriesCustomStyle"
+        label="Series custom style"
+      />
     </div>
-
     <div class="am-charts-container" ref="amChart"></div>
   </div>
 </template>
@@ -22,7 +26,9 @@ export default {
       showYLabels: true,
       showXLabels: true,
       settings: {
-        customColors: false,
+        customColors: true,
+        customLabels: true,
+        seriesCustomStyle: true,
       },
     };
   },
@@ -66,19 +72,23 @@ export default {
         })
       );
 
-      series.labels.template.setAll({
-        text: "{category}",
-        radius: 70,
-        inside: true,
-        textType: "circular",
-        // centerX: am5.percent(10),
-      });
+      if (this.settings.customLabels) {
+        series.labels.template.setAll({
+          text: "{category}",
+          radius: 70,
+          inside: true,
+          textType: "circular",
+          // centerX: am5.percent(10),
+        });
+      }
 
-      series.slices.template.setAll({
-        fillOpacity: 1, // Opacity for the slices.
-        stroke: am5.color(0xffffff),
-        strokeWidth: 3, // Border for the slices.
-      });
+      if (this.settings.seriesCustomStyle) {
+        series.slices.template.setAll({
+          fillOpacity: 1, // Opacity for the slices.
+          stroke: am5.color(0xffffff),
+          strokeWidth: 3, // Border for the slices.
+        });
+      }
 
       // series.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
 
