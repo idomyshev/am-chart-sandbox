@@ -213,6 +213,12 @@
     </v-col>
     <v-col cols="7">
       <div class="am-charts-container" ref="amChart"></div>
+      <div style="border: 1px dotted #999">
+        {{ testSettings }}
+        <div v-for="item in settingsList" :key="item[0]">
+          <v-switch v-model="testSettings[item[0]].value" label="test" />
+        </div>
+      </div>
     </v-col>
   </v-row>
 </template>
@@ -220,11 +226,22 @@
 import * as am5 from "@amcharts/amcharts5";
 import * as am5percent from "@amcharts/amcharts5/percent";
 import { diagramsMockData } from "@/mockData/diagramsData";
+import { getChartSettings } from "@/settings/charts/pieChart";
+require("../settings/charts/pieChart.js");
 
 export default {
   name: "PieChart",
+  computed: {
+    // passByReference() {
+    //   return this.testSettings.customColors.value;
+    // },
+    settingsList() {
+      return Object.entries(this.testSettings);
+    },
+  },
   data() {
     return {
+      testSettings: getChartSettings(),
       panel: [0],
       showGrid: true,
       showGridAboveSeries: false,
@@ -279,6 +296,7 @@ export default {
       },
     };
   },
+  created() {},
   mounted() {
     this.initDiagram();
   },
@@ -290,6 +308,12 @@ export default {
       handler() {
         this.initDiagram();
         console.log("updated");
+      },
+      deep: true,
+    },
+    testSettings: {
+      handler(newVal) {
+        console.log("testSettings", newVal);
       },
       deep: true,
     },
