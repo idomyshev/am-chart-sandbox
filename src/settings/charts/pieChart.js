@@ -108,6 +108,23 @@ const chartSettings = {
       },
     },
   },
+  ticks: {
+    title: "Ticks ('cafe' series)",
+    items: {
+      enabled: {
+        value: true,
+        type: "radio",
+      },
+      width: {
+        value: 1,
+        type: "text-field.number",
+      },
+      color: {
+        value: "000",
+        type: "text-field.color",
+      },
+    },
+  },
 };
 
 export const getChartSettings = () => {

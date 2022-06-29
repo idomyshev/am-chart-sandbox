@@ -49,30 +49,6 @@
 
           <v-expansion-panel>
             <v-expansion-panel-header>
-              Ticks settings (only for inner circle)
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <div class="diagram-settings__line">
-                <v-switch
-                  v-model="settings.ticks.enabled"
-                  label="Enable ticks"
-                />
-                <v-text-field
-                  v-model="settings.ticks.color"
-                  label="Color"
-                  class="limited-width"
-                />
-                <v-text-field
-                  v-model="settings.ticks.width"
-                  label="Width"
-                  class="limited-width"
-                />
-              </div>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-
-          <v-expansion-panel>
-            <v-expansion-panel-header>
               Tooltips settings (only for inner circle)
             </v-expansion-panel-header>
             <v-expansion-panel-content>
@@ -267,12 +243,12 @@ export default {
       }
 
       // Ticks.
-      if (!this.settings.ticks.enabled) {
+      if (!this.testSettings.ticks.items.enabled.value) {
         cafeSeries.ticks.template.set("visible", false);
       } else {
         cafeSeries.ticks.template.setAll({
-          stroke: am5.color(`#${this.settings.ticks.color}`),
-          strokeWidth: this.settings.ticks.width,
+          stroke: am5.color(`#${this.testSettings.ticks.items.color.value}`),
+          strokeWidth: this.testSettings.ticks.items.width.value,
         });
       }
 
