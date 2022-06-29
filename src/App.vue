@@ -36,7 +36,9 @@ export default {
   flex-direction: column;
   padding-top: 50px;
   padding-left: 50px;
-  max-width: 210px;
+  padding-right: 60px;
+  //max-width: 210px;
+  max-width: 300px;
   a {
     margin-bottom: 15px !important;
   }
