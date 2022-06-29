@@ -62,6 +62,23 @@
             v-model="settings.sliceClick.customStyle"
             label="Custom style on slice click"
           />
+          <template v-if="settings.sliceClick.customStyle">
+            <v-text-field
+              v-model="settings.sliceClick.shiftRadius"
+              label="Radius"
+              class="limited-width"
+            />
+            <v-text-field
+              v-model="settings.sliceClick.shiftBorderColor"
+              label="Border color"
+              class="limited-width"
+            />
+            <v-text-field
+              v-model="settings.sliceClick.shiftBorderWidth"
+              label="Border width"
+              class="limited-width"
+            />
+          </template>
         </template>
       </div>
     </div>
@@ -102,6 +119,9 @@ export default {
         sliceClick: {
           enabled: true,
           customStyle: true,
+          shiftRadius: 20,
+          shiftBorderColor: "6666",
+          shiftBorderWidth: 2,
         },
       },
     };
@@ -176,9 +196,9 @@ export default {
 
       if (this.settings.sliceClick.customStyle) {
         series.slices.template.states.create("active", {
-          shiftRadius: 20,
-          stroke: am5.color(0x00ff00),
-          strokeWidth: 2,
+          shiftRadius: this.settings.sliceClick.shiftRadius,
+          stroke: am5.color(`#${this.settings.sliceClick.shiftBorderColor}`),
+          strokeWidth: this.settings.sliceClick.shiftBorderWidth,
         });
       }
 
