@@ -3,7 +3,10 @@
     <v-col cols="5">
       <div class="diagram-settings">
         <v-expansion-panels v-model="panel" multiple>
-          <v-expansion-panel v-for="group in settingsList" :key="group[0]">
+          <v-expansion-panel
+            v-for="group in Object.entries(chartSettings)"
+            :key="group[0]"
+          >
             <v-expansion-panel-header>{{
               group[1].title
             }}</v-expansion-panel-header>
@@ -21,13 +24,13 @@
                 >
                   <v-switch
                     v-if="item[1].type === 'radio'"
-                    v-model="testSettings[group[0]].items[item[0]].value"
+                    v-model="chartSettings[group[0]].items[item[0]].value"
                     :label="`${group[0]}.${item[0]}`"
                     :disabled="item[1].disabled"
                   />
                   <v-checkbox
                     v-if="item[1].type === 'checkbox'"
-                    v-model="testSettings[group[0]].items[item[0]].value"
+                    v-model="chartSettings[group[0]].items[item[0]].value"
                     :label="`${group[0]}.${item[0]}`"
                     :disabled="item[1].disabled"
                   />
@@ -39,7 +42,7 @@
                         'text-field.text',
                       ].includes(item[1].type)
                     "
-                    v-model="testSettings[group[0]].items[item[0]].value"
+                    v-model="chartSettings[group[0]].items[item[0]].value"
                     :label="`${group[0]}.${item[0]}`"
                     :class="
                       item[1].type !== 'text-field.text' ? 'limited-width' : ''
@@ -62,71 +65,21 @@
 import * as am5 from "@amcharts/amcharts5";
 import * as am5percent from "@amcharts/amcharts5/percent";
 import { diagramsMockData } from "@/mockData/diagramsData";
-import { getChartSettings } from "@/settings/charts/pieChart";
+import { getChartConfig } from "@/settings/charts/pieChart";
 require("../settings/charts/pieChart.js");
 
 export default {
   name: "PieChart",
-  computed: {
-    settingsList() {
-      return Object.entries(this.testSettings);
-    },
-  },
+  computed: {},
   data() {
     return {
-      testSettings: getChartSettings(),
+      chartSettings: getChartConfig(),
       panel: [0],
       showGrid: true,
       showGridAboveSeries: false,
       showTicks: true,
       showYLabels: true,
       showXLabels: true,
-      settings: {
-        customColors: true,
-        chart: {
-          radius: 80,
-          innerRadius: 55,
-        },
-        slices: {
-          enabled: true,
-          opacity: 1,
-          borderColor: "fff",
-        },
-        sliceClick: {
-          enabled: true,
-          customStyle: true,
-          shiftRadius: 20,
-          shiftBorderColor: "6666",
-          shiftBorderWidth: 2,
-        },
-        labels: {
-          enabled: true,
-          radius: 70,
-          inside: true,
-          circular: true,
-        },
-        legend: {
-          centerX: 50,
-          x: 50,
-          y: 1,
-        },
-        ticks: {
-          enabled: true,
-          color: "000",
-          width: 2,
-        },
-        tooltips: {
-          enabled: true,
-          text: "{category}: [bold]{valuePercentTotal.formatNumber('0.00')}%[/] ({value})",
-        },
-        series: {
-          second: {
-            enable: true,
-            fromAngle: 0,
-            toAngle: 180,
-          },
-        },
-      },
     };
   },
   created() {},
@@ -134,20 +87,17 @@ export default {
     this.initDiagram();
   },
 
-  beforeDestroy() {},
+  beforeDestroy() {
+    if (this.root) {
+      this.root.dispose();
+    }
+  },
 
   watch: {
-    settings: {
+    chartSettings: {
       handler() {
         this.initDiagram();
         console.log("updated");
-      },
-      deep: true,
-    },
-    testSettings: {
-      handler() {
-        this.initDiagram();
-        console.log("testSettings updated");
       },
       deep: true,
     },
@@ -169,9 +119,9 @@ export default {
       });
       const chart = root.container.children.push(
         am5percent.PieChart.new(root, {
-          radius: am5.percent(this.testSettings.chart.items.radius.value),
+          radius: am5.percent(this.chartSettings.chart.items.radius.value),
           innerRadius: am5.percent(
-            this.testSettings.chart.items.innerRadius.value
+            this.chartSettings.chart.items.innerRadius.value
           ),
         })
       );
@@ -187,82 +137,82 @@ export default {
 
       // Second series.
       let foodSeries = null;
-      if (this.testSettings.secondSeries.items.enabled.value) {
+      if (this.chartSettings.secondSeries.items.enabled.value) {
         foodSeries = chart.series.push(
           am5percent.PieSeries.new(root, {
             name: "Series",
             valueField: "food",
             categoryField: "month",
             alignLabels: false,
-            startAngle: this.testSettings.secondSeries.items.startAngle.value,
-            endAngle: this.testSettings.secondSeries.items.endAngle.value,
+            startAngle: this.chartSettings.secondSeries.items.startAngle.value,
+            endAngle: this.chartSettings.secondSeries.items.endAngle.value,
           })
         );
       }
 
       // Ticks.
-      if (!this.testSettings.ticks.items.enabled.value) {
+      if (!this.chartSettings.ticks.items.enabled.value) {
         cafeSeries.ticks.template.set("visible", false);
       } else {
         cafeSeries.ticks.template.setAll({
-          stroke: am5.color(`#${this.testSettings.ticks.items.color.value}`),
-          strokeWidth: this.testSettings.ticks.items.width.value,
+          stroke: am5.color(`#${this.chartSettings.ticks.items.color.value}`),
+          strokeWidth: this.chartSettings.ticks.items.width.value,
         });
       }
 
       // Labels.
-      if (!this.testSettings.labels.items.enabled.value) {
+      if (!this.chartSettings.labels.items.enabled.value) {
         cafeSeries.labels.template.set("forceHidden", true);
       } else {
         cafeSeries.labels.template.setAll({
           text: "{category}",
-          radius: this.testSettings.labels.items.radius.value,
-          inside: this.testSettings.labels.items.inside.value,
-          textType: this.testSettings.labels.items.circular.value
+          radius: this.chartSettings.labels.items.radius.value,
+          inside: this.chartSettings.labels.items.inside.value,
+          textType: this.chartSettings.labels.items.circular.value
             ? "circular"
             : undefined,
           // centerX: am5.percent(10),
         });
       }
 
-      if (!this.testSettings.tooltips.items.enabled.value) {
+      if (!this.chartSettings.tooltips.items.enabled.value) {
         cafeSeries.slices.template.set("tooltipText", "");
       } else {
         cafeSeries.slices.template.set(
           "tooltipText",
-          this.testSettings.tooltips.items.text.value
+          this.chartSettings.tooltips.items.text.value
         );
       }
 
       // Slices settings.
-      if (this.testSettings.slices.items.enabled.value) {
+      if (this.chartSettings.slices.items.enabled.value) {
         cafeSeries.slices.template.setAll({
-          fillOpacity: this.testSettings.slices.items.opacity.value,
+          fillOpacity: this.chartSettings.slices.items.opacity.value,
           stroke: am5.color(
-            `#${this.testSettings.slices.items.borderColor.value}`
+            `#${this.chartSettings.slices.items.borderColor.value}`
           ),
-          strokeWidth: this.testSettings.slices.items.borderWidth.value,
+          strokeWidth: this.chartSettings.slices.items.borderWidth.value,
         });
       }
 
       // Slice click settings.
-      if (!this.testSettings.clickedSlices.items.enabled.value) {
+      if (!this.chartSettings.clickedSlices.items.enabled.value) {
         cafeSeries.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
       } else {
-        if (this.testSettings.clickedSlices.items.customStyle.value) {
+        if (this.chartSettings.clickedSlices.items.customStyle.value) {
           cafeSeries.slices.template.states.create("active", {
-            shiftRadius: this.testSettings.clickedSlices.items.radius.value,
+            shiftRadius: this.chartSettings.clickedSlices.items.radius.value,
             stroke: am5.color(
-              `#${this.testSettings.clickedSlices.items.borderColor.value}`
+              `#${this.chartSettings.clickedSlices.items.borderColor.value}`
             ),
             strokeWidth:
-              this.testSettings.clickedSlices.items.borderWidth.value,
+              this.chartSettings.clickedSlices.items.borderWidth.value,
           });
         }
       }
 
       // Custom colors.
-      if (this.testSettings.general.items.customColors.value) {
+      if (this.chartSettings.general.items.customColors.value) {
         cafeSeries
           .get("colors")
           .set("colors", [
@@ -277,9 +227,9 @@ export default {
       // Legend settings.
       const legend = chart.children.push(
         am5.Legend.new(root, {
-          centerX: am5.percent(this.testSettings.legend.items.centerX.value),
-          x: am5.percent(this.testSettings.legend.items.x.value),
-          y: am5.percent(this.testSettings.legend.items.y.value),
+          centerX: am5.percent(this.chartSettings.legend.items.centerX.value),
+          x: am5.percent(this.chartSettings.legend.items.x.value),
+          y: am5.percent(this.chartSettings.legend.items.y.value),
           layout: root.horizontalLayout,
         })
       );
@@ -287,7 +237,7 @@ export default {
       cafeSeries.data.setAll(diagramsMockData);
       legend.data.setAll(cafeSeries.dataItems);
 
-      if (this.testSettings.secondSeries.items.enabled.value) {
+      if (this.chartSettings.secondSeries.items.enabled.value) {
         foodSeries.data.setAll(diagramsMockData);
         legend.data.setAll(foodSeries.dataItems);
       }

@@ -1,4 +1,4 @@
-const chartSettings = {
+const chartConfig = {
   general: {
     title: "General",
     itemsPosition: "column",
@@ -149,17 +149,15 @@ const chartSettings = {
       startAngle: {
         value: 0,
         type: "text-field.number",
-        // disabled: true,
       },
       endAngle: {
         value: 180,
         type: "text-field.number",
-        // disabled: true,
       },
     },
   },
 };
 
-export const getChartSettings = () => {
-  return chartSettings;
+export const getChartConfig = () => {
+  return chartConfig;
 };
