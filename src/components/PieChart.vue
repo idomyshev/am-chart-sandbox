@@ -29,25 +29,54 @@
 
           <v-expansion-panel>
             <v-expansion-panel-header>
-              Series settings
+              Slices settings
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <div class="diagram-settings__line">
                 <v-switch
-                  v-model="settings.series.enabled"
+                  v-model="settings.slices.enabled"
                   label="Series custom style"
                 />
-                <template v-if="settings.series.enabled">
+                <template v-if="settings.slices.enabled">
                   <v-text-field
-                    v-model="settings.series.opacity"
+                    v-model="settings.slices.opacity"
                     label="Slice opacity"
                     class="limited-width"
                   />
                   <v-text-field
-                    v-model="settings.series.borderColor"
+                    v-model="settings.slices.borderColor"
                     label="Border color (#)"
                     class="limited-width"
                   />
+                </template>
+              </div>
+              <div class="diagram-settings__line">
+                <v-switch
+                  v-model="settings.sliceClick.enabled"
+                  label="Enable action on slice click"
+                />
+                <template v-if="settings.sliceClick.enabled">
+                  <v-switch
+                    v-model="settings.sliceClick.customStyle"
+                    label="Custom style on slice click"
+                  />
+                  <template v-if="settings.sliceClick.customStyle">
+                    <v-text-field
+                      v-model="settings.sliceClick.shiftRadius"
+                      label="Radius"
+                      class="limited-width"
+                    />
+                    <v-text-field
+                      v-model="settings.sliceClick.shiftBorderColor"
+                      label="Border color"
+                      class="limited-width"
+                    />
+                    <v-text-field
+                      v-model="settings.sliceClick.shiftBorderWidth"
+                      label="Border width"
+                      class="limited-width"
+                    />
+                  </template>
                 </template>
               </div>
             </v-expansion-panel-content>
@@ -81,42 +110,6 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
 
-          <v-expansion-panel>
-            <v-expansion-panel-header>
-              "On slice click" settings
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <div class="diagram-settings__line">
-                <v-switch
-                  v-model="settings.sliceClick.enabled"
-                  label="Enable action on slice click"
-                />
-                <template v-if="settings.sliceClick.enabled">
-                  <v-switch
-                    v-model="settings.sliceClick.customStyle"
-                    label="Custom style on slice click"
-                  />
-                  <template v-if="settings.sliceClick.customStyle">
-                    <v-text-field
-                      v-model="settings.sliceClick.shiftRadius"
-                      label="Radius"
-                      class="limited-width"
-                    />
-                    <v-text-field
-                      v-model="settings.sliceClick.shiftBorderColor"
-                      label="Border color"
-                      class="limited-width"
-                    />
-                    <v-text-field
-                      v-model="settings.sliceClick.shiftBorderWidth"
-                      label="Border width"
-                      class="limited-width"
-                    />
-                  </template>
-                </template>
-              </div>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
           <v-expansion-panel>
             <v-expansion-panel-header>
               Legend settings
@@ -166,7 +159,7 @@ export default {
       showXLabels: true,
       settings: {
         customColors: true,
-        series: {
+        slices: {
           enabled: true,
           opacity: 1,
           borderColor: "fff",
@@ -254,12 +247,12 @@ export default {
         });
       }
 
-      // Slices (series) settings.
-      if (this.settings.series.enabled) {
+      // Slices settings.
+      if (this.settings.slices.enabled) {
         series.slices.template.setAll({
-          fillOpacity: this.settings.series.opacity,
-          stroke: am5.color(`#${this.settings.series.borderColor}`),
-          strokeWidth: this.settings.series.borderWidth,
+          fillOpacity: this.settings.slices.opacity,
+          stroke: am5.color(`#${this.settings.slices.borderColor}`),
+          strokeWidth: this.settings.slices.borderWidth,
         });
       }
 
