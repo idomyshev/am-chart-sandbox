@@ -273,7 +273,7 @@ export default {
           second: {
             enable: true,
             fromAngle: 0,
-            toAngle: 360,
+            toAngle: 180,
           },
         },
       },
