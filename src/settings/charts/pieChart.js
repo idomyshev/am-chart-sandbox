@@ -1,6 +1,6 @@
 const chartSettings = {
   general: {
-    title: "General settings",
+    title: "General",
     itemsPosition: "column",
     items: {
       customColors: {
@@ -11,7 +11,7 @@ const chartSettings = {
   },
 
   chart: {
-    title: "Chart settings",
+    title: "Chart",
     itemsPosition: "column",
     items: {
       radius: {
@@ -25,7 +25,7 @@ const chartSettings = {
     },
   },
   labels: {
-    title: "Labels settings (per series)",
+    title: "Labels ('cafe' series)",
     items: {
       enabled: {
         value: true,
@@ -42,6 +42,52 @@ const chartSettings = {
       radius: {
         value: 80,
         type: "text-field.number",
+      },
+    },
+  },
+  slices: {
+    title: "Slices ('cafe' series)",
+    items: {
+      enabled: {
+        value: true,
+        type: "radio",
+      },
+      opacity: {
+        value: 1,
+        type: "text-field.number",
+      },
+      borderWidth: {
+        value: 2,
+        type: "text-field.number",
+      },
+      borderColor: {
+        value: "fff",
+        type: "text-field.color",
+      },
+    },
+  },
+  clickedSlices: {
+    title: "Clicked slices ('cafe' series)",
+    items: {
+      enabled: {
+        value: true,
+        type: "radio",
+      },
+      customStyle: {
+        value: true,
+        type: "checkbox",
+      },
+      radius: {
+        value: 10,
+        type: "text-field.number",
+      },
+      borderWidth: {
+        value: 2,
+        type: "text-field.number",
+      },
+      borderColor: {
+        value: "fff",
+        type: "text-field.color",
       },
     },
   },

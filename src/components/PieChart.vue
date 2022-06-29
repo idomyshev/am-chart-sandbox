@@ -32,68 +32,17 @@
                     :disabled="item[1].disabled"
                   />
                   <v-text-field
-                    v-if="item[1].type === 'text-field.number'"
+                    v-if="
+                      ['text-field.number', 'text-field.color'].includes(
+                        item[1].type
+                      )
+                    "
                     v-model="testSettings[group[0]].items[item[0]].value"
                     :label="`${group[0]}.${item[0]}`"
                     class="limited-width"
                     :disabled="item[1].disabled"
                   />
                 </div>
-              </div>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-
-          <v-expansion-panel>
-            <v-expansion-panel-header>
-              Slices settings (only for inner circle)
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <div class="diagram-settings__line">
-                <v-switch
-                  v-model="settings.slices.enabled"
-                  label="Series custom style"
-                />
-                <template v-if="settings.slices.enabled">
-                  <v-text-field
-                    v-model="settings.slices.opacity"
-                    label="Slice opacity"
-                    class="limited-width"
-                  />
-                  <v-text-field
-                    v-model="settings.slices.borderColor"
-                    label="Border color (#)"
-                    class="limited-width"
-                  />
-                </template>
-              </div>
-              <div class="diagram-settings__line">
-                <v-switch
-                  v-model="settings.sliceClick.enabled"
-                  label="Enable action on slice click"
-                />
-                <template v-if="settings.sliceClick.enabled">
-                  <v-switch
-                    v-model="settings.sliceClick.customStyle"
-                    label="Custom style on slice click"
-                  />
-                  <template v-if="settings.sliceClick.customStyle">
-                    <v-text-field
-                      v-model="settings.sliceClick.shiftRadius"
-                      label="Radius"
-                      class="limited-width"
-                    />
-                    <v-text-field
-                      v-model="settings.sliceClick.shiftBorderColor"
-                      label="Border color"
-                      class="limited-width"
-                    />
-                    <v-text-field
-                      v-model="settings.sliceClick.shiftBorderWidth"
-                      label="Border width"
-                      class="limited-width"
-                    />
-                  </template>
-                </template>
               </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -377,23 +326,28 @@ export default {
       }
 
       // Slices settings.
-      if (this.settings.slices.enabled) {
+      if (this.testSettings.slices.items.enabled.value) {
         cafeSeries.slices.template.setAll({
-          fillOpacity: this.settings.slices.opacity,
-          stroke: am5.color(`#${this.settings.slices.borderColor}`),
-          strokeWidth: this.settings.slices.borderWidth,
+          fillOpacity: this.testSettings.slices.items.opacity.value,
+          stroke: am5.color(
+            `#${this.testSettings.slices.items.borderColor.value}`
+          ),
+          strokeWidth: this.testSettings.slices.items.borderWidth.value,
         });
       }
 
       // Slice click settings.
-      if (!this.settings.sliceClick.enabled) {
+      if (!this.testSettings.clickedSlices.items.enabled.value) {
         cafeSeries.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
       } else {
-        if (this.settings.sliceClick.customStyle) {
+        if (this.testSettings.clickedSlices.items.customStyle.value) {
           cafeSeries.slices.template.states.create("active", {
-            shiftRadius: this.settings.sliceClick.shiftRadius,
-            stroke: am5.color(`#${this.settings.sliceClick.shiftBorderColor}`),
-            strokeWidth: this.settings.sliceClick.shiftBorderWidth,
+            shiftRadius: this.testSettings.clickedSlices.items.radius.value,
+            stroke: am5.color(
+              `#${this.testSettings.clickedSlices.items.borderColor.value}`
+            ),
+            strokeWidth:
+              this.testSettings.clickedSlices.items.borderWidth.value,
           });
         }
       }
