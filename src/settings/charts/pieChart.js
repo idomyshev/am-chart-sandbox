@@ -13,6 +13,11 @@ const chartSettings = {
       type: "number",
     },
   },
+  labels: {
+    inside: {
+      value: true,
+    },
+  },
 };
 
 export const getChartSettings = () => {

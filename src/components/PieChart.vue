@@ -321,6 +321,7 @@ export default {
     },
     testSettings: {
       handler(newVal) {
+        this.initDiagram();
         console.log("testSettings", newVal);
       },
       deep: true,
@@ -389,7 +390,7 @@ export default {
         cafeSeries.labels.template.setAll({
           text: "{category}",
           radius: this.settings.labels.radius,
-          inside: this.settings.labels.inside,
+          inside: this.testSettings.labels.inside.value,
           textType: this.settings.labels.circular ? "circular" : undefined,
           // centerX: am5.percent(10),
         });
