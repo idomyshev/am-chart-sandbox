@@ -256,20 +256,20 @@ export default {
         });
       }
 
-      // Disable slice click.
+      // Slice click settings.
       if (!this.settings.sliceClick.enabled) {
         series.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
+      } else {
+        if (this.settings.sliceClick.customStyle) {
+          series.slices.template.states.create("active", {
+            shiftRadius: this.settings.sliceClick.shiftRadius,
+            stroke: am5.color(`#${this.settings.sliceClick.shiftBorderColor}`),
+            strokeWidth: this.settings.sliceClick.shiftBorderWidth,
+          });
+        }
       }
 
-      // Slice click settings.
-      if (this.settings.sliceClick.customStyle) {
-        series.slices.template.states.create("active", {
-          shiftRadius: this.settings.sliceClick.shiftRadius,
-          stroke: am5.color(`#${this.settings.sliceClick.shiftBorderColor}`),
-          strokeWidth: this.settings.sliceClick.shiftBorderWidth,
-        });
-      }
-
+      // Custom colors.
       if (this.settings.customColors) {
         series
           .get("colors")
@@ -282,8 +282,7 @@ export default {
           ]);
       }
 
-      series.data.setAll(diagramsMockData);
-
+      // Legend settings.
       let legend = chart.children.push(
         am5.Legend.new(root, {
           centerX: am5.percent(this.settings.legend.centerX),
@@ -292,8 +291,9 @@ export default {
           layout: root.horizontalLayout,
         })
       );
-      legend.data.setAll(series.dataItems);
 
+      legend.data.setAll(series.dataItems);
+      series.data.setAll(diagramsMockData);
       this.root = root;
     },
   },
