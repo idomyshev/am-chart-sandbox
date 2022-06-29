@@ -120,6 +120,30 @@
               </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              Legend settings
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <div class="diagram-settings__line">
+                <v-text-field
+                  v-model="settings.legend.centerX"
+                  label="centerX"
+                  class="limited-width"
+                />
+                <v-text-field
+                  v-model="settings.legend.x"
+                  label="X"
+                  class="limited-width"
+                />
+                <v-text-field
+                  v-model="settings.legend.y"
+                  label="Y"
+                  class="limited-width"
+                />
+              </div>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
         </v-expansion-panels>
       </div>
     </v-col>
@@ -166,6 +190,11 @@ export default {
           shiftRadius: 20,
           shiftBorderColor: "6666",
           shiftBorderWidth: 2,
+        },
+        legend: {
+          centerX: 50,
+          x: 50,
+          y: 1,
         },
       },
     };
@@ -264,9 +293,9 @@ export default {
 
       let legend = chart.children.push(
         am5.Legend.new(root, {
-          centerX: am5.percent(50),
-          x: am5.percent(50),
-          y: am5.percent(1),
+          centerX: am5.percent(this.settings.legend.centerX),
+          x: am5.percent(this.settings.legend.x),
+          y: am5.percent(this.settings.legend.y),
           layout: root.horizontalLayout,
         })
       );
