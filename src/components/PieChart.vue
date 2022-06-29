@@ -1,86 +1,116 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div class="diagram-page">
     <div class="diagram-settings">
-      <div class="diagram-settings__line">
-        <v-switch
-          v-model="settings.series.enabled"
-          label="Series custom style"
-        />
-        <template v-if="settings.series.enabled">
-          <v-text-field
-            v-model="settings.series.opacity"
-            label="Slice opacity"
-            class="limited-width"
-          />
-          <v-text-field
-            v-model="settings.series.borderColor"
-            label="Border color (#)"
-            class="limited-width"
-          />
-        </template>
-      </div>
-      <div class="diagram-settings__line">
-        <v-switch
-          v-model="settings.chart.enabled"
-          disabled
-          label="Chart settings"
-        />
-        <v-text-field
-          v-model="settings.chart.radius"
-          label="Radius"
-          class="limited-width"
-        />
-        <v-text-field
-          v-model="settings.chart.innerRadius"
-          label="Inner radius"
-          class="limited-width"
-        />
-        <v-switch v-model="settings.customColors" label="Custom colors" />
-      </div>
-      <div class="diagram-settings__line">
-        <v-switch v-model="settings.labels.enabled" label="Customize labels" />
-        <template v-if="settings.labels.enabled">
-          <v-checkbox
-            v-model="settings.labels.inside"
-            label="Labels inside"
-            color="var(--v-checkbox1-base)"
-          />
-          <v-text-field
-            v-model="settings.labels.radius"
-            label="Label radius"
-            class="limited-width"
-          />
-        </template>
-      </div>
-      <div class="diagram-settings__line">
-        <v-switch
-          v-model="settings.sliceClick.enabled"
-          label="Enable action on slice click"
-        />
-        <template v-if="settings.sliceClick.enabled">
-          <v-switch
-            v-model="settings.sliceClick.customStyle"
-            label="Custom style on slice click"
-          />
-          <template v-if="settings.sliceClick.customStyle">
-            <v-text-field
-              v-model="settings.sliceClick.shiftRadius"
-              label="Radius"
-              class="limited-width"
-            />
-            <v-text-field
-              v-model="settings.sliceClick.shiftBorderColor"
-              label="Border color"
-              class="limited-width"
-            />
-            <v-text-field
-              v-model="settings.sliceClick.shiftBorderWidth"
-              label="Border width"
-              class="limited-width"
-            />
-          </template>
-        </template>
-      </div>
+      <v-expansion-panels v-model="panel">
+        <v-expansion-panel>
+          <v-expansion-panel-header> Chart settings </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <div class="diagram-settings__line">
+              <v-switch
+                v-model="settings.chart.enabled"
+                disabled
+                label="Chart settings"
+              />
+              <v-text-field
+                v-model="settings.chart.radius"
+                label="Radius"
+                class="limited-width"
+              />
+              <v-text-field
+                v-model="settings.chart.innerRadius"
+                label="Inner radius"
+                class="limited-width"
+              />
+              <v-switch v-model="settings.customColors" label="Custom colors" />
+            </div>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header> Series settings </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <div class="diagram-settings__line">
+              <v-switch
+                v-model="settings.series.enabled"
+                label="Series custom style"
+              />
+              <template v-if="settings.series.enabled">
+                <v-text-field
+                  v-model="settings.series.opacity"
+                  label="Slice opacity"
+                  class="limited-width"
+                />
+                <v-text-field
+                  v-model="settings.series.borderColor"
+                  label="Border color (#)"
+                  class="limited-width"
+                />
+              </template>
+            </div>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header> Labels settings </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <div class="diagram-settings__line">
+              <v-switch
+                v-model="settings.labels.enabled"
+                label="Customize labels"
+              />
+              <template v-if="settings.labels.enabled">
+                <v-checkbox
+                  v-model="settings.labels.inside"
+                  label="Labels inside"
+                  color="var(--v-checkbox1-base)"
+                />
+                <v-text-field
+                  v-model="settings.labels.radius"
+                  label="Label radius"
+                  class="limited-width"
+                />
+              </template>
+            </div>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header>
+            "On slice click" settings
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <div class="diagram-settings__line">
+              <v-switch
+                v-model="settings.sliceClick.enabled"
+                label="Enable action on slice click"
+              />
+              <template v-if="settings.sliceClick.enabled">
+                <v-switch
+                  v-model="settings.sliceClick.customStyle"
+                  label="Custom style on slice click"
+                />
+                <template v-if="settings.sliceClick.customStyle">
+                  <v-text-field
+                    v-model="settings.sliceClick.shiftRadius"
+                    label="Radius"
+                    class="limited-width"
+                  />
+                  <v-text-field
+                    v-model="settings.sliceClick.shiftBorderColor"
+                    label="Border color"
+                    class="limited-width"
+                  />
+                  <v-text-field
+                    v-model="settings.sliceClick.shiftBorderWidth"
+                    label="Border width"
+                    class="limited-width"
+                  />
+                </template>
+              </template>
+            </div>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </div>
     <div class="am-charts-container" ref="amChart"></div>
   </div>
@@ -94,6 +124,7 @@ export default {
   name: "PieChart",
   data() {
     return {
+      panel: 0,
       showGrid: true,
       showGridAboveSeries: false,
       showTicks: true,
