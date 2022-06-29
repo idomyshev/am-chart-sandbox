@@ -2,18 +2,13 @@
   <v-row>
     <v-col cols="5">
       <div class="diagram-settings">
-        <v-expansion-panels v-model="panel">
+        <v-expansion-panels v-model="panel" multiple>
           <v-expansion-panel>
             <v-expansion-panel-header>
               Chart settings
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <div class="diagram-settings__line">
-                <v-switch
-                  v-model="settings.chart.enabled"
-                  disabled
-                  label="Chart settings"
-                />
                 <v-text-field
                   v-model="settings.chart.radius"
                   label="Radius"
@@ -66,19 +61,21 @@
               <div class="diagram-settings__line">
                 <v-switch
                   v-model="settings.labels.enabled"
-                  label="Customize labels"
+                  label="Enable labels"
                 />
                 <template v-if="settings.labels.enabled">
-                  <v-checkbox
-                    v-model="settings.labels.inside"
-                    label="Labels inside"
-                    color="var(--v-checkbox1-base)"
-                  />
-                  <v-text-field
-                    v-model="settings.labels.radius"
-                    label="Label radius"
-                    class="limited-width"
-                  />
+                  <template v-if="settings.labels.enabled">
+                    <v-checkbox
+                      v-model="settings.labels.inside"
+                      label="Labels inside"
+                      color="var(--v-checkbox1-base)"
+                    />
+                    <v-text-field
+                      v-model="settings.labels.radius"
+                      label="Label radius"
+                      class="limited-width"
+                    />
+                  </template>
                 </template>
               </div>
             </v-expansion-panel-content>
@@ -161,7 +158,7 @@ export default {
   name: "PieChart",
   data() {
     return {
-      panel: 0,
+      panel: [0],
       showGrid: true,
       showGridAboveSeries: false,
       showTicks: true,
@@ -175,7 +172,6 @@ export default {
           borderColor: "fff",
         },
         chart: {
-          enabled: true,
           radius: 80,
           innerRadius: 55,
         },
@@ -245,7 +241,10 @@ export default {
         })
       );
 
-      if (this.settings.labels.enabled) {
+      // Labels.
+      if (!this.settings.labels.enabled) {
+        series.labels.template.set("forceHidden", true);
+      } else {
         series.labels.template.setAll({
           text: "{category}",
           radius: this.settings.labels.radius,
@@ -255,6 +254,7 @@ export default {
         });
       }
 
+      // Slices (series) settings.
       if (this.settings.series.enabled) {
         series.slices.template.setAll({
           fillOpacity: this.settings.series.opacity,
@@ -263,10 +263,12 @@ export default {
         });
       }
 
+      // Disable slice click.
       if (!this.settings.sliceClick.enabled) {
         series.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
       }
 
+      // Slice click settings.
       if (this.settings.sliceClick.customStyle) {
         series.slices.template.states.create("active", {
           shiftRadius: this.settings.sliceClick.shiftRadius,
@@ -274,8 +276,6 @@ export default {
           strokeWidth: this.settings.sliceClick.shiftBorderWidth,
         });
       }
-
-      // series.labels.template.set("forceHidden", true);
 
       if (this.settings.customColors) {
         series
