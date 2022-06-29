@@ -29,7 +29,7 @@
 
           <v-expansion-panel>
             <v-expansion-panel-header>
-              Slices settings
+              Slices settings (only for inner circle)
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <div class="diagram-settings__line">
@@ -84,7 +84,7 @@
 
           <v-expansion-panel>
             <v-expansion-panel-header>
-              Labels settings
+              Labels settings (only for inner circle)
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <div class="diagram-settings__line-block">
@@ -117,7 +117,7 @@
 
           <v-expansion-panel>
             <v-expansion-panel-header>
-              Legend settings
+              Legend settings (only for inner circle)
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <div class="diagram-settings__line">
@@ -141,7 +141,7 @@
           </v-expansion-panel>
           <v-expansion-panel>
             <v-expansion-panel-header>
-              Ticks settings
+              Ticks settings (only for inner circle)
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <div class="diagram-settings__line">
@@ -149,6 +149,35 @@
                   v-model="settings.ticks.enabled"
                   label="Enable ticks"
                 />
+                <v-text-field
+                  v-model="settings.ticks.color"
+                  label="Color"
+                  class="limited-width"
+                />
+                <v-text-field
+                  v-model="settings.ticks.width"
+                  label="Width"
+                  class="limited-width"
+                />
+              </div>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              Tooltips settings (only for inner circle)
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <div class="diagram-settings__line-block">
+                <v-switch
+                  v-model="settings.tooltips.enabled"
+                  label="Enable tooltips"
+                />
+                <template v-if="settings.tooltips.enabled">
+                  <v-text-field
+                    v-model="settings.tooltips.text"
+                    label="Tooltips text"
+                /></template>
               </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -232,7 +261,13 @@ export default {
           y: 1,
         },
         ticks: {
-          enabled: false,
+          enabled: true,
+          color: "000",
+          width: 2,
+        },
+        tooltips: {
+          enabled: true,
+          text: "{category}: [bold]{valuePercentTotal.formatNumber('0.00')}%[/] ({value})",
         },
         series: {
           second: {
@@ -281,7 +316,7 @@ export default {
         })
       );
 
-      const series = chart.series.push(
+      const cafeSeries = chart.series.push(
         am5percent.PieSeries.new(root, {
           name: "Series",
           valueField: "cafe",
@@ -307,14 +342,19 @@ export default {
 
       // Ticks.
       if (!this.settings.ticks.enabled) {
-        series.ticks.template.set("visible", false);
+        cafeSeries.ticks.template.set("visible", false);
+      } else {
+        cafeSeries.ticks.template.setAll({
+          stroke: am5.color(`#${this.settings.ticks.color}`),
+          strokeWidth: this.settings.ticks.width,
+        });
       }
 
       // Labels.
       if (!this.settings.labels.enabled) {
-        series.labels.template.set("forceHidden", true);
+        cafeSeries.labels.template.set("forceHidden", true);
       } else {
-        series.labels.template.setAll({
+        cafeSeries.labels.template.setAll({
           text: "{category}",
           radius: this.settings.labels.radius,
           inside: this.settings.labels.inside,
@@ -323,9 +363,19 @@ export default {
         });
       }
 
+      if (!this.settings.tooltips.enabled) {
+        cafeSeries.slices.template.set("tooltipText", "");
+      }
+      {
+        cafeSeries.slices.template.set(
+          "tooltipText",
+          this.settings.tooltips.text
+        );
+      }
+
       // Slices settings.
       if (this.settings.slices.enabled) {
-        series.slices.template.setAll({
+        cafeSeries.slices.template.setAll({
           fillOpacity: this.settings.slices.opacity,
           stroke: am5.color(`#${this.settings.slices.borderColor}`),
           strokeWidth: this.settings.slices.borderWidth,
@@ -334,10 +384,10 @@ export default {
 
       // Slice click settings.
       if (!this.settings.sliceClick.enabled) {
-        series.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
+        cafeSeries.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
       } else {
         if (this.settings.sliceClick.customStyle) {
-          series.slices.template.states.create("active", {
+          cafeSeries.slices.template.states.create("active", {
             shiftRadius: this.settings.sliceClick.shiftRadius,
             stroke: am5.color(`#${this.settings.sliceClick.shiftBorderColor}`),
             strokeWidth: this.settings.sliceClick.shiftBorderWidth,
@@ -347,7 +397,7 @@ export default {
 
       // Custom colors.
       if (this.settings.customColors) {
-        series
+        cafeSeries
           .get("colors")
           .set("colors", [
             am5.color(0x095256),
@@ -368,8 +418,8 @@ export default {
         })
       );
 
-      series.data.setAll(diagramsMockData);
-      legend.data.setAll(series.dataItems);
+      cafeSeries.data.setAll(diagramsMockData);
+      legend.data.setAll(cafeSeries.dataItems);
 
       if (this.settings.series.second.enable) {
         foodSeries.data.setAll(diagramsMockData);
