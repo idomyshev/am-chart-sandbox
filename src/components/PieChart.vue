@@ -49,30 +49,6 @@
 
           <v-expansion-panel>
             <v-expansion-panel-header>
-              Legend settings (only for inner circle)
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <div class="diagram-settings__line">
-                <v-text-field
-                  v-model="settings.legend.centerX"
-                  label="centerX"
-                  class="limited-width"
-                />
-                <v-text-field
-                  v-model="settings.legend.x"
-                  label="X"
-                  class="limited-width"
-                />
-                <v-text-field
-                  v-model="settings.legend.y"
-                  label="Y"
-                  class="limited-width"
-                />
-              </div>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-          <v-expansion-panel>
-            <v-expansion-panel-header>
               Ticks settings (only for inner circle)
             </v-expansion-panel-header>
             <v-expansion-panel-content>
@@ -368,9 +344,9 @@ export default {
       // Legend settings.
       const legend = chart.children.push(
         am5.Legend.new(root, {
-          centerX: am5.percent(this.settings.legend.centerX),
-          x: am5.percent(this.settings.legend.x),
-          y: am5.percent(this.settings.legend.y),
+          centerX: am5.percent(this.testSettings.legend.items.centerX.value),
+          x: am5.percent(this.testSettings.legend.items.x.value),
+          y: am5.percent(this.testSettings.legend.items.y.value),
           layout: root.horizontalLayout,
         })
       );

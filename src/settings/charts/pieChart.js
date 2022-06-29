@@ -91,6 +91,23 @@ const chartSettings = {
       },
     },
   },
+  legend: {
+    title: "Legend ('cafe' series)",
+    items: {
+      centerX: {
+        value: 50,
+        type: "text-field.number",
+      },
+      x: {
+        value: 50,
+        type: "text-field.number",
+      },
+      y: {
+        value: 1,
+        type: "text-field.number",
+      },
+    },
+  },
 };
 
 export const getChartSettings = () => {
