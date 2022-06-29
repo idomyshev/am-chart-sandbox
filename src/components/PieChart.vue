@@ -3,26 +3,42 @@
     <v-col cols="5">
       <div class="diagram-settings">
         <v-expansion-panels v-model="panel" multiple>
-          <v-expansion-panel>
-            <v-expansion-panel-header>
-              Chart settings
-            </v-expansion-panel-header>
+          <v-expansion-panel v-for="group in settingsList" :key="group[0]">
+            <v-expansion-panel-header>{{
+              group[1].title
+            }}</v-expansion-panel-header>
             <v-expansion-panel-content>
-              <div class="diagram-settings__line">
-                <v-text-field
-                  v-model="settings.chart.radius"
-                  label="Radius"
-                  class="limited-width"
-                />
-                <v-text-field
-                  v-model="settings.chart.innerRadius"
-                  label="Inner radius"
-                  class="limited-width"
-                />
-                <v-switch
-                  v-model="settings.customColors"
-                  label="Custom colors"
-                />
+              <div
+                :class="
+                  group[1].itemsPosition !== 'line'
+                    ? 'diagram-settings__line-block'
+                    : 'diagram-settings__line'
+                "
+              >
+                <div
+                  v-for="item in Object.entries(group[1].items)"
+                  :key="group[0] + '_' + item[0]"
+                >
+                  <v-switch
+                    v-if="item[1].type === 'radio'"
+                    v-model="testSettings[group[0]].items[item[0]].value"
+                    :label="`${group[0]}.${item[0]}`"
+                    :disabled="item[1].disabled"
+                  />
+                  <v-checkbox
+                    v-if="item[1].type === 'checkbox'"
+                    v-model="testSettings[group[0]].items[item[0]].value"
+                    :label="`${group[0]}.${item[0]}`"
+                    :disabled="item[1].disabled"
+                  />
+                  <v-text-field
+                    v-if="item[1].type === 'text-field.number'"
+                    v-model="testSettings[group[0]].items[item[0]].value"
+                    :label="`${group[0]}.${item[0]}`"
+                    class="limited-width"
+                    :disabled="item[1].disabled"
+                  />
+                </div>
               </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -74,39 +90,6 @@
                     <v-text-field
                       v-model="settings.sliceClick.shiftBorderWidth"
                       label="Border width"
-                      class="limited-width"
-                    />
-                  </template>
-                </template>
-              </div>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-
-          <v-expansion-panel>
-            <v-expansion-panel-header>
-              Labels settings (only for inner circle)
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <div class="diagram-settings__line-block">
-                <v-switch
-                  v-model="settings.labels.enabled"
-                  label="Enable labels"
-                />
-                <template v-if="settings.labels.enabled">
-                  <template v-if="settings.labels.enabled">
-                    <v-checkbox
-                      v-model="settings.labels.inside"
-                      label="Labels inside"
-                      color="var(--v-checkbox1-base)"
-                    />
-                    <v-checkbox
-                      v-model="settings.labels.circular"
-                      label="Labels circular"
-                      color="var(--v-checkbox1-base)"
-                    />
-                    <v-text-field
-                      v-model="settings.labels.radius"
-                      label="Label radius"
                       class="limited-width"
                     />
                   </template>
@@ -213,20 +196,6 @@
     </v-col>
     <v-col cols="7">
       <div class="am-charts-container" ref="amChart"></div>
-      <div style="border: 1px dotted #999">
-        <div v-for="group in settingsList" :key="group[0]">
-          <div
-            v-for="item in Object.entries(group[1])"
-            :key="group[0] + '_' + item[0]"
-          >
-            {{ group[0] }}.{{ item[0] }}
-            <v-switch
-              v-model="testSettings[group[0]][item[0]].value"
-              :label="item[0]"
-            />
-          </div>
-        </div>
-      </div>
     </v-col>
   </v-row>
 </template>
@@ -240,9 +209,6 @@ require("../settings/charts/pieChart.js");
 export default {
   name: "PieChart",
   computed: {
-    // passByReference() {
-    //   return this.testSettings.customColors.value;
-    // },
     settingsList() {
       return Object.entries(this.testSettings);
     },
@@ -320,9 +286,9 @@ export default {
       deep: true,
     },
     testSettings: {
-      handler(newVal) {
+      handler() {
         this.initDiagram();
-        console.log("testSettings", newVal);
+        console.log("testSettings updated");
       },
       deep: true,
     },
@@ -344,8 +310,10 @@ export default {
       });
       const chart = root.container.children.push(
         am5percent.PieChart.new(root, {
-          radius: am5.percent(this.settings.chart.radius),
-          innerRadius: am5.percent(this.settings.chart.innerRadius),
+          radius: am5.percent(this.testSettings.chart.items.radius.value),
+          innerRadius: am5.percent(
+            this.testSettings.chart.items.innerRadius.value
+          ),
         })
       );
 
@@ -384,14 +352,16 @@ export default {
       }
 
       // Labels.
-      if (!this.settings.labels.enabled) {
+      if (!this.testSettings.labels.items.enabled.value) {
         cafeSeries.labels.template.set("forceHidden", true);
       } else {
         cafeSeries.labels.template.setAll({
           text: "{category}",
-          radius: this.settings.labels.radius,
-          inside: this.testSettings.labels.inside.value,
-          textType: this.settings.labels.circular ? "circular" : undefined,
+          radius: this.testSettings.labels.items.radius.value,
+          inside: this.testSettings.labels.items.inside.value,
+          textType: this.testSettings.labels.items.circular.value
+            ? "circular"
+            : undefined,
           // centerX: am5.percent(10),
         });
       }
@@ -429,7 +399,7 @@ export default {
       }
 
       // Custom colors.
-      if (this.settings.customColors) {
+      if (this.testSettings.general.items.customColors.value) {
         cafeSeries
           .get("colors")
           .set("colors", [

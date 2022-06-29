@@ -1,21 +1,48 @@
 const chartSettings = {
-  // customColors: {
-  //   value: true,
-  //   type: "boolean",
-  // },
-  chart: {
-    radius: {
-      value: 80,
-      type: "number",
+  general: {
+    title: "General settings",
+    itemsPosition: "column",
+    items: {
+      customColors: {
+        value: true,
+        type: "radio",
+      },
     },
-    innerRadius: {
-      value: 55,
-      type: "number",
+  },
+
+  chart: {
+    title: "Chart settings",
+    itemsPosition: "column",
+    items: {
+      radius: {
+        value: 80,
+        type: "text-field.number",
+      },
+      innerRadius: {
+        value: 55,
+        type: "text-field.number",
+      },
     },
   },
   labels: {
-    inside: {
-      value: true,
+    title: "Labels settings (per series)",
+    items: {
+      enabled: {
+        value: true,
+        type: "radio",
+      },
+      inside: {
+        value: true,
+        type: "checkbox",
+      },
+      circular: {
+        value: true,
+        type: "checkbox",
+      },
+      radius: {
+        value: 80,
+        type: "text-field.number",
+      },
     },
   },
 };
@@ -23,17 +50,3 @@ const chartSettings = {
 export const getChartSettings = () => {
   return chartSettings;
 };
-
-const a = {
-  b: {
-    c: true,
-  },
-};
-
-console.log("abc", a.b.c);
-
-const d = { "a.b.c": 123 };
-console.log("d", d["a.b.c"]);
-
-// if (d["a.b.c"]) {
-// }
