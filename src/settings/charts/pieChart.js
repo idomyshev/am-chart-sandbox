@@ -125,6 +125,39 @@ const chartSettings = {
       },
     },
   },
+  tooltips: {
+    title: "Tooltips ('cafe' series)",
+    items: {
+      enabled: {
+        value: true,
+        type: "radio",
+      },
+      text: {
+        value:
+          "{category}: [bold]{valuePercentTotal.formatNumber('0.00')}%[/] ({value})",
+        type: "text-field.text",
+      },
+    },
+  },
+  secondSeries: {
+    title: "Second series ('food')",
+    items: {
+      enabled: {
+        value: true,
+        type: "radio",
+      },
+      startAngle: {
+        value: 0,
+        type: "text-field.number",
+        // disabled: true,
+      },
+      endAngle: {
+        value: 180,
+        type: "text-field.number",
+        // disabled: true,
+      },
+    },
+  },
 };
 
 export const getChartSettings = () => {

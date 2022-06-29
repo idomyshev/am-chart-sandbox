@@ -33,62 +33,20 @@
                   />
                   <v-text-field
                     v-if="
-                      ['text-field.number', 'text-field.color'].includes(
-                        item[1].type
-                      )
+                      [
+                        'text-field.number',
+                        'text-field.color',
+                        'text-field.text',
+                      ].includes(item[1].type)
                     "
                     v-model="testSettings[group[0]].items[item[0]].value"
                     :label="`${group[0]}.${item[0]}`"
-                    class="limited-width"
+                    :class="
+                      item[1].type !== 'text-field.text' ? 'limited-width' : ''
+                    "
                     :disabled="item[1].disabled"
                   />
                 </div>
-              </div>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-
-          <v-expansion-panel>
-            <v-expansion-panel-header>
-              Tooltips settings (only for inner circle)
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <div class="diagram-settings__line-block">
-                <v-switch
-                  v-model="settings.tooltips.enabled"
-                  label="Enable tooltips"
-                />
-                <template v-if="settings.tooltips.enabled">
-                  <v-text-field
-                    v-model="settings.tooltips.text"
-                    label="Tooltips text"
-                /></template>
-              </div>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-          <v-expansion-panel>
-            <v-expansion-panel-header>
-              Series settings
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <div class="diagram-settings__line">
-                <v-switch
-                  v-model="settings.series.second.enable"
-                  label="Enable second series"
-                />
-                <template v-if="settings.series.second.enable">
-                  <v-text-field
-                    v-model="settings.series.second.fromAngle"
-                    label="Angle from"
-                    class="limited-width"
-                    disabled
-                  />
-                  <v-text-field
-                    v-model="settings.series.second.toAngle"
-                    label="Angle to"
-                    class="limited-width"
-                    disabled
-                  />
-                </template>
               </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -229,15 +187,15 @@ export default {
 
       // Second series.
       let foodSeries = null;
-      if (this.settings.series.second.enable) {
+      if (this.testSettings.secondSeries.items.enabled.value) {
         foodSeries = chart.series.push(
           am5percent.PieSeries.new(root, {
             name: "Series",
             valueField: "food",
             categoryField: "month",
             alignLabels: false,
-            startAngle: this.settings.series.second.fromAngle,
-            endAngle: this.settings.series.second.toAngle,
+            startAngle: this.testSettings.secondSeries.items.startAngle.value,
+            endAngle: this.testSettings.secondSeries.items.endAngle.value,
           })
         );
       }
@@ -267,13 +225,12 @@ export default {
         });
       }
 
-      if (!this.settings.tooltips.enabled) {
+      if (!this.testSettings.tooltips.items.enabled.value) {
         cafeSeries.slices.template.set("tooltipText", "");
-      }
-      {
+      } else {
         cafeSeries.slices.template.set(
           "tooltipText",
-          this.settings.tooltips.text
+          this.testSettings.tooltips.items.text.value
         );
       }
 
@@ -330,7 +287,7 @@ export default {
       cafeSeries.data.setAll(diagramsMockData);
       legend.data.setAll(cafeSeries.dataItems);
 
-      if (this.settings.series.second.enable) {
+      if (this.testSettings.secondSeries.items.enabled.value) {
         foodSeries.data.setAll(diagramsMockData);
         legend.data.setAll(foodSeries.dataItems);
       }
