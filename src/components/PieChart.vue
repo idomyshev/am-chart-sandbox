@@ -214,9 +214,17 @@
     <v-col cols="7">
       <div class="am-charts-container" ref="amChart"></div>
       <div style="border: 1px dotted #999">
-        {{ testSettings }}
-        <div v-for="item in settingsList" :key="item[0]">
-          <v-switch v-model="testSettings[item[0]].value" label="test" />
+        <div v-for="group in settingsList" :key="group[0]">
+          <div
+            v-for="item in Object.entries(group[1])"
+            :key="group[0] + '_' + item[0]"
+          >
+            {{ group[0] }}.{{ item[0] }}
+            <v-switch
+              v-model="testSettings[group[0]][item[0]].value"
+              :label="item[0]"
+            />
+          </div>
         </div>
       </div>
     </v-col>

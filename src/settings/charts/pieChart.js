@@ -1,18 +1,18 @@
 const chartSettings = {
-  customColors: {
-    value: true,
-    type: "boolean",
-  },
-  // chart: {
-  //   radius: {
-  //     value: 80,
-  //     type: "number",
-  //   },
-  //   innerRadius: {
-  //     value: 55,
-  //     type: "number",
-  //   },
+  // customColors: {
+  //   value: true,
+  //   type: "boolean",
   // },
+  chart: {
+    radius: {
+      value: 80,
+      type: "number",
+    },
+    innerRadius: {
+      value: 55,
+      type: "number",
+    },
+  },
 };
 
 export const getChartSettings = () => {
