@@ -87,7 +87,7 @@
               Labels settings
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <div class="diagram-settings__line">
+              <div class="diagram-settings__line-block">
                 <v-switch
                   v-model="settings.labels.enabled"
                   label="Enable labels"
@@ -97,6 +97,11 @@
                     <v-checkbox
                       v-model="settings.labels.inside"
                       label="Labels inside"
+                      color="var(--v-checkbox1-base)"
+                    />
+                    <v-checkbox
+                      v-model="settings.labels.circular"
+                      label="Labels circular"
                       color="var(--v-checkbox1-base)"
                     />
                     <v-text-field
@@ -134,6 +139,46 @@
               </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              Ticks settings
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <div class="diagram-settings__line">
+                <v-switch
+                  v-model="settings.ticks.enabled"
+                  label="Enable ticks"
+                />
+              </div>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              Series settings
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <div class="diagram-settings__line">
+                <v-switch
+                  v-model="settings.series.second.enable"
+                  label="Enable second series"
+                />
+                <template v-if="settings.series.second.enable">
+                  <v-text-field
+                    v-model="settings.series.second.fromAngle"
+                    label="Angle from"
+                    class="limited-width"
+                    disabled
+                  />
+                  <v-text-field
+                    v-model="settings.series.second.toAngle"
+                    label="Angle to"
+                    class="limited-width"
+                    disabled
+                  />
+                </template>
+              </div>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
         </v-expansion-panels>
       </div>
     </v-col>
@@ -159,19 +204,14 @@ export default {
       showXLabels: true,
       settings: {
         customColors: true,
-        slices: {
-          enabled: true,
-          opacity: 1,
-          borderColor: "fff",
-        },
         chart: {
           radius: 80,
           innerRadius: 55,
         },
-        labels: {
+        slices: {
           enabled: true,
-          radius: 70,
-          inside: true,
+          opacity: 1,
+          borderColor: "fff",
         },
         sliceClick: {
           enabled: true,
@@ -180,10 +220,26 @@ export default {
           shiftBorderColor: "6666",
           shiftBorderWidth: 2,
         },
+        labels: {
+          enabled: true,
+          radius: 70,
+          inside: true,
+          circular: true,
+        },
         legend: {
           centerX: 50,
           x: 50,
           y: 1,
+        },
+        ticks: {
+          enabled: false,
+        },
+        series: {
+          second: {
+            enable: true,
+            fromAngle: 0,
+            toAngle: 360,
+          },
         },
       },
     };
@@ -225,7 +281,7 @@ export default {
         })
       );
 
-      let series = chart.series.push(
+      const series = chart.series.push(
         am5percent.PieSeries.new(root, {
           name: "Series",
           valueField: "cafe",
@@ -233,6 +289,26 @@ export default {
           alignLabels: false,
         })
       );
+
+      // Second series.
+      let foodSeries = null;
+      if (this.settings.series.second.enable) {
+        foodSeries = chart.series.push(
+          am5percent.PieSeries.new(root, {
+            name: "Series",
+            valueField: "food",
+            categoryField: "month",
+            alignLabels: false,
+            startAngle: this.settings.series.second.fromAngle,
+            endAngle: this.settings.series.second.toAngle,
+          })
+        );
+      }
+
+      // Ticks.
+      if (!this.settings.ticks.enabled) {
+        series.ticks.template.set("visible", false);
+      }
 
       // Labels.
       if (!this.settings.labels.enabled) {
@@ -242,7 +318,7 @@ export default {
           text: "{category}",
           radius: this.settings.labels.radius,
           inside: this.settings.labels.inside,
-          textType: "circular",
+          textType: this.settings.labels.circular ? "circular" : undefined,
           // centerX: am5.percent(10),
         });
       }
@@ -283,7 +359,7 @@ export default {
       }
 
       // Legend settings.
-      let legend = chart.children.push(
+      const legend = chart.children.push(
         am5.Legend.new(root, {
           centerX: am5.percent(this.settings.legend.centerX),
           x: am5.percent(this.settings.legend.x),
@@ -292,8 +368,16 @@ export default {
         })
       );
 
-      legend.data.setAll(series.dataItems);
       series.data.setAll(diagramsMockData);
+      legend.data.setAll(series.dataItems);
+
+      if (this.settings.series.second.enable) {
+        foodSeries.data.setAll(diagramsMockData);
+        legend.data.setAll(foodSeries.dataItems);
+      }
+
+      foodSeries = null;
+
       this.root = root;
     },
   },
