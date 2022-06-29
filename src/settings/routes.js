@@ -1,6 +1,5 @@
 export const ROUTES = {
-  HOME: "/",
-  COLUMNS_CHART: "/",
-  PIE_CHART: "/pie",
+  PIE_CHART: "/",
+  COLUMNS_CHART: "/columns",
   BAR_CHART: "/bar",
 };

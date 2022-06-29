@@ -9,14 +9,14 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: ROUTES.HOME,
-    name: "home",
-    component: ColumnsChart,
-  },
-  {
     path: ROUTES.PIE_CHART,
     name: "pie",
     component: PieChart,
+  },
+  {
+    path: ROUTES.COLUMNS_CHART,
+    name: "column",
+    component: ColumnsChart,
   },
   {
     path: ROUTES.BAR_CHART,
