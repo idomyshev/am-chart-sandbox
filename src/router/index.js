@@ -4,6 +4,7 @@ import { ROUTES } from "@/settings/routes";
 import BarChart from "@/components/BarChart";
 import ColumnsChart from "@/components/ColumnsChart";
 import PieChart from "@/components/PieChart";
+import DemoCharts from "@/components/DemoCharts";
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,11 @@ const routes = [
     path: ROUTES.BAR_CHART,
     name: "bar",
     component: BarChart,
+  },
+  {
+    path: ROUTES.DEMO_CHARTS,
+    name: "demo",
+    component: DemoCharts,
   },
 ];
 
