@@ -9,11 +9,23 @@
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import {
+  waffleSeries1,
+  waffleSeries2,
+  waffleSeries3,
+} from "@/components/styledCharts/mockData";
 
 export default {
   name: "WaffleChart",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      series1: waffleSeries1,
+      series2: waffleSeries2,
+      series3: waffleSeries3,
+    };
   },
   mounted() {
     let root = am5.Root.new(this.$refs.chartdivWaffle);
@@ -116,91 +128,13 @@ export default {
     }
 
     let series1 = makeSeries("Democratic", "#9567d8");
-    series1.data.setAll([
-      { x: "1", y: "1" },
-      { x: "1", y: "2" },
-      { x: "1", y: "3" },
-      { x: "1", y: "4" },
-      { x: "1", y: "5" },
-      { x: "1", y: "6" },
-      { x: "1", y: "7" },
-      { x: "1", y: "8" },
-      { x: "1", y: "9" },
-      { x: "1", y: "10" },
-
-      { x: "2", y: "1" },
-      { x: "2", y: "2" },
-      { x: "2", y: "3" },
-      { x: "2", y: "4" },
-      { x: "2", y: "5" },
-      { x: "2", y: "6" },
-      { x: "2", y: "7" },
-      { x: "2", y: "8" },
-      { x: "2", y: "9" },
-      { x: "2", y: "10" },
-
-      { x: "3", y: "1" },
-      { x: "3", y: "2" },
-      { x: "3", y: "3" },
-    ]);
+    series1.data.setAll(this.series1);
 
     let series2 = makeSeries("Republican", "#f560e6");
-    series2.data.setAll([
-      { x: "3", y: "4" },
-      { x: "3", y: "5" },
-      { x: "3", y: "6" },
-      { x: "3", y: "7" },
-      { x: "3", y: "8" },
-      { x: "3", y: "9" },
-      { x: "3", y: "10" },
-
-      { x: "4", y: "1" },
-      { x: "4", y: "2" },
-      { x: "4", y: "3" },
-      { x: "4", y: "4" },
-      { x: "4", y: "5" },
-      { x: "4", y: "6" },
-      { x: "4", y: "7" },
-      { x: "4", y: "8" },
-      { x: "4", y: "9" },
-      { x: "4", y: "10" },
-
-      { x: "5", y: "1" },
-      { x: "5", y: "2" },
-      { x: "5", y: "3" },
-      { x: "5", y: "4" },
-      { x: "5", y: "5" },
-      { x: "5", y: "6" },
-    ]);
+    series2.data.setAll(this.series2);
 
     let series3 = makeSeries("Libertarian", "#ffb27d");
-    series3.data.setAll([
-      { x: "5", y: "7" },
-      { x: "5", y: "8" },
-      { x: "5", y: "9" },
-      { x: "5", y: "10" },
-
-      { x: "6", y: "1" },
-      { x: "6", y: "2" },
-      { x: "6", y: "3" },
-      { x: "6", y: "4" },
-      { x: "6", y: "5" },
-      { x: "6", y: "6" },
-      { x: "6", y: "7" },
-      { x: "6", y: "8" },
-      { x: "6", y: "9" },
-      { x: "6", y: "10" },
-
-      { x: "7", y: "1" },
-      { x: "7", y: "2" },
-      { x: "7", y: "3" },
-      { x: "7", y: "4" },
-      { x: "7", y: "5" },
-      { x: "7", y: "6" },
-      { x: "7", y: "7" },
-      { x: "7", y: "8" },
-      { x: "7", y: "9" },
-    ]);
+    series3.data.setAll(this.series3);
   },
 };
 </script>

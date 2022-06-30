@@ -10,11 +10,17 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5radar from "@amcharts/amcharts5/radar";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as am5xy from "@amcharts/amcharts5/xy";
+import { progressData } from "@/components/styledCharts/mockData";
 
 export default {
   name: "ProgressChart",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      data: progressData,
+    };
   },
   mounted() {
     // Create root element
@@ -33,26 +39,6 @@ export default {
         endAngle: 630,
       })
     );
-
-    // Data
-    let data = [
-      {
-        category: "Research",
-        value: 20,
-        full: 100,
-        columnSettings: {
-          fill: "#9567d8",
-        },
-      },
-      {
-        category: "Marketing",
-        value: 90,
-        full: 100,
-        columnSettings: {
-          fill: "#f560e6",
-        },
-      },
-    ];
 
     // Create axes and their renderers
     let xRenderer = am5radar.AxisRendererCircular.new(root, {
@@ -94,7 +80,7 @@ export default {
       })
     );
 
-    yAxis.data.setAll(data);
+    yAxis.data.setAll(this.data);
 
     // Create series
     let series1 = chart.series.push(
@@ -115,7 +101,7 @@ export default {
       cornerRadius: 20,
     });
 
-    series1.data.setAll(data);
+    series1.data.setAll(this.data);
 
     let series2 = chart.series.push(
       am5radar.RadarColumnSeries.new(root, {
@@ -135,7 +121,7 @@ export default {
       templateField: "columnSettings",
     });
 
-    series2.data.setAll(data);
+    series2.data.setAll(this.data);
     let legend = chart.children.push(
       am5.Legend.new(root, {
         nameField: "valueX",
