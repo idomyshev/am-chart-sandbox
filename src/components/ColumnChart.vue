@@ -65,7 +65,7 @@ export default {
         })
       );
 
-      // Y-axis
+      // yAxis
       const yAxis = chart.yAxes.push(
         am5xy.ValueAxis.new(root, {
           renderer: am5xy.AxisRendererY.new(root, {
@@ -78,7 +78,7 @@ export default {
         })
       );
 
-      // X-Axis
+      // xAxis
       const xAxis = chart.xAxes.push(
         am5xy.CategoryAxis.new(root, {
           renderer: am5xy.AxisRendererX.new(root, {
@@ -96,6 +96,7 @@ export default {
 
       xAxis.data.setAll(diagramsMockData);
 
+      // Renderers.
       const yRenderer = yAxis.get("renderer");
       const xRenderer = xAxis.get("renderer");
 

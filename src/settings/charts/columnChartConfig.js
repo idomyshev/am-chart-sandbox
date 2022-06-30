@@ -1,8 +1,7 @@
 export const columnChartConfig = () => {
   return {
-    axisY: {
-      title: "axisY",
-      items: {
+    axes: {
+      y: {
         strokeOpacity: {
           value: 0.5,
           type: "text-field.number",
@@ -16,11 +15,7 @@ export const columnChartConfig = () => {
           type: "text-field.color",
         },
       },
-    },
-
-    axisX: {
-      title: "axisX",
-      items: {
+      x: {
         strokeOpacity: {
           value: 0.5,
           type: "text-field.number",
@@ -44,68 +39,68 @@ export const columnChartConfig = () => {
       },
     },
 
-    gridY: {
-      title: "gridY",
-      items: {
-        stroke: {
-          value: "666",
-          type: "text-field.color",
-        },
-        strokeWidth: {
-          value: 2,
-          type: "text-field.number",
-        },
-      },
-    },
-
-    gridX: {
-      title: "gridX",
-      items: {
-        stroke: {
-          value: "666",
-          type: "text-field.color",
-        },
-        strokeWidth: {
-          value: 2,
-          type: "text-field.number",
-        },
-      },
-    },
-
-    ticksY: {
-      title: "ticksY",
-      items: {
-        enabled: {
-          value: true,
-          type: "radio",
-        },
-        stroke: {
-          value: "666",
-          type: "text-field.color",
-        },
-        strokeWidth: {
-          value: 2,
-          type: "text-field.number",
-        },
-      },
-    },
-
-    ticksX: {
-      title: "ticksX",
-      items: {
-        enabled: {
-          value: true,
-          type: "radio",
-        },
-        stroke: {
-          value: "666",
-          type: "text-field.color",
-        },
-        strokeWidth: {
-          value: 2,
-          type: "text-field.number",
-        },
-      },
-    },
+    // gridY: {
+    //   title: "gridY",
+    //   items: {
+    //     stroke: {
+    //       value: "666",
+    //       type: "text-field.color",
+    //     },
+    //     strokeWidth: {
+    //       value: 2,
+    //       type: "text-field.number",
+    //     },
+    //   },
+    // },
+    //
+    // gridX: {
+    //   title: "gridX",
+    //   items: {
+    //     stroke: {
+    //       value: "666",
+    //       type: "text-field.color",
+    //     },
+    //     strokeWidth: {
+    //       value: 2,
+    //       type: "text-field.number",
+    //     },
+    //   },
+    // },
+    //
+    // ticksY: {
+    //   title: "ticksY",
+    //   items: {
+    //     enabled: {
+    //       value: true,
+    //       type: "radio",
+    //     },
+    //     stroke: {
+    //       value: "666",
+    //       type: "text-field.color",
+    //     },
+    //     strokeWidth: {
+    //       value: 2,
+    //       type: "text-field.number",
+    //     },
+    //   },
+    // },
+    //
+    // ticksX: {
+    //   title: "ticksX",
+    //   items: {
+    //     enabled: {
+    //       value: true,
+    //       type: "radio",
+    //     },
+    //     stroke: {
+    //       value: "666",
+    //       type: "text-field.color",
+    //     },
+    //     strokeWidth: {
+    //       value: 2,
+    //       type: "text-field.number",
+    //     },
+    //   },
+    // },
   };
 };
