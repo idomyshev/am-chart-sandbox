@@ -66,10 +66,8 @@ export default {
     var yAxis = chart.yAxes.push(
       am5xy.CategoryAxis.new(root, {
         categoryField: "y",
-        min: 20,
-        max: 10,
         renderer: am5xy.AxisRendererY.new(root, {}),
-        height: am5.percent(70),
+        height: am5.percent(100),
       })
     );
 
