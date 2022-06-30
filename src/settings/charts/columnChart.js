@@ -1,4 +1,4 @@
-export const pieChartConfig = () => {
+export const columnChartConfig = () => {
   return {
     general: {
       title: "General",

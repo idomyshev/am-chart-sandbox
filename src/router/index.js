@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { ROUTES } from "@/settings/routes";
 import BarChart from "@/components/BarChart";
-import ColumnsChart from "@/components/ColumnsChart";
+import ColumnChart from "@/components/ColumnChart";
 import PieChart from "@/components/PieChart";
 import DemoCharts from "@/components/DemoCharts";
 
@@ -17,7 +17,7 @@ const routes = [
   {
     path: ROUTES.COLUMNS_CHART,
     name: "column",
-    component: ColumnsChart,
+    component: ColumnChart,
   },
   {
     path: ROUTES.BAR_CHART,

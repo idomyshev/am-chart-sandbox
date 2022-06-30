@@ -12,8 +12,8 @@
 import * as am5 from "@amcharts/amcharts5";
 import * as am5percent from "@amcharts/amcharts5/percent";
 import { diagramsMockData } from "@/mockData/diagramsData";
-import { getChartConfig } from "@/settings/charts/pieChart";
 import SettingsArea from "@/components/SettingsArea";
+import { pieChartConfig } from "@/settings/charts/pieChart";
 require("../settings/charts/pieChart.js");
 
 export default {
@@ -22,7 +22,7 @@ export default {
   computed: {},
   data() {
     return {
-      chartSettings: getChartConfig(),
+      chartSettings: pieChartConfig(),
       showGrid: true,
       showGridAboveSeries: false,
       showTicks: true,

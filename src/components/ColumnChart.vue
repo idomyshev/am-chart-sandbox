@@ -1,19 +1,27 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <div class="diagram-page">
-    <div class="diagram-settings"></div>
-    <div class="am-charts-container" ref="amChart"></div>
-  </div>
+<template>
+  <v-row>
+    <v-col cols="5">
+      <SettingsArea v-model="chartSettings" />
+    </v-col>
+    <v-col cols="7">
+      <div class="am-charts-container" ref="amChart"></div>
+    </v-col>
+  </v-row>
 </template>
 <script>
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { diagramsMockData } from "@/mockData/diagramsData";
+import { columnChartConfig } from "@/settings/charts/columnChart";
+import SettingsArea from "@/components/SettingsArea";
 
 export default {
-  name: "ColumnsChart",
+  name: "ColumnChart",
+  components: { SettingsArea },
   data() {
     return {
+      chartSettings: columnChartConfig(),
       showGrid: true,
       showGridAboveSeries: false,
       showTicks: true,
