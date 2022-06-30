@@ -68,6 +68,53 @@ export default {
       },
     ];
 
+    let data2 = [
+      {
+        date: new Date(2012, 1, 1).getTime(),
+        value: 3,
+      },
+      {
+        date: new Date(2012, 1, 2).getTime(),
+        value: 2,
+      },
+      {
+        date: new Date(2012, 1, 3).getTime(),
+        value: 8,
+        strokeSettings: {
+          stroke: am5.color(0x990000),
+          strokeDasharray: [3, 3],
+        },
+      },
+      {
+        date: new Date(2012, 1, 4).getTime(),
+        value: 3,
+      },
+      {
+        date: new Date(2012, 1, 5).getTime(),
+        value: 8,
+      },
+      {
+        date: new Date(2012, 1, 6).getTime(),
+        value: 4,
+      },
+      {
+        date: new Date(2012, 1, 7).getTime(),
+        value: 2,
+      },
+      {
+        date: new Date(2012, 1, 8).getTime(),
+        value: 8,
+      },
+      {
+        date: new Date(2012, 1, 9).getTime(),
+        value: 9,
+      },
+      {
+        date: new Date(2012, 1, 10).getTime(),
+        value: 4,
+      },
+    ];
+
     // Create chart
     let chart = root.container.children.push(
       am5xy.XYChart.new(root, {
@@ -114,11 +161,31 @@ export default {
       })
     );
 
+    let series2 = chart.series.push(
+      am5xy.SmoothedXLineSeries.new(root, {
+        minBulletDistance: 10,
+        xAxis: xAxis,
+        yAxis: yAxis,
+        valueYField: "value",
+        valueXField: "date",
+        stroke: "#9567d8",
+        tooltip: am5.Tooltip.new(root, {
+          pointerOrientation: "horizontal",
+          labelText: "{valueY}",
+        }),
+      })
+    );
+
     series.strokes.template.setAll({
       strokeWidth: 3,
     });
 
+    series2.strokes.template.setAll({
+      strokeWidth: 3,
+    });
+
     series.data.setAll(data);
+    series2.data.setAll(data2);
 
     // Add cursor
     let cursor = chart.set(
@@ -130,7 +197,7 @@ export default {
     cursor.lineY.set("visible", false);
 
     // Make stuff animate on load
-    series.appear(1000, 100);
+    // series.appear(1000, 100);
     chart.appear(1000, 100);
   },
 };
