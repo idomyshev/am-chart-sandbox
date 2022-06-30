@@ -43,7 +43,7 @@ export default {
       am5xy.CategoryAxis.new(root, {
         categoryField: "x",
         renderer: am5xy.AxisRendererX.new(root, {
-          minGridDistance: 100,
+          minGridDistance: 10,
         }),
       })
     );

@@ -140,13 +140,13 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: 600px;
   background-color: white;
   border-radius: 10px;
   margin: 10px 0px;
 }
 .chart {
-  height: 500px;
+  height: 600px;
 }
 .legend {
   height: 100px;
