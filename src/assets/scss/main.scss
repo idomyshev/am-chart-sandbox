@@ -25,6 +25,13 @@
     padding-right: 120px;
     text-align: center;
   }
+  &__subgroup-title {
+    padding-bottom: 3px;
+    border-bottom: 1px dashed #aaa;
+    margin-bottom: 8px;
+    font-style: italic;
+    max-width: 80%;
+  }
 }
 .am-charts-container {
   height: 550px;

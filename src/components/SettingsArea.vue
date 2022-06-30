@@ -5,31 +5,32 @@
         v-for="group in Object.entries(chartSettings)"
         :key="group[0]"
       >
-        <v-expansion-panel-header>{{
-          group[1].title
-        }}</v-expansion-panel-header>
+        <v-expansion-panel-header>
+          {{ group[0].toUpperCase() }}
+        </v-expansion-panel-header>
         <v-expansion-panel-content>
           <div
-            :class="
-              group[1].itemsPosition !== 'line'
-                ? 'diagram-settings__line-block'
-                : 'diagram-settings__line'
-            "
+            v-for="subGroup in Object.entries(group[1])"
+            :key="`${group[0]}_${subGroup[0]}`"
+            class="diagram-settings__line-block"
           >
+            <div class="diagram-settings__subgroup-title">
+              {{ group[0] }}.{{ subGroup[0] }}
+            </div>
             <div
-              v-for="item in Object.entries(group[1].items)"
-              :key="group[0] + '_' + item[0]"
+              v-for="item in Object.entries(subGroup[1])"
+              :key="`${group[0]}_${subGroup[0]}_${item[0]}`"
             >
               <v-switch
                 v-if="item[1].type === 'radio'"
-                v-model="chartSettings[group[0]].items[item[0]].value"
-                :label="`${group[0]}.${item[0]}`"
+                v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
+                :label="item[0]"
                 :disabled="item[1].disabled"
               />
               <v-checkbox
                 v-if="item[1].type === 'checkbox'"
-                v-model="chartSettings[group[0]].items[item[0]].value"
-                :label="`${group[0]}.${item[0]}`"
+                v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
+                :label="item[0]"
                 :disabled="item[1].disabled"
               />
               <v-text-field
@@ -40,8 +41,8 @@
                     'text-field.text',
                   ].includes(item[1].type)
                 "
-                v-model="chartSettings[group[0]].items[item[0]].value"
-                :label="`${group[0]}.${item[0]}`"
+                v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
+                :label="item[0]"
                 :class="
                   item[1].type !== 'text-field.text' ? 'limited-width' : ''
                 "

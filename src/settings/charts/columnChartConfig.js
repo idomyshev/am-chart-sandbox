@@ -39,68 +39,58 @@ export const columnChartConfig = () => {
       },
     },
 
-    // gridY: {
-    //   title: "gridY",
-    //   items: {
-    //     stroke: {
-    //       value: "666",
-    //       type: "text-field.color",
-    //     },
-    //     strokeWidth: {
-    //       value: 2,
-    //       type: "text-field.number",
-    //     },
-    //   },
-    // },
-    //
-    // gridX: {
-    //   title: "gridX",
-    //   items: {
-    //     stroke: {
-    //       value: "666",
-    //       type: "text-field.color",
-    //     },
-    //     strokeWidth: {
-    //       value: 2,
-    //       type: "text-field.number",
-    //     },
-    //   },
-    // },
-    //
-    // ticksY: {
-    //   title: "ticksY",
-    //   items: {
-    //     enabled: {
-    //       value: true,
-    //       type: "radio",
-    //     },
-    //     stroke: {
-    //       value: "666",
-    //       type: "text-field.color",
-    //     },
-    //     strokeWidth: {
-    //       value: 2,
-    //       type: "text-field.number",
-    //     },
-    //   },
-    // },
-    //
-    // ticksX: {
-    //   title: "ticksX",
-    //   items: {
-    //     enabled: {
-    //       value: true,
-    //       type: "radio",
-    //     },
-    //     stroke: {
-    //       value: "666",
-    //       type: "text-field.color",
-    //     },
-    //     strokeWidth: {
-    //       value: 2,
-    //       type: "text-field.number",
-    //     },
-    //   },
-    // },
+    grid: {
+      y: {
+        stroke: {
+          value: "666",
+          type: "text-field.color",
+        },
+        strokeWidth: {
+          value: 2,
+          type: "text-field.number",
+        },
+      },
+      x: {
+        stroke: {
+          value: "666",
+          type: "text-field.color",
+        },
+        strokeWidth: {
+          value: 2,
+          type: "text-field.number",
+        },
+      },
+    },
+
+    ticks: {
+      y: {
+        enabled: {
+          value: true,
+          type: "radio",
+        },
+        stroke: {
+          value: "666",
+          type: "text-field.color",
+        },
+        strokeWidth: {
+          value: 2,
+          type: "text-field.number",
+        },
+      },
+      x: {
+        enabled: {
+          value: true,
+          type: "radio",
+        },
+        stroke: {
+          value: "666",
+          type: "text-field.color",
+        },
+        strokeWidth: {
+          value: 2,
+          type: "text-field.number",
+        },
+      },
+    },
   };
 };

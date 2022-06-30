@@ -69,11 +69,9 @@ export default {
       const yAxis = chart.yAxes.push(
         am5xy.ValueAxis.new(root, {
           renderer: am5xy.AxisRendererY.new(root, {
-            strokeOpacity: this.chartSettings.axisY.items.strokeOpacity.value,
-            strokeWidth: this.chartSettings.axisY.items.strokeWidth.value,
-            stroke: am5.color(
-              `#${this.chartSettings.axisY.items.stroke.value}`
-            ),
+            strokeOpacity: this.chartSettings.axes.y.strokeOpacity.value,
+            strokeWidth: this.chartSettings.axes.y.strokeWidth.value,
+            stroke: am5.color(`#${this.chartSettings.axes.y.stroke.value}`),
           }),
         })
       );
@@ -82,15 +80,13 @@ export default {
       const xAxis = chart.xAxes.push(
         am5xy.CategoryAxis.new(root, {
           renderer: am5xy.AxisRendererX.new(root, {
-            strokeOpacity: this.chartSettings.axisX.items.strokeOpacity.value,
-            strokeWidth: this.chartSettings.axisX.items.strokeWidth.value,
-            stroke: am5.color(
-              `#${this.chartSettings.axisX.items.stroke.value}`
-            ),
+            strokeOpacity: this.chartSettings.axes.x.strokeOpacity.value,
+            strokeWidth: this.chartSettings.axes.x.strokeWidth.value,
+            stroke: am5.color(`#${this.chartSettings.axes.x.stroke.value}`),
           }),
           categoryField: "month",
-          startLocation: this.chartSettings.axisX.items.startLocation.value,
-          endLocation: this.chartSettings.axisX.items.endLocation.value,
+          startLocation: this.chartSettings.axes.x.startLocation.value,
+          endLocation: this.chartSettings.axes.x.endLocation.value,
         })
       );
 
@@ -102,28 +98,28 @@ export default {
 
       // Grid Y.
       yRenderer.grid.template.setAll({
-        stroke: am5.color(`#${this.chartSettings.gridY.items.stroke.value}`),
-        strokeWidth: this.chartSettings.gridY.items.strokeWidth.value,
+        stroke: am5.color(`#${this.chartSettings.grid.y.stroke.value}`),
+        strokeWidth: this.chartSettings.grid.y.strokeWidth.value,
       });
 
       // Grid X.
       xRenderer.grid.template.setAll({
-        stroke: am5.color(`#${this.chartSettings.gridX.items.stroke.value}`),
-        strokeWidth: this.chartSettings.gridX.items.strokeWidth.value,
+        stroke: am5.color(`#${this.chartSettings.grid.x.stroke.value}`),
+        strokeWidth: this.chartSettings.grid.x.strokeWidth.value,
       });
 
       // Ticks Y.
       yRenderer.ticks.template.setAll({
-        stroke: am5.color(`#${this.chartSettings.ticksY.items.stroke.value}`),
-        strokeWidth: this.chartSettings.ticksY.items.strokeWidth.value,
-        visible: this.chartSettings.ticksY.items.enabled.value,
+        stroke: am5.color(`#${this.chartSettings.ticks.y.stroke.value}`),
+        strokeWidth: this.chartSettings.ticks.y.strokeWidth.value,
+        visible: this.chartSettings.ticks.y.enabled.value,
       });
 
       // Ticks X.
       xRenderer.ticks.template.setAll({
-        stroke: am5.color(`#${this.chartSettings.ticksX.items.stroke.value}`),
-        strokeWidth: this.chartSettings.ticksX.items.strokeWidth.value,
-        visible: this.chartSettings.ticksX.items.enabled.value,
+        stroke: am5.color(`#${this.chartSettings.ticks.x.stroke.value}`),
+        strokeWidth: this.chartSettings.ticks.x.strokeWidth.value,
+        visible: this.chartSettings.ticks.x.enabled.value,
       });
 
       //
