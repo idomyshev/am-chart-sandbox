@@ -1,7 +1,7 @@
 export const columnChartConfig = () => {
   return {
     axisY: {
-      title: "Axis Y",
+      title: "axisY",
       items: {
         strokeOpacity: {
           value: 0.5,
@@ -19,7 +19,7 @@ export const columnChartConfig = () => {
     },
 
     axisX: {
-      title: "Axis X",
+      title: "axisX",
       items: {
         strokeOpacity: {
           value: 0.5,
@@ -45,7 +45,35 @@ export const columnChartConfig = () => {
     },
 
     gridY: {
-      title: "GridY",
+      title: "gridY",
+      items: {
+        stroke: {
+          value: "666",
+          type: "text-field.color",
+        },
+        strokeWidth: {
+          value: 2,
+          type: "text-field.number",
+        },
+      },
+    },
+
+    gridX: {
+      title: "gridX",
+      items: {
+        stroke: {
+          value: "666",
+          type: "text-field.color",
+        },
+        strokeWidth: {
+          value: 2,
+          type: "text-field.number",
+        },
+      },
+    },
+
+    ticksY: {
+      title: "ticksY",
       items: {
         enabled: {
           value: true,
@@ -62,8 +90,8 @@ export const columnChartConfig = () => {
       },
     },
 
-    gridX: {
-      title: "GridX",
+    ticksX: {
+      title: "ticksX",
       items: {
         enabled: {
           value: true,

@@ -96,27 +96,35 @@ export default {
 
       xAxis.data.setAll(diagramsMockData);
 
-      // if (this.chartSettings.gridY.items.enabled.value) {
-      //   const yRenderer = yAxis.get("renderer");
-      //   yRenderer.grid.template.setAll({
-      //     stroke: am5.color(`#${this.chartSettings.gridY.items.stroke.value}`),
-      //     strokeWidth: this.chartSettings.gridY.items.strokeWidth.value,
-      //   });
-      // }
-      // if (this.chartSettings.gridX.items.enabled.value) {
-      //   const xRenderer = xAxis.get("renderer");
-      //   xRenderer.grid.template.setAll({
-      //     stroke: am5.color(`#${this.chartSettings.gridX.items.stroke.value}`),
-      //     strokeWidth: this.chartSettings.gridX.items.strokeWidth.value,
-      //   });
-      // }
+      const yRenderer = yAxis.get("renderer");
+      const xRenderer = xAxis.get("renderer");
 
-      // if (this.showTicks) {
-      //   yRenderer.ticks.template.setAll({
-      //     stroke: am5.color("#0f0"),
-      //     visible: true,
-      //   });
-      // }
+      // Grid Y.
+      yRenderer.grid.template.setAll({
+        stroke: am5.color(`#${this.chartSettings.gridY.items.stroke.value}`),
+        strokeWidth: this.chartSettings.gridY.items.strokeWidth.value,
+      });
+
+      // Grid X.
+      xRenderer.grid.template.setAll({
+        stroke: am5.color(`#${this.chartSettings.gridX.items.stroke.value}`),
+        strokeWidth: this.chartSettings.gridX.items.strokeWidth.value,
+      });
+
+      // Ticks Y.
+      yRenderer.ticks.template.setAll({
+        stroke: am5.color(`#${this.chartSettings.ticksY.items.stroke.value}`),
+        strokeWidth: this.chartSettings.ticksY.items.strokeWidth.value,
+        visible: this.chartSettings.ticksY.items.enabled.value,
+      });
+
+      // Ticks X.
+      xRenderer.ticks.template.setAll({
+        stroke: am5.color(`#${this.chartSettings.ticksX.items.stroke.value}`),
+        strokeWidth: this.chartSettings.ticksX.items.strokeWidth.value,
+        visible: this.chartSettings.ticksX.items.enabled.value,
+      });
+
       //
       // if (this.showYLabels) {
       //   yRenderer.labels.template.setAll({
