@@ -66,9 +66,9 @@ export default {
       });
       const chart = root.container.children.push(
         am5percent.PieChart.new(root, {
-          radius: am5.percent(this.chartSettings.chart.items.radius.value),
+          radius: am5.percent(this.chartSettings.chart.no_group.radius.value),
           innerRadius: am5.percent(
-            this.chartSettings.chart.items.innerRadius.value
+            this.chartSettings.chart.no_group.innerRadius.value
           ),
         })
       );
@@ -84,82 +84,82 @@ export default {
 
       // Second series.
       let foodSeries = null;
-      if (this.chartSettings.secondSeries.items.enabled.value) {
+      if (this.chartSettings.series.food.enabled.value) {
         foodSeries = chart.series.push(
           am5percent.PieSeries.new(root, {
             name: "Series",
             valueField: "food",
             categoryField: "month",
             alignLabels: false,
-            startAngle: this.chartSettings.secondSeries.items.startAngle.value,
-            endAngle: this.chartSettings.secondSeries.items.endAngle.value,
+            startAngle: this.chartSettings.series.food.startAngle.value,
+            endAngle: this.chartSettings.series.food.endAngle.value,
           })
         );
       }
 
       // Ticks.
-      if (!this.chartSettings.ticks.items.enabled.value) {
+      if (!this.chartSettings.ticks.cafe.enabled.value) {
         cafeSeries.ticks.template.set("visible", false);
       } else {
         cafeSeries.ticks.template.setAll({
-          stroke: am5.color(`#${this.chartSettings.ticks.items.color.value}`),
-          strokeWidth: this.chartSettings.ticks.items.width.value,
+          stroke: am5.color(`#${this.chartSettings.ticks.cafe.color.value}`),
+          strokeWidth: this.chartSettings.ticks.cafe.width.value,
         });
       }
 
       // Labels.
-      if (!this.chartSettings.labels.items.enabled.value) {
+      if (!this.chartSettings.labels.cafe.enabled.value) {
         cafeSeries.labels.template.set("forceHidden", true);
       } else {
         cafeSeries.labels.template.setAll({
           text: "{category}",
-          radius: this.chartSettings.labels.items.radius.value,
-          inside: this.chartSettings.labels.items.inside.value,
-          textType: this.chartSettings.labels.items.circular.value
+          radius: this.chartSettings.labels.cafe.radius.value,
+          inside: this.chartSettings.labels.cafe.inside.value,
+          textType: this.chartSettings.labels.cafe.circular.value
             ? "circular"
             : undefined,
           // centerX: am5.percent(10),
         });
       }
 
-      if (!this.chartSettings.tooltips.items.enabled.value) {
+      if (!this.chartSettings.tooltips.cafe.enabled.value) {
         cafeSeries.slices.template.set("tooltipText", "");
       } else {
         cafeSeries.slices.template.set(
           "tooltipText",
-          this.chartSettings.tooltips.items.text.value
+          this.chartSettings.tooltips.cafe.text.value
         );
       }
 
       // Slices settings.
-      if (this.chartSettings.slices.items.enabled.value) {
+      if (this.chartSettings.slices.cafe.enabled.value) {
         cafeSeries.slices.template.setAll({
-          fillOpacity: this.chartSettings.slices.items.opacity.value,
+          fillOpacity: this.chartSettings.slices.cafe.opacity.value,
           stroke: am5.color(
-            `#${this.chartSettings.slices.items.borderColor.value}`
+            `#${this.chartSettings.slices.cafe.borderColor.value}`
           ),
-          strokeWidth: this.chartSettings.slices.items.borderWidth.value,
+          strokeWidth: this.chartSettings.slices.cafe.borderWidth.value,
         });
       }
 
       // Slice click settings.
-      if (!this.chartSettings.clickedSlices.items.enabled.value) {
+      if (!this.chartSettings.clickedSlices.cafe.enabled.value) {
         cafeSeries.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
       } else {
-        if (this.chartSettings.clickedSlices.items.customStyle.value) {
+        if (this.chartSettings.clickedSlices.cafe.customStyle.value) {
           cafeSeries.slices.template.states.create("active", {
-            shiftRadius: this.chartSettings.clickedSlices.items.radius.value,
+            shiftRadius: this.chartSettings.clickedSlices.cafe.radius.value,
             stroke: am5.color(
-              `#${this.chartSettings.clickedSlices.items.borderColor.value}`
+              `#${this.chartSettings.clickedSlices.cafe.borderColor.value}`
             ),
             strokeWidth:
-              this.chartSettings.clickedSlices.items.borderWidth.value,
+              this.chartSettings.clickedSlices.cafe.borderWidth.value,
           });
         }
       }
 
       // Custom colors.
-      if (this.chartSettings.general.items.customColors.value) {
+      if (this.chartSettings.no_group.no_group.customColors.value) {
         cafeSeries
           .get("colors")
           .set("colors", [
@@ -174,9 +174,9 @@ export default {
       // Legend settings.
       const legend = chart.children.push(
         am5.Legend.new(root, {
-          centerX: am5.percent(this.chartSettings.legend.items.centerX.value),
-          x: am5.percent(this.chartSettings.legend.items.x.value),
-          y: am5.percent(this.chartSettings.legend.items.y.value),
+          centerX: am5.percent(this.chartSettings.legend.cafe.centerX.value),
+          x: am5.percent(this.chartSettings.legend.cafe.x.value),
+          y: am5.percent(this.chartSettings.legend.cafe.y.value),
           layout: root.horizontalLayout,
         })
       );
@@ -184,7 +184,7 @@ export default {
       cafeSeries.data.setAll(diagramsMockData);
       legend.data.setAll(cafeSeries.dataItems);
 
-      if (this.chartSettings.secondSeries.items.enabled.value) {
+      if (this.chartSettings.series.food.enabled.value) {
         foodSeries.data.setAll(diagramsMockData);
         legend.data.setAll(foodSeries.dataItems);
       }

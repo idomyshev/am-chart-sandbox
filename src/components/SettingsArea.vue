@@ -15,7 +15,7 @@
             class="diagram-settings__line-block"
           >
             <div class="diagram-settings__subgroup-title">
-              {{ group[0] }}.{{ subGroup[0] }}
+              {{ subGroup[0] }}
             </div>
             <div
               v-for="item in Object.entries(subGroup[1])"

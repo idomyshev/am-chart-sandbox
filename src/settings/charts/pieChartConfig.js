@@ -1,9 +1,7 @@
 export const pieChartConfig = () => {
   return {
-    general: {
-      title: "General",
-      itemsPosition: "column",
-      items: {
+    no_group: {
+      no_group: {
         customColors: {
           value: true,
           type: "radio",
@@ -12,9 +10,7 @@ export const pieChartConfig = () => {
     },
 
     chart: {
-      title: "Chart",
-      itemsPosition: "column",
-      items: {
+      no_group: {
         radius: {
           value: 80,
           type: "text-field.number",
@@ -26,8 +22,7 @@ export const pieChartConfig = () => {
       },
     },
     labels: {
-      title: "Labels ('cafe' series)",
-      items: {
+      cafe: {
         enabled: {
           value: true,
           type: "radio",
@@ -47,8 +42,7 @@ export const pieChartConfig = () => {
       },
     },
     slices: {
-      title: "Slices ('cafe' series)",
-      items: {
+      cafe: {
         enabled: {
           value: true,
           type: "radio",
@@ -68,8 +62,7 @@ export const pieChartConfig = () => {
       },
     },
     clickedSlices: {
-      title: "Clicked slices ('cafe' series)",
-      items: {
+      cafe: {
         enabled: {
           value: true,
           type: "radio",
@@ -93,8 +86,7 @@ export const pieChartConfig = () => {
       },
     },
     legend: {
-      title: "Legend ('cafe' series)",
-      items: {
+      cafe: {
         centerX: {
           value: 50,
           type: "text-field.number",
@@ -110,8 +102,7 @@ export const pieChartConfig = () => {
       },
     },
     ticks: {
-      title: "Ticks ('cafe' series)",
-      items: {
+      cafe: {
         enabled: {
           value: true,
           type: "radio",
@@ -127,8 +118,7 @@ export const pieChartConfig = () => {
       },
     },
     tooltips: {
-      title: "Tooltips ('cafe' series)",
-      items: {
+      cafe: {
         enabled: {
           value: true,
           type: "radio",
@@ -140,9 +130,8 @@ export const pieChartConfig = () => {
         },
       },
     },
-    secondSeries: {
-      title: "Second series ('food')",
-      items: {
+    series: {
+      food: {
         enabled: {
           value: true,
           type: "radio",
@@ -159,7 +148,3 @@ export const pieChartConfig = () => {
     },
   };
 };
-
-// export const getChartConfig = () => {
-//   return chartConfig;
-// };
