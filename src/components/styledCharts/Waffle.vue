@@ -216,7 +216,7 @@ export default {
   margin-right: 10px;
 }
 .chart {
-  height: 600px;
+  height: 340px;
 }
 .legend {
   height: 100px;
