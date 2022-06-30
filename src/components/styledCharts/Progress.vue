@@ -142,6 +142,7 @@ export default {
         nameField: "valueX",
         centerX: am5.percent(50),
         x: am5.percent(50),
+        y: am5.percent(96),
         layout: am5.GridLayout.new(root, {
           maxColumns: 2,
           fixedWidthGrid: true,
