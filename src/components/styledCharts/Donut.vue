@@ -70,9 +70,9 @@ export default {
     series.labels.template.set("visible", false);
     series.ticks.template.set("visible", false);
 
-    var legendRoot = am5.Root.new(this.$refs.donutLegend);
+    let legendRoot = am5.Root.new(this.$refs.donutLegend);
 
-    var legend = legendRoot.container.children.push(
+    let legend = legendRoot.container.children.push(
       am5.Legend.new(legendRoot, {
         width: am5.percent(50),
         centerX: am5.percent(0),

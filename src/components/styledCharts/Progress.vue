@@ -19,13 +19,13 @@ export default {
   },
   mounted() {
     // Create root element
-    var root = am5.Root.new(this.$refs.chartdivDonut);
+    let root = am5.Root.new(this.$refs.chartdivDonut);
 
     // Set themes
     root.setThemes([am5themes_Animated.new(root)]);
 
     // Create chart
-    var chart = root.container.children.push(
+    let chart = root.container.children.push(
       am5radar.RadarChart.new(root, {
         panX: false,
         panY: false,
@@ -36,7 +36,7 @@ export default {
     );
 
     // Data
-    var data = [
+    let data = [
       {
         category: "Research",
         value: 20,
@@ -56,7 +56,7 @@ export default {
     ];
 
     // Create axes and their renderers
-    var xRenderer = am5radar.AxisRendererCircular.new(root, {
+    let xRenderer = am5radar.AxisRendererCircular.new(root, {
       visible: false,
     });
 
@@ -69,7 +69,7 @@ export default {
       forceHidden: true,
     });
 
-    var xAxis = chart.xAxes.push(
+    let xAxis = chart.xAxes.push(
       am5xy.ValueAxis.new(root, {
         renderer: xRenderer,
         min: 0,
@@ -79,7 +79,7 @@ export default {
       })
     );
 
-    var yRenderer = am5radar.AxisRendererRadial.new(root, {
+    let yRenderer = am5radar.AxisRendererRadial.new(root, {
       minGridDistance: 20,
     });
 
@@ -87,7 +87,7 @@ export default {
       forceHidden: true,
     });
 
-    var yAxis = chart.yAxes.push(
+    let yAxis = chart.yAxes.push(
       am5xy.CategoryAxis.new(root, {
         categoryField: "category",
         renderer: yRenderer,
@@ -98,7 +98,7 @@ export default {
     yAxis.data.setAll(data);
 
     // Create series
-    var series1 = chart.series.push(
+    let series1 = chart.series.push(
       am5radar.RadarColumnSeries.new(root, {
         xAxis: xAxis,
         yAxis: yAxis,
@@ -118,7 +118,7 @@ export default {
 
     series1.data.setAll(data);
 
-    var series2 = chart.series.push(
+    let series2 = chart.series.push(
       am5radar.RadarColumnSeries.new(root, {
         xAxis: xAxis,
         yAxis: yAxis,
@@ -137,22 +137,29 @@ export default {
     });
 
     series2.data.setAll(data);
-    var legendRoot = am5.Root.new(this.$refs.donutLegend);
-
-    var legend = legendRoot.container.children.push(
-      am5.Legend.new(legendRoot, {
-        width: am5.percent(50),
-        centerX: am5.percent(0),
-        x: am5.percent(30),
-        y: am5.percent(35),
+    let legend = chart.children.push(
+      am5.Legend.new(root, {
+        nameField: "valueX",
+        centerX: am5.percent(50),
+        x: am5.percent(50),
         layout: am5.GridLayout.new(root, {
-          maxColumns: 3,
+          maxColumns: 2,
           fixedWidthGrid: true,
         }),
       })
     );
+    legend.labels.template.setAll({
+      text: "category",
+      fontSize: 14,
+      fontWeight: "300",
+    });
 
-    legend.data.setAll(series1.chart.series.values);
+    legend.valueLabels.template.setAll({
+      text: "{category}",
+      fontSize: 14,
+      fontWeight: "400",
+    });
+    legend.data.setAll(series2.dataItems);
 
     // Animate chart and series in
     series1.appear(1000);

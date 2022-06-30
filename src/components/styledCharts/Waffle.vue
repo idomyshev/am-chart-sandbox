@@ -16,13 +16,13 @@ export default {
     msg: String,
   },
   mounted() {
-    var root = am5.Root.new(this.$refs.chartdivWaffle);
+    let root = am5.Root.new(this.$refs.chartdivWaffle);
 
     // Set themes
     root.setThemes([am5themes_Animated.new(root)]);
 
     // Create chart
-    var chart = root.container.children.push(
+    let chart = root.container.children.push(
       am5xy.XYChart.new(root, {
         panX: false,
         panY: false,
@@ -31,15 +31,16 @@ export default {
     );
 
     // Add legend
-    var legend = chart.children.push(
+    let legend = chart.children.push(
       am5.Legend.new(root, {
         centerX: am5.p50,
-        x: am5.p50,
+        x: 265,
+        width: 500,
       })
     );
 
     // Create axes
-    var xAxis = chart.xAxes.push(
+    let xAxis = chart.xAxes.push(
       am5xy.CategoryAxis.new(root, {
         categoryField: "x",
         renderer: am5xy.AxisRendererX.new(root, {
@@ -63,7 +64,7 @@ export default {
       { x: "10" },
     ]);
 
-    var yAxis = chart.yAxes.push(
+    let yAxis = chart.yAxes.push(
       am5xy.CategoryAxis.new(root, {
         categoryField: "y",
         renderer: am5xy.AxisRendererY.new(root, {}),
@@ -87,9 +88,8 @@ export default {
     ]);
 
     // Add series
-    // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
     function makeSeries(name, color) {
-      var series = chart.series.push(
+      let series = chart.series.push(
         am5xy.ColumnSeries.new(root, {
           name: name,
           xAxis: xAxis,
@@ -115,7 +115,7 @@ export default {
       return series;
     }
 
-    var series1 = makeSeries("Democratic", "#9567d8");
+    let series1 = makeSeries("Democratic", "#9567d8");
     series1.data.setAll([
       { x: "1", y: "1" },
       { x: "1", y: "2" },
@@ -144,7 +144,7 @@ export default {
       { x: "3", y: "3" },
     ]);
 
-    var series2 = makeSeries("Republican", "#f560e6");
+    let series2 = makeSeries("Republican", "#f560e6");
     series2.data.setAll([
       { x: "3", y: "4" },
       { x: "3", y: "5" },
@@ -173,7 +173,7 @@ export default {
       { x: "5", y: "6" },
     ]);
 
-    var series3 = makeSeries("Libertarian", "#ffb27d");
+    let series3 = makeSeries("Libertarian", "#ffb27d");
     series3.data.setAll([
       { x: "5", y: "7" },
       { x: "5", y: "8" },
