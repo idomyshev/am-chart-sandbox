@@ -1,60 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-row>
     <v-col cols="5">
-      <div class="diagram-settings">
-        <v-expansion-panels v-model="panel" multiple>
-          <v-expansion-panel
-            v-for="group in Object.entries(chartSettings)"
-            :key="group[0]"
-          >
-            <v-expansion-panel-header>{{
-              group[1].title
-            }}</v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <div
-                :class="
-                  group[1].itemsPosition !== 'line'
-                    ? 'diagram-settings__line-block'
-                    : 'diagram-settings__line'
-                "
-              >
-                <div
-                  v-for="item in Object.entries(group[1].items)"
-                  :key="group[0] + '_' + item[0]"
-                >
-                  <v-switch
-                    v-if="item[1].type === 'radio'"
-                    v-model="chartSettings[group[0]].items[item[0]].value"
-                    :label="`${group[0]}.${item[0]}`"
-                    :disabled="item[1].disabled"
-                  />
-                  <v-checkbox
-                    v-if="item[1].type === 'checkbox'"
-                    v-model="chartSettings[group[0]].items[item[0]].value"
-                    :label="`${group[0]}.${item[0]}`"
-                    :disabled="item[1].disabled"
-                  />
-                  <v-text-field
-                    v-if="
-                      [
-                        'text-field.number',
-                        'text-field.color',
-                        'text-field.text',
-                      ].includes(item[1].type)
-                    "
-                    v-model="chartSettings[group[0]].items[item[0]].value"
-                    :label="`${group[0]}.${item[0]}`"
-                    :class="
-                      item[1].type !== 'text-field.text' ? 'limited-width' : ''
-                    "
-                    :disabled="item[1].disabled"
-                  />
-                </div>
-              </div>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </div>
+      <SettingsArea v-model="chartSettings" />
     </v-col>
     <v-col cols="7">
       <div class="am-charts-container" ref="amChart"></div>
@@ -66,15 +13,16 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5percent from "@amcharts/amcharts5/percent";
 import { diagramsMockData } from "@/mockData/diagramsData";
 import { getChartConfig } from "@/settings/charts/pieChart";
+import SettingsArea from "@/components/SettingsArea";
 require("../settings/charts/pieChart.js");
 
 export default {
   name: "PieChart",
+  components: { SettingsArea },
   computed: {},
   data() {
     return {
       chartSettings: getChartConfig(),
-      panel: [0],
       showGrid: true,
       showGridAboveSeries: false,
       showTicks: true,
