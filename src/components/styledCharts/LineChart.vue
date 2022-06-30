@@ -204,26 +204,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 600px;
-  background-color: white;
-  border-radius: 10px;
-  margin: 10px 0px;
-}
 .chart {
   height: 600px;
-}
-.legend {
-  height: 100px;
-  align-items: center;
-}
-.title {
-  align-self: flex-start;
-  font-weight: 700;
-  font-size: 30px;
-  padding-bottom: 50px;
-  padding-left: 20px;
 }
 </style>
