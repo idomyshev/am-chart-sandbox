@@ -13,8 +13,7 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5percent from "@amcharts/amcharts5/percent";
 import { diagramsMockData } from "@/mockData/diagramsData";
 import SettingsArea from "@/components/SettingsArea";
-import { pieChartConfig } from "@/settings/charts/pieChart";
-require("../settings/charts/pieChart.js");
+import { pieChartConfig } from "@/settings/charts/pieChartConfig";
 
 export default {
   name: "PieChart",
