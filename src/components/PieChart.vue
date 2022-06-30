@@ -5,6 +5,7 @@
     </v-col>
     <v-col cols="7">
       <div class="am-charts-container" ref="amChart"></div>
+      <v-btn v-if="false" @click="initDiagram">Init again</v-btn>
     </v-col>
   </v-row>
 </template>
@@ -168,8 +169,6 @@ export default {
             am5.color(0x095256),
             am5.color(0x087f8c),
             am5.color(0x5aaa95),
-            am5.color(0x86a873),
-            am5.color(0xbb9f06),
           ]);
       }
 

@@ -108,6 +108,10 @@ export default {
         strokeWidth: this.chartSettings.grid.x.strokeWidth.value,
       });
 
+      if (this.chartSettings.grid.no_subGroup.gridContainerToFront.value) {
+        chart.gridContainer.toFront();
+      }
+
       // Ticks Y.
       yRenderer.ticks.template.setAll({
         stroke: am5.color(`#${this.chartSettings.ticks.y.stroke.value}`),
@@ -122,32 +126,19 @@ export default {
         visible: this.chartSettings.ticks.x.enabled.value,
       });
 
-      //
-      // if (this.showYLabels) {
-      //   yRenderer.labels.template.setAll({
-      //     fill: am5.color("rgb(0, 0, 0)"),
-      //     fontSize: "1em",
-      //   });
-      // }
-      //
-      // // const xRenderer = xAxis.get("renderer");
-      // // xRenderer.grid.template.setAll({
-      // //   stroke: am5.color("#fff"),
-      // //   strokeWidth: 1,
-      // // });
-      //
-      // if (this.showXLabels) {
-      //   xRenderer.labels.template.setAll({
-      //     fill: am5.color("rgb(0, 0, 0)"),
-      //     fontSize: "1em",
-      //   });
-      // }
+      // Labels Y.
+      yRenderer.labels.template.setAll({
+        fill: am5.color(`#${this.chartSettings.labels.y.fill.value}`),
+        fontSize: `${this.chartSettings.labels.y.fontSize.value}em`,
+      });
 
-      if (this.showGridAboveSeries) {
-        chart.gridContainer.toFront();
-      }
+      // Labels X.
+      xRenderer.labels.template.setAll({
+        fill: am5.color(`#${this.chartSettings.labels.x.fill.value}`),
+        fontSize: `${this.chartSettings.labels.x.fontSize.value}em`,
+      });
 
-      // Food
+      // Food series.
       let food = chart.series.push(
         am5xy.ColumnSeries.new(root, {
           name: "Food",
@@ -158,7 +149,23 @@ export default {
         })
       );
 
-      // Cafe
+      // Legend.
+      const legend = chart.children.push(
+        am5.Legend.new(root, {
+          centerX: am5.percent(this.chartSettings.legend.food.centerX.value),
+          x: am5.percent(this.chartSettings.legend.food.x.value),
+          y: am5.percent(this.chartSettings.legend.food.y.value),
+          layout: root.horizontalLayout,
+        })
+      );
+      legend.data.setAll(chart.series.values);
+
+      // Cursor
+      if (this.chartSettings.cursor.no_subGroup.enabled.value) {
+        chart.set("cursor", am5xy.XYCursor.new(root, {}));
+      }
+
+      // Cafe series.
       let cafe = chart.series.push(
         am5xy.ColumnSeries.new(root, {
           name: "Cafe",
@@ -171,13 +178,6 @@ export default {
 
       food.data.setAll(diagramsMockData);
       cafe.data.setAll(diagramsMockData);
-
-      // Legend
-      let legend = chart.children.push(am5.Legend.new(root, {}));
-      legend.data.setAll(chart.series.values);
-
-      // Cursor
-      chart.set("cursor", am5xy.XYCursor.new(root, {}));
 
       this.root = root;
     },

@@ -141,7 +141,7 @@ export const pieChartConfig = () => {
           type: "text-field.number",
         },
         endAngle: {
-          value: 180,
+          value: 135,
           type: "text-field.number",
         },
       },
