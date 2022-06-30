@@ -96,40 +96,47 @@ export default {
 
       xAxis.data.setAll(diagramsMockData);
 
-      if (this.showGrid) {
-        const yRenderer = yAxis.get("renderer");
-        yRenderer.grid.template.setAll({
-          stroke: am5.color("#fff"),
-          strokeWidth: 1,
-        });
+      // if (this.chartSettings.gridY.items.enabled.value) {
+      //   const yRenderer = yAxis.get("renderer");
+      //   yRenderer.grid.template.setAll({
+      //     stroke: am5.color(`#${this.chartSettings.gridY.items.stroke.value}`),
+      //     strokeWidth: this.chartSettings.gridY.items.strokeWidth.value,
+      //   });
+      // }
+      // if (this.chartSettings.gridX.items.enabled.value) {
+      //   const xRenderer = xAxis.get("renderer");
+      //   xRenderer.grid.template.setAll({
+      //     stroke: am5.color(`#${this.chartSettings.gridX.items.stroke.value}`),
+      //     strokeWidth: this.chartSettings.gridX.items.strokeWidth.value,
+      //   });
+      // }
 
-        if (this.showTicks) {
-          yRenderer.ticks.template.setAll({
-            stroke: am5.color("#0f0"),
-            visible: true,
-          });
-        }
-
-        if (this.showYLabels) {
-          yRenderer.labels.template.setAll({
-            fill: am5.color("rgb(0, 0, 0)"),
-            fontSize: "1em",
-          });
-        }
-
-        const xRenderer = xAxis.get("renderer");
-        xRenderer.grid.template.setAll({
-          stroke: am5.color("#fff"),
-          strokeWidth: 1,
-        });
-
-        if (this.showXLabels) {
-          xRenderer.labels.template.setAll({
-            fill: am5.color("rgb(0, 0, 0)"),
-            fontSize: "1em",
-          });
-        }
-      }
+      // if (this.showTicks) {
+      //   yRenderer.ticks.template.setAll({
+      //     stroke: am5.color("#0f0"),
+      //     visible: true,
+      //   });
+      // }
+      //
+      // if (this.showYLabels) {
+      //   yRenderer.labels.template.setAll({
+      //     fill: am5.color("rgb(0, 0, 0)"),
+      //     fontSize: "1em",
+      //   });
+      // }
+      //
+      // // const xRenderer = xAxis.get("renderer");
+      // // xRenderer.grid.template.setAll({
+      // //   stroke: am5.color("#fff"),
+      // //   strokeWidth: 1,
+      // // });
+      //
+      // if (this.showXLabels) {
+      //   xRenderer.labels.template.setAll({
+      //     fill: am5.color("rgb(0, 0, 0)"),
+      //     fontSize: "1em",
+      //   });
+      // }
 
       if (this.showGridAboveSeries) {
         chart.gridContainer.toFront();

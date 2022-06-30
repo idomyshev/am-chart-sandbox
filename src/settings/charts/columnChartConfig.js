@@ -43,9 +43,41 @@ export const columnChartConfig = () => {
         },
       },
     },
+
+    gridY: {
+      title: "GridY",
+      items: {
+        enabled: {
+          value: true,
+          type: "radio",
+        },
+        stroke: {
+          value: "666",
+          type: "text-field.color",
+        },
+        strokeWidth: {
+          value: 2,
+          type: "text-field.number",
+        },
+      },
+    },
+
+    gridX: {
+      title: "GridX",
+      items: {
+        enabled: {
+          value: true,
+          type: "radio",
+        },
+        stroke: {
+          value: "666",
+          type: "text-field.color",
+        },
+        strokeWidth: {
+          value: 2,
+          type: "text-field.number",
+        },
+      },
+    },
   };
 };
-
-// export const getChartConfig = () => {
-//   return chartConfig;
-// };
