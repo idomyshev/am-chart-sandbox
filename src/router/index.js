@@ -6,10 +6,18 @@ import PieChart from "@/components/constructor/PieChart";
 import DemoCharts from "@/views/DemoCharts";
 import RadarChart from "@/components/constructor/RadarChart";
 import BarChart from "@/components/constructor/BarChart";
+import LineChart from "@/components/constructor/LineChart";
+import AreaChart from "@/components/constructor/AreaChart";
+import PolarChart from "@/components/constructor/PolarChart";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: ROUTES.DEMO_CHARTS,
+    name: "demo",
+    component: DemoCharts,
+  },
   {
     path: ROUTES.PIE_CHART,
     name: "pie",
@@ -31,9 +39,34 @@ const routes = [
     component: RadarChart,
   },
   {
-    path: ROUTES.DEMO_CHARTS,
-    name: "demo",
-    component: DemoCharts,
+    path: ROUTES.POLAR_CHART,
+    name: "polar",
+    component: PolarChart,
+  },
+  {
+    path: ROUTES.LINE_CHART,
+    name: "line",
+    component: LineChart,
+  },
+  {
+    path: ROUTES.AREA_CHART,
+    name: "area",
+    component: AreaChart,
+  },
+  {
+    path: ROUTES.XY_CHART,
+    name: "xy",
+    component: AreaChart,
+  },
+  {
+    path: ROUTES.BUBBLE_CHART,
+    name: "bubble",
+    component: AreaChart,
+  },
+  {
+    path: ROUTES.HIERARCHY_CHART,
+    name: "hierarchy",
+    component: AreaChart,
   },
 ];
 

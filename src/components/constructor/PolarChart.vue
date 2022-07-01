@@ -1,0 +1,217 @@
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+  <v-row>
+    <v-col cols="5">
+      <SettingsArea v-model="chartSettings" />
+    </v-col>
+    <v-col cols="7">
+      <div class="am-charts-container" ref="amChart"></div>
+    </v-col>
+  </v-row>
+</template>
+<script>
+import * as am5 from "@amcharts/amcharts5";
+import SettingsArea from "@/components/SettingsArea";
+import * as am5xy from "@amcharts/amcharts5/xy";
+import { lineChartConfig } from "@/settings/charts/lineChartConfig";
+import * as am5radar from "@amcharts/amcharts5/radar";
+
+export default {
+  name: "PolarChart",
+  components: { SettingsArea },
+  computed: {},
+  data() {
+    return {
+      chartSettings: lineChartConfig(),
+      showGrid: true,
+      showGridAboveSeries: false,
+      showTicks: true,
+      showYLabels: true,
+      showXLabels: true,
+    };
+  },
+  created() {},
+  mounted() {
+    this.initDiagram();
+  },
+
+  beforeDestroy() {
+    if (this.root) {
+      this.root.dispose();
+    }
+  },
+
+  watch: {
+    chartSettings: {
+      handler() {
+        this.initDiagram();
+        console.log("settings updated");
+      },
+      deep: true,
+    },
+  },
+
+  methods: {
+    initDiagram() {
+      am5.ready(() => {
+        if (this.root) {
+          this.root.dispose();
+        }
+        this.createDiagram();
+      });
+    },
+    createDiagram() {
+      const root = am5.Root.new(this.$refs.amChart, {
+        useSafeResolution: false,
+      });
+
+      // Create chart
+      // https://www.amcharts.com/docs/v5/charts/radar-chart/
+      let chart = root.container.children.push(
+        am5radar.RadarChart.new(root, {
+          panX: false,
+          panY: false,
+          wheelX: "panX",
+          wheelY: "zoomX",
+        })
+      );
+
+      // Add cursor
+      // https://www.amcharts.com/docs/v5/charts/radar-chart/#Cursor
+      let cursor = chart.set(
+        "cursor",
+        am5radar.RadarCursor.new(root, {
+          behavior: "none",
+        })
+      );
+
+      cursor.lineY.set("visible", false);
+      cursor.lineX.set("visible", false);
+
+      // Create axes and their renderers
+      // https://www.amcharts.com/docs/v5/charts/radar-chart/#Adding_axes
+      let xRenderer = am5radar.AxisRendererCircular.new(root, {});
+      xRenderer.labels.template.setAll({
+        radius: 10,
+      });
+
+      let xAxis = chart.xAxes.push(
+        am5xy.CategoryAxis.new(root, {
+          maxDeviation: 0,
+          categoryField: "direction",
+          renderer: xRenderer,
+        })
+      );
+
+      let yAxis = chart.yAxes.push(
+        am5xy.ValueAxis.new(root, {
+          renderer: am5radar.AxisRendererRadial.new(root, {}),
+        })
+      );
+
+      // Create series
+      // https://www.amcharts.com/docs/v5/charts/radar-chart/#Adding_series
+
+      let series = chart.series.push(
+        am5radar.RadarLineSeries.new(root, {
+          stacked: true,
+          name: "Series ",
+          xAxis: xAxis,
+          yAxis: yAxis,
+          valueYField: "value",
+          categoryXField: "direction",
+          tooltip: am5.Tooltip.new(root, {
+            labelText: "{categoryX}: {valueY}",
+          }),
+        })
+      );
+
+      series.strokes.template.set("strokeWidth", 2);
+      series.bullets.push(function () {
+        return am5.Bullet.new(root, {
+          sprite: am5.Circle.new(root, {
+            radius: 5,
+            fill: series.get("fill"),
+            strokeWidth: 2,
+            stroke: root.interfaceColors.get("background"),
+          }),
+        });
+      });
+
+      let data = [
+        {
+          direction: "N",
+          value: 8,
+        },
+        {
+          direction: "NE",
+          value: 9,
+        },
+        {
+          direction: "E",
+          value: 4.5,
+        },
+        {
+          direction: "SE",
+          value: 3.5,
+        },
+        {
+          direction: "S",
+          value: 9.2,
+        },
+        {
+          direction: "SW",
+          value: 8.4,
+        },
+        {
+          direction: "W",
+          value: 11.1,
+        },
+        {
+          direction: "NW",
+          value: 10,
+        },
+      ];
+
+      series.data.setAll(data);
+      xAxis.data.setAll(data);
+
+      let range0 = xAxis.createAxisRange(
+        xAxis.makeDataItem({ category: "NW", endCategory: "NW" })
+      );
+      range0.get("axisFill").setAll({
+        visible: true,
+        fill: am5.color(0x0000ff),
+        fillOpacity: 0.3,
+      });
+
+      let range1 = xAxis.createAxisRange(
+        xAxis.makeDataItem({ category: "N", endCategory: "N" })
+      );
+      range1.get("axisFill").setAll({
+        visible: true,
+        fill: am5.color(0x0000ff),
+        fillOpacity: 0.3,
+      });
+
+      let range2 = xAxis.createAxisRange(
+        xAxis.makeDataItem({ category: "SE", endCategory: "S" })
+      );
+      range2.get("axisFill").setAll({
+        visible: true,
+        fill: am5.color(0xff0000),
+        fillOpacity: 0.3,
+      });
+
+      chart.radarContainer.children.moveValue(chart.topGridContainer, 0);
+
+      // Animate chart
+      // https://www.amcharts.com/docs/v5/concepts/animations/#Initial_animation
+      series.appear(1000);
+      chart.appear(1000, 100);
+
+      this.root = root;
+    },
+  },
+};
+</script>
+<style lang="scss" scoped></style>
