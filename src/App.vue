@@ -5,6 +5,7 @@
         <v-col class="top-menu">
           <v-btn :to="ROUTES.PIE_CHART">Pie chart</v-btn>
           <v-btn :to="ROUTES.COLUMNS_CHART">Column chart</v-btn>
+          <v-btn :to="ROUTES.BAR_CHART" class="mr-3">Bar chart</v-btn>
           <v-btn :to="ROUTES.RADAR_CHART" class="mr-3">Radar chart</v-btn>
           <v-btn :to="ROUTES.DEMO_CHARTS" color="purple lighten-3"
             >Demo charts</v-btn

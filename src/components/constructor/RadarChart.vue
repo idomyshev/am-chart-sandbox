@@ -139,7 +139,7 @@ export default {
       series.data.setAll(radarMockData);
       xAxis.data.setAll(radarMockData);
 
-      // Animate chart and series in
+      // Animation.
       series.appear(
         this.chartSettings.animation._noSubGroup.seriesAppear.value
       );
@@ -147,6 +147,7 @@ export default {
         this.chartSettings.animation._noSubGroup.chartOpacityAppear.value,
         this.chartSettings.animation._noSubGroup.chartAppear.value
       );
+
       this.root = root;
     },
   },

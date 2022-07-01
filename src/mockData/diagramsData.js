@@ -54,3 +54,26 @@ export const radarMockData = [
     litres: 40,
   },
 ];
+
+export const barMockData = [
+  {
+    country: "USA",
+    value: 2025,
+  },
+  {
+    country: "China",
+    value: 1882,
+  },
+  {
+    country: "Japan",
+    value: 1809,
+  },
+  {
+    country: "Germany",
+    value: 1322,
+  },
+  {
+    country: "UK",
+    value: 1122,
+  },
+];
