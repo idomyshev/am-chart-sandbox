@@ -1,10 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import { ROUTES } from "@/settings/routes";
-import BarChart from "@/components/BarChart";
-import ColumnChart from "@/components/ColumnChart";
-import PieChart from "@/components/PieChart";
-import DemoCharts from "@/components/DemoCharts";
+import ColumnChart from "@/components/constructor/ColumnChart";
+import PieChart from "@/components/constructor/PieChart";
+import DemoCharts from "@/views/DemoCharts";
 
 Vue.use(VueRouter);
 
@@ -18,11 +17,6 @@ const routes = [
     path: ROUTES.COLUMNS_CHART,
     name: "column",
     component: ColumnChart,
-  },
-  {
-    path: ROUTES.BAR_CHART,
-    name: "bar",
-    component: BarChart,
   },
   {
     path: ROUTES.DEMO_CHARTS,

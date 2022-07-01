@@ -37,7 +37,7 @@ export default {
     chartSettings: {
       handler() {
         this.initDiagram();
-        console.log("updated");
+        console.log("settings updated");
       },
       deep: true,
     },
