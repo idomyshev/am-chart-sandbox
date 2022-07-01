@@ -4,6 +4,7 @@ import { ROUTES } from "@/settings/routes";
 import ColumnChart from "@/components/constructor/ColumnChart";
 import PieChart from "@/components/constructor/PieChart";
 import DemoCharts from "@/views/DemoCharts";
+import RadarChart from "@/components/constructor/RadarChart";
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,11 @@ const routes = [
     path: ROUTES.COLUMNS_CHART,
     name: "column",
     component: ColumnChart,
+  },
+  {
+    path: ROUTES.RADAR_CHART,
+    name: "radar",
+    component: RadarChart,
   },
   {
     path: ROUTES.DEMO_CHARTS,
