@@ -7,18 +7,19 @@
             >Demo charts</v-btn
           >
 
-          <div class="subtitle mt-5">Samples with settings</div>
-          <v-btn :to="ROUTES.PIE_CHART">Pie chart</v-btn>
+          <div class="subtitle mt-5">
+            Samples with<br />
+            settings
+          </div>
+          <v-btn :to="ROUTES.PIE_CHART">Pie/donut chart</v-btn>
           <v-btn :to="ROUTES.COLUMNS_CHART">Column chart</v-btn>
           <v-btn :to="ROUTES.BAR_CHART" class="mr-3">Bar chart</v-btn>
           <v-btn :to="ROUTES.RADAR_CHART" class="mr-3">Radar chart</v-btn>
 
           <div class="subtitle">Samples without settings</div>
           <v-btn :to="ROUTES.POLAR_CHART" class="mr-3">Polar chart</v-btn>
-          <v-btn :to="ROUTES.LINE_CHART" class="mr-3">Line chart</v-btn>
-          <v-btn :to="ROUTES.AREA_CHART" class="mr-3">Area chart</v-btn>
-          <v-btn :to="ROUTES.XY_CHART" class="mr-3">XY chart</v-btn>
-          <v-btn :to="ROUTES.BUBBLE_CHART" class="mr-3">Bubble chart</v-btn>
+          <v-btn :to="ROUTES.AREA_CHART" class="mr-3">Line/Area chart</v-btn>
+          <v-btn :to="ROUTES.XY_CHART" class="mr-3">XY/Bubble chart</v-btn>
           <v-btn :to="ROUTES.HIERARCHY_CHART" class="mr-3"
             >Hierarchy chart</v-btn
           >

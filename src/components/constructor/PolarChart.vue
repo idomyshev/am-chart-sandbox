@@ -1,9 +1,9 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-row>
-    <v-col cols="5">
+    <v-col cols="5" :class="isNoSettings ? 'd-none' : ''">
       <SettingsArea v-model="chartSettings" />
     </v-col>
-    <v-col cols="7">
+    <v-col :cols="isNoSettings ? 12 : 7">
       <div class="am-charts-container" ref="amChart"></div>
     </v-col>
   </v-row>
@@ -18,7 +18,6 @@ import * as am5radar from "@amcharts/amcharts5/radar";
 export default {
   name: "PolarChart",
   components: { SettingsArea },
-  computed: {},
   data() {
     return {
       chartSettings: emptyChartConfig(),
@@ -33,6 +32,12 @@ export default {
     if (this.root) {
       this.root.dispose();
     }
+  },
+
+  computed: {
+    isNoSettings() {
+      return !Object.keys(this.chartSettings).length;
+    },
   },
 
   watch: {
