@@ -3,20 +3,19 @@
     <v-main>
       <v-row>
         <v-col class="top-menu">
-          <v-btn :to="ROUTES.DEMO_CHARTS" color="purple lighten-3"
-            >Demo charts</v-btn
-          >
-
-          <div class="subtitle mt-5">
-            Samples with<br />
-            settings
+          <v-btn :to="ROUTES.DEMO_CHARTS" color="purple lighten-3">
+            Demo charts
+          </v-btn>
+          <div class="subtitle">
+            Configurable<br />
+            samples
           </div>
           <v-btn :to="ROUTES.PIE_CHART">Pie/donut chart</v-btn>
           <v-btn :to="ROUTES.COLUMNS_CHART">Column chart</v-btn>
           <v-btn :to="ROUTES.BAR_CHART" class="mr-3">Bar chart</v-btn>
           <v-btn :to="ROUTES.RADAR_CHART" class="mr-3">Radar chart</v-btn>
 
-          <div class="subtitle">Samples without settings</div>
+          <div class="subtitle">Samples</div>
           <v-btn :to="ROUTES.POLAR_CHART" class="mr-3">Polar chart</v-btn>
           <v-btn :to="ROUTES.AREA_CHART" class="mr-3">Line/Area chart</v-btn>
           <v-btn :to="ROUTES.XY_CHART" class="mr-3">XY/Bubble chart</v-btn>
@@ -61,6 +60,7 @@ export default {
     text-align: center;
     padding-bottom: 8px;
     font-weight: bold;
+    margin-top: 15px;
   }
 }
 </style>

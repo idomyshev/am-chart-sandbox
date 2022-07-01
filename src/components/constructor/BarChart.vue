@@ -18,14 +18,15 @@ import { barChartConfig } from "@/settings/charts/barChartConfig";
 
 export default {
   name: "BarChart",
+
   components: { SettingsArea },
-  computed: {},
+
   data() {
     return {
       chartSettings: barChartConfig(),
     };
   },
-  created() {},
+
   mounted() {
     this.initDiagram();
   },

@@ -23,7 +23,7 @@ export default {
       chartSettings: emptyChartConfig(),
     };
   },
-  created() {},
+
   mounted() {
     this.initDiagram();
   },

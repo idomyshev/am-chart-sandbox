@@ -1,6 +1,6 @@
 export const ROUTES = {
-  DEMO_CHARTS: "/demo",
-  PIE_CHART: "/",
+  DEMO_CHARTS: "/",
+  PIE_CHART: "/pie",
   COLUMNS_CHART: "/columns",
   BAR_CHART: "/bar",
   RADAR_CHART: "/radar",

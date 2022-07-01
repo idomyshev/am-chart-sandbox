@@ -18,14 +18,15 @@ import { pieChartConfig } from "@/settings/charts/pieChartConfig";
 
 export default {
   name: "PieChart",
+
   components: { SettingsArea },
-  computed: {},
+
   data() {
     return {
       chartSettings: pieChartConfig(),
     };
   },
-  created() {},
+
   mounted() {
     this.initDiagram();
   },

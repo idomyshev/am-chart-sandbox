@@ -17,19 +17,21 @@ import { emptyChartConfig } from "@/settings/charts/emptyChartConfig";
 
 export default {
   name: "AreaChart",
+
   components: { SettingsArea },
+
   data() {
     return {
       chartSettings: emptyChartConfig(),
     };
   },
+
   computed: {
     isNoSettings() {
       return !Object.keys(this.chartSettings).length;
     },
   },
 
-  created() {},
   mounted() {
     this.initDiagram();
   },

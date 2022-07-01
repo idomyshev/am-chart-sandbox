@@ -18,14 +18,23 @@ import SettingsArea from "@/components/SettingsArea";
 
 export default {
   name: "ColumnChart",
+
   components: { SettingsArea },
+
   data() {
     return {
       chartSettings: columnChartConfig(),
     };
   },
+
   mounted() {
     this.initDiagram();
+  },
+
+  beforeDestroy() {
+    if (this.root) {
+      this.root.dispose();
+    }
   },
 
   watch: {
@@ -176,11 +185,6 @@ export default {
 
       this.root = root;
     },
-  },
-  beforeDestroy() {
-    if (this.root) {
-      this.root.dispose();
-    }
   },
 };
 </script>

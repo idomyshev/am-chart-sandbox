@@ -19,14 +19,15 @@ import { radarChartConfig } from "@/settings/charts/radarChartConfig";
 
 export default {
   name: "RadarChart",
+
   components: { SettingsArea },
-  computed: {},
+
   data() {
     return {
       chartSettings: radarChartConfig(),
     };
   },
-  created() {},
+
   mounted() {
     this.initDiagram();
   },
