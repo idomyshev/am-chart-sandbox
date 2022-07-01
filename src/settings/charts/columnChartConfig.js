@@ -2,6 +2,7 @@ export const columnChartConfig = () => {
   return {
     axes: {
       y: {
+        __type: "axis",
         strokeOpacity: {
           value: 0.5,
           type: "text-field.number",
@@ -16,6 +17,7 @@ export const columnChartConfig = () => {
         },
       },
       x: {
+        __type: "axis",
         strokeOpacity: {
           value: 0.5,
           type: "text-field.number",
@@ -47,6 +49,7 @@ export const columnChartConfig = () => {
         },
       },
       y: {
+        __type: "axis",
         stroke: {
           value: "666",
           type: "text-field.color",
@@ -57,6 +60,7 @@ export const columnChartConfig = () => {
         },
       },
       x: {
+        __type: "axis",
         stroke: {
           value: "666",
           type: "text-field.color",
@@ -70,6 +74,7 @@ export const columnChartConfig = () => {
 
     ticks: {
       y: {
+        __type: "axis",
         enabled: {
           value: true,
           type: "radio",
@@ -84,6 +89,7 @@ export const columnChartConfig = () => {
         },
       },
       x: {
+        __type: "axis",
         enabled: {
           value: true,
           type: "radio",
@@ -101,6 +107,7 @@ export const columnChartConfig = () => {
 
     labels: {
       y: {
+        __type: "axis",
         fill: {
           value: "666",
           type: "text-field.color",
@@ -111,6 +118,7 @@ export const columnChartConfig = () => {
         },
       },
       x: {
+        __type: "axis",
         fill: {
           value: "666",
           type: "text-field.color",
@@ -133,6 +141,7 @@ export const columnChartConfig = () => {
 
     legend: {
       food: {
+        __type: "series",
         centerX: {
           value: 0,
           type: "text-field.number",

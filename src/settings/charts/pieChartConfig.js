@@ -8,7 +8,6 @@ export const pieChartConfig = () => {
         },
       },
     },
-
     chart: {
       no_subGroup: {
         radius: {
@@ -23,6 +22,7 @@ export const pieChartConfig = () => {
     },
     labels: {
       cafe: {
+        __type: "series",
         enabled: {
           value: true,
           type: "radio",
@@ -43,6 +43,7 @@ export const pieChartConfig = () => {
     },
     slices: {
       cafe: {
+        __type: "series",
         enabled: {
           value: true,
           type: "radio",
@@ -63,6 +64,7 @@ export const pieChartConfig = () => {
     },
     clickedSlices: {
       cafe: {
+        __type: "series",
         enabled: {
           value: true,
           type: "radio",
@@ -87,6 +89,7 @@ export const pieChartConfig = () => {
     },
     legend: {
       cafe: {
+        __type: "series",
         centerX: {
           value: 50,
           type: "text-field.number",
@@ -103,6 +106,7 @@ export const pieChartConfig = () => {
     },
     ticks: {
       cafe: {
+        __type: "series",
         enabled: {
           value: true,
           type: "radio",
@@ -119,6 +123,7 @@ export const pieChartConfig = () => {
     },
     tooltips: {
       cafe: {
+        __type: "series",
         enabled: {
           value: true,
           type: "radio",
@@ -132,6 +137,7 @@ export const pieChartConfig = () => {
     },
     series: {
       food: {
+        __type: "series",
         enabled: {
           value: true,
           type: "radio",
