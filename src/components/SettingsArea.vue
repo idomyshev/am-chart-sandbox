@@ -6,7 +6,7 @@
         :key="group[0]"
       >
         <v-expansion-panel-header>
-          {{ group[0].toUpperCase() }}
+          {{ capitalizeFirstLetter(group[0]) }}
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <div
@@ -61,6 +61,8 @@
 </template>
 
 <script>
+import { capitalizeFirstLetter } from "@/helpers";
+
 export default {
   name: "SettingsArea",
   model: {
@@ -73,6 +75,7 @@ export default {
     return {
       panel: [0],
       chartSettings: {},
+      capitalizeFirstLetter,
     };
   },
   beforeMount() {
