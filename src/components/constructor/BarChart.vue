@@ -23,11 +23,6 @@ export default {
   data() {
     return {
       chartSettings: barChartConfig(),
-      showGrid: true,
-      showGridAboveSeries: false,
-      showTicks: true,
-      showYLabels: true,
-      showXLabels: true,
     };
   },
   created() {},

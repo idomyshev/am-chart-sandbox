@@ -22,11 +22,6 @@ export default {
   data() {
     return {
       chartSettings: emptyChartConfig(),
-      showGrid: true,
-      showGridAboveSeries: false,
-      showTicks: true,
-      showYLabels: true,
-      showXLabels: true,
     };
   },
   created() {},

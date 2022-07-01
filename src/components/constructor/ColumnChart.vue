@@ -22,11 +22,6 @@ export default {
   data() {
     return {
       chartSettings: columnChartConfig(),
-      showGrid: true,
-      showGridAboveSeries: false,
-      showTicks: true,
-      showYLabels: true,
-      showXLabels: true,
     };
   },
   mounted() {
