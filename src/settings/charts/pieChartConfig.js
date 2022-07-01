@@ -1,6 +1,6 @@
 export const pieChartConfig = () => {
   return {
-    no_group: {
+    general: {
       no_subGroup: {
         customColors: {
           value: true,

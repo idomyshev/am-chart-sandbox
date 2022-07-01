@@ -162,7 +162,7 @@ export default {
       }
 
       // Custom colors.
-      if (this.chartSettings.no_group.no_subGroup.customColors.value) {
+      if (this.chartSettings.general.no_subGroup.customColors.value) {
         cafeSeries
           .get("colors")
           .set("colors", [
