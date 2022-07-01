@@ -68,10 +68,10 @@ export default {
       const chart = root.container.children.push(
         am5percent.PieChart.new(root, {
           radius: am5.percent(
-            this.chartSettings.chart.no_subGroup.radius.value
+            this.chartSettings.chart._noSubGroup.radius.value
           ),
           innerRadius: am5.percent(
-            this.chartSettings.chart.no_subGroup.innerRadius.value
+            this.chartSettings.chart._noSubGroup.innerRadius.value
           ),
         })
       );
@@ -162,7 +162,7 @@ export default {
       }
 
       // Custom colors.
-      if (this.chartSettings.general.no_subGroup.customColors.value) {
+      if (this.chartSettings.general._noSubGroup.customColors.value) {
         cafeSeries
           .get("colors")
           .set("colors", [

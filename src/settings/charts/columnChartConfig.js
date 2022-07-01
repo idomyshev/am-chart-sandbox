@@ -42,7 +42,7 @@ export const columnChartConfig = () => {
     },
 
     grid: {
-      no_subGroup: {
+      _noSubGroup: {
         gridContainerToFront: {
           value: true,
           type: "radio",
@@ -131,7 +131,7 @@ export const columnChartConfig = () => {
     },
 
     cursor: {
-      no_subGroup: {
+      _noSubGroup: {
         enabled: {
           value: true,
           type: "radio",

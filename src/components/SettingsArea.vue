@@ -15,7 +15,7 @@
             class="diagram-settings__line-block"
           >
             <div
-              v-if="subGroup[0] !== 'no_subGroup'"
+              v-if="subGroup[0] !== '_noSubGroup'"
               class="diagram-settings__subgroup-title"
             >
               <span v-if="subGroup[1].__type"> {{ subGroup[1].__type }}: </span>

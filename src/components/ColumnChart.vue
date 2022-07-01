@@ -108,7 +108,7 @@ export default {
         strokeWidth: this.chartSettings.grid.x.strokeWidth.value,
       });
 
-      if (this.chartSettings.grid.no_subGroup.gridContainerToFront.value) {
+      if (this.chartSettings.grid._noSubGroup.gridContainerToFront.value) {
         chart.gridContainer.toFront();
       }
 
@@ -161,7 +161,7 @@ export default {
       legend.data.setAll(chart.series.values);
 
       // Cursor
-      if (this.chartSettings.cursor.no_subGroup.enabled.value) {
+      if (this.chartSettings.cursor._noSubGroup.enabled.value) {
         chart.set("cursor", am5xy.XYCursor.new(root, {}));
       }
 

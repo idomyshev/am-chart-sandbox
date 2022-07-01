@@ -1,7 +1,7 @@
 export const pieChartConfig = () => {
   return {
     general: {
-      no_subGroup: {
+      _noSubGroup: {
         customColors: {
           value: true,
           type: "radio",
@@ -9,7 +9,7 @@ export const pieChartConfig = () => {
       },
     },
     chart: {
-      no_subGroup: {
+      _noSubGroup: {
         radius: {
           value: 80,
           type: "text-field.number",
