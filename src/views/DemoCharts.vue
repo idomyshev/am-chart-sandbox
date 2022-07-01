@@ -24,5 +24,6 @@ export default {
 <style scooped>
 .top {
   display: flex;
+  margin-top: 20px;
 }
 </style>
