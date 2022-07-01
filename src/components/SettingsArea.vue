@@ -73,7 +73,7 @@ export default {
   },
   data() {
     return {
-      panel: [0],
+      panel: [],
       chartSettings: {},
       capitalizeFirstLetter,
     };

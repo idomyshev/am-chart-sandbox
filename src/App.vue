@@ -3,12 +3,12 @@
     <v-main>
       <v-row>
         <v-col class="top-menu">
-          <div class="buttons-container">
-            <v-btn :to="ROUTES.PIE_CHART">Pie chart</v-btn>
-            <v-btn :to="ROUTES.COLUMNS_CHART">Column chart</v-btn>
-            <v-btn :to="ROUTES.RADAR_CHART" class="mr-3">Radar chart</v-btn>
-            <v-btn :to="ROUTES.DEMO_CHARTS">Demo charts</v-btn>
-          </div>
+          <v-btn :to="ROUTES.PIE_CHART">Pie chart</v-btn>
+          <v-btn :to="ROUTES.COLUMNS_CHART">Column chart</v-btn>
+          <v-btn :to="ROUTES.RADAR_CHART" class="mr-3">Radar chart</v-btn>
+          <v-btn :to="ROUTES.DEMO_CHARTS" color="purple lighten-3"
+            >Demo charts</v-btn
+          >
         </v-col>
         <v-col>
           <router-view />
@@ -37,13 +37,11 @@ export default {
 .top-menu {
   padding-top: 50px;
   padding-left: 50px;
-  padding-right: 60px;
+  padding-right: 90px;
   max-width: 300px;
   a {
     margin-bottom: 15px !important;
+    width: 100%;
   }
-}
-.buttons-container {
-  max-width: 210px;
 }
 </style>

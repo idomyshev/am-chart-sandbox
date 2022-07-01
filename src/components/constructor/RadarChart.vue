@@ -5,7 +5,6 @@
     </v-col>
     <v-col cols="7">
       <div class="am-charts-container" ref="amChart"></div>
-      <v-btn v-if="false" @click="initDiagram">Init again</v-btn>
     </v-col>
   </v-row>
 </template>
@@ -13,10 +12,10 @@
 import * as am5 from "@amcharts/amcharts5";
 import { radarMockData } from "@/mockData/diagramsData";
 import SettingsArea from "@/components/SettingsArea";
-import { pieChartConfig } from "@/settings/charts/pieChartConfig";
 import * as am5radar from "@amcharts/amcharts5/radar";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as am5xy from "@amcharts/amcharts5/xy";
+import { radarChartConfig } from "@/settings/charts/radarChartConfig";
 
 export default {
   name: "RadarChart",
@@ -24,7 +23,7 @@ export default {
   computed: {},
   data() {
     return {
-      chartSettings: pieChartConfig(),
+      chartSettings: radarChartConfig(),
       showGrid: true,
       showGridAboveSeries: false,
       showTicks: true,
@@ -92,12 +91,12 @@ export default {
       // Create axes and their renderers
       let xRenderer = am5radar.AxisRendererCircular.new(root, {});
       xRenderer.labels.template.setAll({
-        radius: 10,
+        radius: this.chartSettings.general._noSubGroup.radius.value,
       });
 
       let xAxis = chart.xAxes.push(
         am5xy.CategoryAxis.new(root, {
-          maxDeviation: 0,
+          maxDeviation: 200,
           categoryField: "country",
           renderer: xRenderer,
           tooltip: am5.Tooltip.new(root, {}),
@@ -125,13 +124,13 @@ export default {
       );
 
       series.strokes.template.setAll({
-        strokeWidth: 2,
+        strokeWidth: this.chartSettings.strokes._noSubGroup.strokeWidth.value,
       });
 
-      series.bullets.push(function () {
+      series.bullets.push(() => {
         return am5.Bullet.new(root, {
           sprite: am5.Circle.new(root, {
-            radius: 5,
+            radius: this.chartSettings.bullets._noSubGroup.radius.value,
             fill: series.get("fill"),
           }),
         });
@@ -141,8 +140,13 @@ export default {
       xAxis.data.setAll(radarMockData);
 
       // Animate chart and series in
-      series.appear(1000);
-      chart.appear(1000, 100);
+      series.appear(
+        this.chartSettings.animation._noSubGroup.seriesAppear.value
+      );
+      chart.appear(
+        this.chartSettings.animation._noSubGroup.chartOpacityAppear.value,
+        this.chartSettings.animation._noSubGroup.chartAppear.value
+      );
       this.root = root;
     },
   },
