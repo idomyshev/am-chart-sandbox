@@ -4,7 +4,9 @@
       <SettingsArea v-model="chartSettings" />
     </v-col>
     <v-col :cols="isNoSettings ? 12 : 7">
-      <div class="am-charts-container" ref="amChart"></div>
+      <div class="chart-wrapper">
+        <div class="am-charts-container" ref="amChart"></div>
+      </div>
     </v-col>
   </v-row>
 </template>
