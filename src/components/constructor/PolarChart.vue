@@ -127,6 +127,20 @@ export default {
         })
       );
 
+      let series2 = chart.series.push(
+        am5radar.RadarLineSeries.new(root, {
+          stacked: true,
+          name: "Series ",
+          xAxis: xAxis,
+          yAxis: yAxis,
+          valueYField: "value2",
+          categoryXField: "direction",
+          tooltip: am5.Tooltip.new(root, {
+            labelText: "{categoryX}: {valueY}",
+          }),
+        })
+      );
+
       // series.strokes.template.set("strokeWidth", 2);
       series.bullets.push(function () {
         return am5.Bullet.new(root, {
@@ -143,38 +157,47 @@ export default {
         {
           direction: "N",
           value: 8,
+          value2: 8,
         },
         {
           direction: "NE",
           value: 9,
+          value2: 9,
         },
         {
           direction: "E",
           value: 4.5,
+          value2: 4.5,
         },
         {
           direction: "SE",
           value: 3.5,
+          value2: 3.5,
         },
         {
           direction: "S",
           value: 9.2,
+          value2: 9.2,
         },
         {
           direction: "SW",
           value: 8.4,
+          value2: 9,
         },
         {
           direction: "W",
           value: 11.1,
+          value2: 12,
         },
         {
           direction: "NW",
           value: 10,
+          value2: 14,
         },
       ];
 
       series.data.setAll(data);
+      series2.data.setAll(data);
       xAxis.data.setAll(data);
 
       let range0 = xAxis.createAxisRange(

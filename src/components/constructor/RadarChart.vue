@@ -89,7 +89,7 @@ export default {
       // Create axes and their renderers
       let xRenderer = am5radar.AxisRendererCircular.new(root, {});
       xRenderer.labels.template.setAll({
-        radius: this.chartSettings.general._noSubGroup.radius.value,
+        radius: this.chartSettings.labels._noSubGroup.radius.value,
       });
 
       let xAxis = chart.xAxes.push(
@@ -125,11 +125,22 @@ export default {
         strokeWidth: this.chartSettings.strokes._noSubGroup.strokeWidth.value,
       });
 
-      series.bullets.push(() => {
+      // series.bullets.push(() => {
+      //   return am5.Bullet.new(root, {
+      //     sprite: am5.Circle.new(root, {
+      //       radius: this.chartSettings.bullets._noSubGroup.radius.value,
+      //       fill: series.get("fill"),
+      //     }),
+      //   });
+      // });
+
+      series.bullets.push(function () {
         return am5.Bullet.new(root, {
           sprite: am5.Circle.new(root, {
-            radius: this.chartSettings.bullets._noSubGroup.radius.value,
-            fill: series.get("fill"),
+            radius: 5,
+            fill: "#fff",
+            strokeWidth: 2,
+            stroke: "#f00",
           }),
         });
       });
@@ -158,7 +169,6 @@ export default {
       series.data.setAll(radarMockData);
       xAxis.data.setAll(radarMockData);
 
-      // Animation.
       series.appear(
         this.chartSettings.animation._noSubGroup.seriesAppear.value
       );

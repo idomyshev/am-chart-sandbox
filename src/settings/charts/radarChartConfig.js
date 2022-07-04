@@ -1,6 +1,14 @@
+import {
+  __animationSettings,
+  __featureSettings,
+} from "@/settings/charts/__reusedSettings";
+
 export const radarChartConfig = () => {
   return {
     general: {
+      features: __featureSettings(),
+    },
+    labels: {
       _noSubGroup: {
         radius: {
           value: 10,
@@ -24,21 +32,6 @@ export const radarChartConfig = () => {
         },
       },
     },
-    animation: {
-      _noSubGroup: {
-        seriesAppear: {
-          value: 1000,
-          type: "text-field.number",
-        },
-        chartOpacityAppear: {
-          value: 1000,
-          type: "text-field.number",
-        },
-        chartAppear: {
-          value: 100,
-          type: "text-field.number",
-        },
-      },
-    },
+    animation: __animationSettings(),
   };
 };
