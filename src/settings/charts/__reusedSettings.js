@@ -22,10 +22,15 @@ export const __featureSettings = () => {
     __title: "Enabled features",
     __bold: true,
     _noSubGroup: {
+      __alignment: "flex",
       features: {
         value: true,
       },
       animation: {
+        value: true,
+        type: "radio",
+      },
+      labels: {
         value: true,
         type: "radio",
       },

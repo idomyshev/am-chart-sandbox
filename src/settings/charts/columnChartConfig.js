@@ -1,5 +1,8 @@
+import { __featureSettings } from "@/settings/charts/__reusedSettings";
+
 export const columnChartConfig = () => {
   return {
+    features: __featureSettings(),
     axes: {
       y: {
         __type: "axis",

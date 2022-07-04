@@ -9,9 +9,7 @@
   //overflow-y: scroll;
   &__line {
     display: flex;
-    div {
-      margin-right: 10px
-    }
+    justify-content: space-between;
   }
   &__line, &__line-block {
     .limited-width {

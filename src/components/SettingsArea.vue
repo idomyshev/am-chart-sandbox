@@ -19,19 +19,14 @@
             <div
               v-for="subGroup in getSubGroups(group[1])"
               :key="`${group[0]}_${subGroup[0]}`"
-              class="diagram-settings__line-block"
+              :class="
+                subGroup[1].__alignment === 'flex'
+                  ? 'diagram-settings__line'
+                  : 'diagram-settings__line-block'
+              "
             >
               <div
-                v-if="subGroup[0] !== '_noSubGroup'"
-                class="diagram-settings__subgroup-title"
-              >
-                <span v-if="subGroup[1].__type">
-                  {{ subGroup[1].__type }}:
-                </span>
-                {{ subGroup[0] }}
-              </div>
-              <div
-                v-for="item in Object.entries(subGroup[1])"
+                v-for="item in getItems(subGroup[1])"
                 :key="`${group[0]}_${subGroup[0]}_${item[0]}`"
               >
                 <v-switch
@@ -95,6 +90,11 @@ export default {
     getSubGroups(subGroups) {
       return Object.entries(subGroups).filter((el) => {
         return el[0].substring(0, 2) !== "__";
+      });
+    },
+    getItems(subgroup) {
+      return Object.entries(subgroup).filter((el) => {
+        return el[0].substring(0, 2) !== "__" && el[1].type;
       });
     },
   },
