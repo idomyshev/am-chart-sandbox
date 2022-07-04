@@ -10,11 +10,17 @@
 import * as am5 from "@amcharts/amcharts5";
 import * as am5percent from "@amcharts/amcharts5/percent";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import { donutData } from "@/components/styledCharts/mockData";
 
 export default {
   name: "DonutChart",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      data: donutData,
+    };
   },
   mounted() {
     let root = am5.Root.new(this.$refs.chartdivDonut);
@@ -28,22 +34,6 @@ export default {
         layout: root.horizontalLayout,
       })
     );
-
-    // Define data
-    let data = [
-      {
-        country: "France",
-        sales: 100000,
-      },
-      {
-        country: "Spain",
-        sales: 160000,
-      },
-      {
-        country: "United Kingdom",
-        sales: 80000,
-      },
-    ];
 
     // Create series
     let series = chart.series.push(
@@ -63,16 +53,15 @@ export default {
         am5.color("#9567d8"),
         am5.color("#ffb27d"),
       ]);
-
-    series.data.setAll(data);
+    series.data.setAll(this.data);
 
     // Disabling labels and ticks
     series.labels.template.set("visible", false);
     series.ticks.template.set("visible", false);
 
-    var legendRoot = am5.Root.new(this.$refs.donutLegend);
+    let legendRoot = am5.Root.new(this.$refs.donutLegend);
 
-    var legend = legendRoot.container.children.push(
+    let legend = legendRoot.container.children.push(
       am5.Legend.new(legendRoot, {
         width: am5.percent(50),
         centerX: am5.percent(0),
@@ -98,25 +87,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 400px;
-  background-color: white;
-  border-radius: 10px;
-  margin: 10px 0;
-}
 .chart {
   height: 300px;
-}
-.legend {
-  height: 100px;
-  align-items: center;
-}
-.title {
-  align-self: flex-start;
-  font-weight: 700;
-  font-size: 30px;
-  padding-left: 20px;
 }
 </style>

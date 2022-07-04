@@ -2,7 +2,6 @@
   <div class="container">
     <span class="title">Progress Chart</span>
     <div class="chart" ref="chartdivDonut" />
-    <div class="legend" ref="donutLegend" />
   </div>
 </template>
 
@@ -11,21 +10,27 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5radar from "@amcharts/amcharts5/radar";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as am5xy from "@amcharts/amcharts5/xy";
+import { progressData } from "@/components/styledCharts/mockData";
 
 export default {
   name: "ProgressChart",
   props: {
     msg: String,
   },
+  data() {
+    return {
+      data: progressData,
+    };
+  },
   mounted() {
     // Create root element
-    var root = am5.Root.new(this.$refs.chartdivDonut);
+    let root = am5.Root.new(this.$refs.chartdivDonut);
 
     // Set themes
     root.setThemes([am5themes_Animated.new(root)]);
 
     // Create chart
-    var chart = root.container.children.push(
+    let chart = root.container.children.push(
       am5radar.RadarChart.new(root, {
         panX: false,
         panY: false,
@@ -35,28 +40,8 @@ export default {
       })
     );
 
-    // Data
-    var data = [
-      {
-        category: "Research",
-        value: 20,
-        full: 100,
-        columnSettings: {
-          fill: "#9567d8",
-        },
-      },
-      {
-        category: "Marketing",
-        value: 90,
-        full: 100,
-        columnSettings: {
-          fill: "#f560e6",
-        },
-      },
-    ];
-
     // Create axes and their renderers
-    var xRenderer = am5radar.AxisRendererCircular.new(root, {
+    let xRenderer = am5radar.AxisRendererCircular.new(root, {
       visible: false,
     });
 
@@ -69,7 +54,7 @@ export default {
       forceHidden: true,
     });
 
-    var xAxis = chart.xAxes.push(
+    let xAxis = chart.xAxes.push(
       am5xy.ValueAxis.new(root, {
         renderer: xRenderer,
         min: 0,
@@ -79,7 +64,7 @@ export default {
       })
     );
 
-    var yRenderer = am5radar.AxisRendererRadial.new(root, {
+    let yRenderer = am5radar.AxisRendererRadial.new(root, {
       minGridDistance: 20,
     });
 
@@ -87,7 +72,7 @@ export default {
       forceHidden: true,
     });
 
-    var yAxis = chart.yAxes.push(
+    let yAxis = chart.yAxes.push(
       am5xy.CategoryAxis.new(root, {
         categoryField: "category",
         renderer: yRenderer,
@@ -95,10 +80,10 @@ export default {
       })
     );
 
-    yAxis.data.setAll(data);
+    yAxis.data.setAll(this.data);
 
     // Create series
-    var series1 = chart.series.push(
+    let series1 = chart.series.push(
       am5radar.RadarColumnSeries.new(root, {
         xAxis: xAxis,
         yAxis: yAxis,
@@ -116,9 +101,9 @@ export default {
       cornerRadius: 20,
     });
 
-    series1.data.setAll(data);
+    series1.data.setAll(this.data);
 
-    var series2 = chart.series.push(
+    let series2 = chart.series.push(
       am5radar.RadarColumnSeries.new(root, {
         xAxis: xAxis,
         yAxis: yAxis,
@@ -136,23 +121,31 @@ export default {
       templateField: "columnSettings",
     });
 
-    series2.data.setAll(data);
-    var legendRoot = am5.Root.new(this.$refs.donutLegend);
-
-    var legend = legendRoot.container.children.push(
-      am5.Legend.new(legendRoot, {
-        width: am5.percent(50),
-        centerX: am5.percent(0),
-        x: am5.percent(30),
-        y: am5.percent(35),
+    series2.data.setAll(this.data);
+    let legend = chart.children.push(
+      am5.Legend.new(root, {
+        nameField: "valueX",
+        centerX: am5.percent(50),
+        x: am5.percent(50),
+        y: am5.percent(96),
         layout: am5.GridLayout.new(root, {
-          maxColumns: 3,
+          maxColumns: 2,
           fixedWidthGrid: true,
         }),
       })
     );
+    legend.labels.template.setAll({
+      text: "category",
+      fontSize: 14,
+      fontWeight: "300",
+    });
 
-    legend.data.setAll(series1.chart.series.values);
+    legend.valueLabels.template.setAll({
+      text: "{category}",
+      fontSize: 14,
+      fontWeight: "400",
+    });
+    legend.data.setAll(series2.dataItems);
 
     // Animate chart and series in
     series1.appear(1000);
@@ -164,24 +157,9 @@ export default {
 
 <style scoped>
 .container {
-  display: flex;
-  flex-direction: column;
   height: 400px;
-  background-color: white;
-  border-radius: 10px;
-  margin: 10px 0;
 }
 .chart {
-  height: 300px;
-}
-.legend {
-  height: 100px;
-  align-items: center;
-}
-.title {
-  align-self: flex-start;
-  font-weight: 700;
-  font-size: 30px;
-  padding-left: 20px;
+  height: 340px;
 }
 </style>
