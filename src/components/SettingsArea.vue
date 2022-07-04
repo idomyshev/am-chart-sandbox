@@ -1,22 +1,23 @@
 <template>
   <div class="diagram-settings">
     <v-expansion-panels v-model="panel" multiple>
-      <v-expansion-panel
-        v-for="group in Object.entries(chartSettings)"
-        :key="group[0]"
-      >
-        <template
+      <template v-for="group in getGroups()">
+        <v-expansion-panel
+          :key="group[0]"
           v-if="
-            chartSettings.general.features[group[0]] &&
-            chartSettings.general.features[group[0]].value
+            chartSettings.features._noSubGroup[group[0]] &&
+            chartSettings.features._noSubGroup[group[0]].value
           "
         >
-          <v-expansion-panel-header>
-            {{ capitalizeFirstLetter(group[0]) }}
+          <v-expansion-panel-header
+            :class="group[1].__bold && 'font-weight-bold'"
+          >
+            <span v-if="group[1].__title">{{ group[1].__title }}</span>
+            <span v-else>{{ capitalizeFirstLetter(group[0]) }}</span>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <div
-              v-for="subGroup in Object.entries(group[1])"
+              v-for="subGroup in getSubGroups(group[1])"
               :key="`${group[0]}_${subGroup[0]}`"
               class="diagram-settings__line-block"
             >
@@ -63,8 +64,8 @@
               </div>
             </div>
           </v-expansion-panel-content>
-        </template>
-      </v-expansion-panel>
+        </v-expansion-panel>
+      </template>
     </v-expansion-panels>
   </div>
 </template>
@@ -86,6 +87,16 @@ export default {
       chartSettings: {},
       capitalizeFirstLetter,
     };
+  },
+  methods: {
+    getGroups() {
+      return Object.entries(this.chartSettings);
+    },
+    getSubGroups(subGroups) {
+      return Object.entries(subGroups).filter((el) => {
+        return el[0].substring(0, 2) !== "__";
+      });
+    },
   },
   beforeMount() {
     this.chartSettings = this.parentChartSettings;

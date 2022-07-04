@@ -19,12 +19,16 @@ export const __animationSettings = () => {
 
 export const __featureSettings = () => {
   return {
-    general: {
-      value: true,
-    },
-    animation: {
-      value: true,
-      type: "radio",
+    __title: "Enabled features",
+    __bold: true,
+    _noSubGroup: {
+      features: {
+        value: true,
+      },
+      animation: {
+        value: true,
+        type: "radio",
+      },
     },
   };
 };

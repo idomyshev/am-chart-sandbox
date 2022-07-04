@@ -5,9 +5,7 @@ import {
 
 export const radarChartConfig = () => {
   return {
-    general: {
-      features: __featureSettings(),
-    },
+    features: __featureSettings(),
     labels: {
       _noSubGroup: {
         radius: {
