@@ -4,7 +4,9 @@
       <SettingsArea v-model="chartSettings" />
     </v-col>
     <v-col :cols="isNoSettings ? 12 : 7">
-      <div class="am-charts-container" ref="amChart"></div>
+      <div class="chart-wrapper">
+        <div class="am-charts-container" ref="amChart"></div>
+      </div>
     </v-col>
   </v-row>
 </template>
@@ -80,12 +82,12 @@ export default {
       let cursor = chart.set(
         "cursor",
         am5radar.RadarCursor.new(root, {
-          behavior: "none",
+          behavior: "zoomX",
         })
       );
 
       cursor.lineY.set("visible", false);
-      cursor.lineX.set("visible", false);
+      cursor.lineX.set("visible", true);
 
       // Create axes and their renderers
       // https://www.amcharts.com/docs/v5/charts/radar-chart/#Adding_axes
@@ -125,14 +127,14 @@ export default {
         })
       );
 
-      series.strokes.template.set("strokeWidth", 2);
+      // series.strokes.template.set("strokeWidth", 2);
       series.bullets.push(function () {
         return am5.Bullet.new(root, {
           sprite: am5.Circle.new(root, {
             radius: 5,
-            fill: series.get("fill"),
+            fill: "#fff",
             strokeWidth: 2,
-            stroke: root.interfaceColors.get("background"),
+            stroke: "#f00",
           }),
         });
       });

@@ -4,7 +4,9 @@
       <SettingsArea v-model="chartSettings" />
     </v-col>
     <v-col cols="7">
-      <div class="am-charts-container" ref="amChart"></div>
+      <div class="chart-wrapper">
+        <div class="am-charts-container" ref="amChart"></div>
+      </div>
       <v-btn v-if="false" @click="initDiagram">Init again</v-btn>
     </v-col>
   </v-row>

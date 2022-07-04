@@ -4,7 +4,9 @@
       <SettingsArea v-model="chartSettings" />
     </v-col>
     <v-col cols="7">
-      <div class="am-charts-container" ref="amChart"></div>
+      <div class="chart-wrapper">
+        <div class="am-charts-container" ref="amChart"></div>
+      </div>
     </v-col>
   </v-row>
 </template>
@@ -130,6 +132,27 @@ export default {
             fill: series.get("fill"),
           }),
         });
+      });
+
+      let range2 = xAxis.createAxisRange(
+        xAxis.makeDataItem({
+          category: "UK",
+        })
+      );
+      range2.get("axisFill").setAll({
+        visible: true,
+        fill: am5.color(0x0000ff),
+        fillOpacity: 0.1,
+      });
+      let range3 = xAxis.createAxisRange(
+        xAxis.makeDataItem({
+          category: "Belgium",
+        })
+      );
+      range3.get("axisFill").setAll({
+        visible: true,
+        fill: am5.color(0x00ff00),
+        fillOpacity: 0.1,
       });
 
       series.data.setAll(radarMockData);

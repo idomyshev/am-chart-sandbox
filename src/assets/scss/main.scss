@@ -31,7 +31,17 @@
     max-width: 80%;
   }
 }
+.chart-wrapper {
+  margin: 40px auto auto;
+  background: #fff;
+  display: block;
+  max-width: 680px;
+  border-radius: 10px;
+  padding: 15px 10px;
+}
 .am-charts-container {
   height: 550px;
-  margin: 40px auto 0;
+  //margin: 40px auto 0;
+
+  //background: #fff;
 }

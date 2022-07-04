@@ -43,7 +43,7 @@ export const radarMockData = [
   },
   {
     country: "UK",
-    litres: 290,
+    litres: 919,
   },
   {
     country: "Belgium",
@@ -51,7 +51,7 @@ export const radarMockData = [
   },
   {
     country: "The Netherlands",
-    litres: 40,
+    litres: 1400,
   },
 ];
 
