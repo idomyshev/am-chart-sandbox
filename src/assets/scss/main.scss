@@ -9,7 +9,11 @@
   //overflow-y: scroll;
   &__line {
     display: flex;
-    justify-content: space-between;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    > div {
+      padding-right: 10px;
+    }
   }
   &__line, &__line-block {
     .limited-width {

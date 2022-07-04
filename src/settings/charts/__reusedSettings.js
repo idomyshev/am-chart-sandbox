@@ -28,11 +28,31 @@ export const __featureSettings = () => {
       },
       animation: {
         value: true,
-        type: "radio",
+        type: "checkbox",
+      },
+      axes: {
+        value: true,
+        type: "checkbox",
+      },
+      cursor: {
+        value: true,
+        type: "checkbox",
+      },
+      grid: {
+        value: true,
+        type: "checkbox",
+      },
+      ticks: {
+        value: true,
+        type: "checkbox",
       },
       labels: {
         value: true,
-        type: "radio",
+        type: "checkbox",
+      },
+      legend: {
+        value: true,
+        type: "checkbox",
       },
     },
   };
