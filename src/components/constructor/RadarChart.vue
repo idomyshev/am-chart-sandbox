@@ -89,7 +89,9 @@ export default {
       // Create axes and their renderers
       let xRenderer = am5radar.AxisRendererCircular.new(root, {});
       xRenderer.labels.template.setAll({
+        fill: am5.color(`#999`),
         radius: this.chartSettings.labels._noSubGroup.radius.value,
+        fontSize: `15px`,
       });
 
       let xAxis = chart.xAxes.push(

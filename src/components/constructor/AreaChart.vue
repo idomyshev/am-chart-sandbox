@@ -16,6 +16,7 @@ import SettingsArea from "@/components/SettingsArea";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import { emptyChartConfig } from "@/settings/charts/emptyChartConfig";
+import { Chart } from "@/classes/Chart";
 
 export default {
   name: "AreaChart",
@@ -252,7 +253,6 @@ export default {
       });
 
       series.data.setAll(data);
-      series.appear(1000);
 
       // Add scrollbar
       // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
@@ -264,7 +264,9 @@ export default {
         })
       );
 
-      chart.appear(1000, 100);
+      const chartObj = new Chart(this.chartSettings, chart, [series]);
+      chartObj.initAnimation();
+
       this.root = root;
     },
   },

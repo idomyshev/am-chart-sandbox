@@ -142,6 +142,7 @@ export default {
       xRenderer.labels.template.setAll({
         fill: am5.color(`#${this.chartSettings.labels.x.fill.value}`),
         fontSize: `${this.chartSettings.labels.x.fontSize.value}em`,
+        radius: 30,
       });
 
       // Food series.

@@ -1,4 +1,7 @@
-import { __featureSettings } from "@/settings/charts/__reusedSettings";
+import {
+  __animationSettings,
+  __featureSettings,
+} from "@/settings/charts/__reusedSettings";
 
 export const barChartConfig = () => {
   return {
@@ -27,25 +30,6 @@ export const barChartConfig = () => {
         },
       },
     },
-    animation: {
-      _noSubGroup: {
-        seriesAppear: {
-          value: 1000,
-          type: "text-field.number",
-        },
-        chartOpacityAppear: {
-          value: 1000,
-          type: "text-field.number",
-        },
-        chartAppear: {
-          value: 100,
-          type: "text-field.number",
-        },
-        animateSpeedOnDrop: {
-          value: 600,
-          type: "text-field.number",
-        },
-      },
-    },
+    animation: __animationSettings(),
   };
 };

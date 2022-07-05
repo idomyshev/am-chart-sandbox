@@ -17,6 +17,7 @@ import SettingsArea from "@/components/SettingsArea";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import { barChartConfig } from "@/settings/charts/barChartConfig";
+import { Chart } from "@/classes/Chart";
 
 export default {
   name: "BarChart",
@@ -227,14 +228,8 @@ export default {
       yAxis.data.setAll(barMockData);
       series.data.setAll(barMockData);
 
-      // Animation.
-      series.appear(
-        this.chartSettings.animation._noSubGroup.seriesAppear.value
-      );
-      chart.appear(
-        this.chartSettings.animation._noSubGroup.chartOpacityAppear.value,
-        this.chartSettings.animation._noSubGroup.chartAppear.value
-      );
+      const chartObj = new Chart(this.chartSettings, chart, [series]);
+      chartObj.initAnimation();
 
       this.root = root;
     },
