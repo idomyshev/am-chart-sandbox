@@ -43,7 +43,6 @@ export default {
 }
 .title {
   display: flex;
-  align-self: flex-start;
   font-weight: 700;
   font-size: 30px;
   padding-left: 20px;
