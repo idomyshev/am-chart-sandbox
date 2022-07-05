@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <span class="title">Line Chart</span>
+    <div class="header">
+      <span class="title">Line Chart</span>
+      <v-icon>mdi-dots-horizontal</v-icon>
+    </div>
     <div class="chart" ref="chartdivLine" />
   </div>
 </template>

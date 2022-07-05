@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <span class="title">Waffle Chart</span>
+    <div class="header">
+      <span class="title">Waffle Chart</span>
+      <v-icon>mdi-dots-horizontal</v-icon>
+    </div>
     <div class="chart" ref="chartdivWaffle" />
   </div>
 </template>
@@ -122,6 +125,24 @@ export default {
       });
 
       series.appear();
+
+      legend.labels.template.setAll({
+        text: "category",
+        fontSize: 15,
+        fontWeight: "500",
+      });
+
+      legend.valueLabels.template.setAll({
+        text: "{category}",
+        fontSize: 15,
+        fontWeight: "500",
+      });
+      legend.markerRectangles.template.setAll({
+        cornerRadiusTL: 10,
+        cornerRadiusTR: 10,
+        cornerRadiusBL: 10,
+        cornerRadiusBR: 10,
+      });
       legend.data.push(series);
 
       return series;
@@ -142,5 +163,17 @@ export default {
 <style scoped>
 .chart {
   height: 340px;
+}
+.title {
+  display: flex;
+}
+.title:before {
+  display: inline-block;
+  content: "";
+  width: 8px;
+  height: 30px;
+  background-color: #000;
+  margin-right: 10px;
+  border-radius: 10px;
 }
 </style>
