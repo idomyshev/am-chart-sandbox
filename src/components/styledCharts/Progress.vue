@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <span class="title">Progress Chart</span>
+    <div class="header">
+      <span class="title">Progress Chart</span>
+      <v-icon>mdi-dots-horizontal</v-icon>
+    </div>
     <div class="chart" ref="chartdivDonut" />
   </div>
 </template>
@@ -136,14 +139,22 @@ export default {
     );
     legend.labels.template.setAll({
       text: "category",
-      fontSize: 14,
-      fontWeight: "300",
+      fontSize: 15,
+      fontWeight: "500",
     });
 
     legend.valueLabels.template.setAll({
       text: "{category}",
-      fontSize: 14,
-      fontWeight: "400",
+      fontSize: 15,
+      fontWeight: "500",
+      marginRight: 20,
+    });
+
+    legend.markerRectangles.template.setAll({
+      cornerRadiusTL: 10,
+      cornerRadiusTR: 10,
+      cornerRadiusBL: 10,
+      cornerRadiusBR: 10,
     });
     legend.data.setAll(series2.dataItems);
 

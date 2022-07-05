@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <span class="title">Doughnut Chart</span>
+    <div class="header">
+      <span class="title">Doughnut Chart</span>
+      <v-icon>mdi-dots-horizontal</v-icon>
+    </div>
     <div class="chart" ref="chartdivDonut" style="top: -45px" />
     <div class="legend" ref="donutLegend" />
   </div>
@@ -41,8 +44,6 @@ export default {
         name: "Series",
         valueField: "sales",
         categoryField: "country",
-        legendLabelText: "[{fill}]{category}[/]",
-        legendValueText: "[bold {fill}]{value}[/]",
       })
     );
 
@@ -73,6 +74,18 @@ export default {
         }),
       })
     );
+
+    legend.labels.template.setAll({
+      text: "country",
+      fontSize: 15,
+      fontWeight: "500",
+    });
+
+    legend.valueLabels.template.setAll({
+      text: "{country}",
+      fontSize: 15,
+      fontWeight: "500",
+    });
 
     legend.markerRectangles.template.setAll({
       cornerRadiusTL: 10,

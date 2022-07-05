@@ -1,11 +1,15 @@
 <template>
   <div>
-    <div class="top">
+    <div class="chart-row">
       <Waffle />
       <Progress />
     </div>
-    <Donut />
-    <LineChart />
+    <div class="chart-row">
+      <Donut />
+    </div>
+    <div class="chart-row">
+      <LineChart />
+    </div>
   </div>
 </template>
 
@@ -22,7 +26,7 @@ export default {
 </script>
 
 <style>
-.top {
+.chart-row {
   display: flex;
   margin-top: 20px;
 }
@@ -39,9 +43,22 @@ export default {
   align-items: center;
 }
 .title {
-  align-self: flex-start;
+  display: flex;
   font-weight: 700;
   font-size: 30px;
   padding-left: 20px;
+}
+.title:before {
+  display: inline-block;
+  content: "";
+  width: 8px;
+  height: 30px;
+  background-color: #000;
+  margin-right: 10px;
+  border-radius: 10px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

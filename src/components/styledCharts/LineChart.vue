@@ -1,6 +1,20 @@
 <template>
-  <div class="container">
-    <span class="title">Line Chart</span>
+  <div class="container line-chart">
+    <div class="header">
+      <span class="title">Line Chart</span>
+      <div style="display: flex; align-items: center">
+        <v-select
+          class="chart-select"
+          :items="items"
+          :value="items[0]"
+          height="48"
+          hide-details
+          outlined
+          background-color="#f8f8fa"
+        ></v-select>
+        <v-icon>mdi-dots-horizontal</v-icon>
+      </div>
+    </div>
     <div class="chart" ref="chartdivLine" />
   </div>
 </template>
@@ -20,6 +34,7 @@ export default {
     return {
       data: lineData,
       data2: lineData2,
+      items: ["Last 30 Days"],
     };
   },
   mounted() {
@@ -116,8 +131,48 @@ export default {
 };
 </script>
 
-<style scoped>
-.chart {
-  height: 600px;
+<style lang="scss">
+.line-chart {
+  .chart {
+    height: 600px;
+  }
+  .chart-select {
+    width: 160px;
+    margin-right: 40px;
+  }
+  .v-text-field--box .v-input__slot,
+  .v-text-field--outline .v-input__slot {
+    min-height: 56px;
+    display: flex !important;
+    align-items: center !important;
+  }
+  .v-text-field--filled > .v-input__control > .v-input__slot,
+  .v-text-field--full-width > .v-input__control > .v-input__slot,
+  .v-text-field--outlined > .v-input__control > .v-input__slot {
+    align-items: stretch;
+    min-height: 48px !important;
+  }
+  .v-text-field--full-width .v-input__prepend-outer,
+  .v-text-field--full-width .v-input__prepend-inner,
+  .v-text-field--full-width .v-input__append-inner,
+  .v-text-field--full-width .v-input__append-outer,
+  .v-text-field--enclosed .v-input__prepend-outer,
+  .v-text-field--enclosed .v-input__prepend-inner,
+  .v-text-field--enclosed .v-input__append-inner,
+  .v-text-field--enclosed .v-input__append-outer {
+    margin-top: 11px;
+  }
+  .theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state)
+    > .v-input__control
+    > .v-input__slot
+    fieldset {
+    color: #fff;
+  }
+  .theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state):not(.v-input--is-disabled)
+    > .v-input__control
+    > .v-input__slot:hover
+    fieldset {
+    color: unset;
+  }
 }
 </style>
