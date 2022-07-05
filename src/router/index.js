@@ -4,12 +4,12 @@ import { ROUTES } from "@/settings/routes";
 import ColumnChart from "@/components/constructor/ColumnChart";
 import PieChart from "@/components/constructor/PieChart";
 import DemoCharts from "@/views/DemoCharts";
-import RadarChart from "@/components/constructor/RadarChart";
 import BarChart from "@/components/constructor/BarChart";
 import AreaChart from "@/components/constructor/AreaChart";
 import PolarChart from "@/components/constructor/PolarChart";
 import HierarchyChart from "@/components/constructor/HierarchyChart";
 import XyChart from "@/components/constructor/XyChart";
+import ChartConstructor from "@/views/ChartConstructor";
 
 Vue.use(VueRouter);
 
@@ -37,7 +37,7 @@ const routes = [
   {
     path: ROUTES.RADAR_CHART,
     name: "radar",
-    component: RadarChart,
+    component: ChartConstructor,
   },
   {
     path: ROUTES.POLAR_CHART,
