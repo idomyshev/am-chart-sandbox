@@ -20,7 +20,7 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { chartConfigs } from "@/settings/charts";
 
 export default {
-  name: "ChartConstructor.vue",
+  name: "BasicChart",
 
   components: { SettingsArea },
 

@@ -8,7 +8,7 @@ import AreaChart from "@/components/constructor/AreaChart";
 import PolarChart from "@/components/constructor/PolarChart";
 import HierarchyChart from "@/components/constructor/HierarchyChart";
 import XyChart from "@/components/constructor/XyChart";
-import ChartConstructor from "@/views/ChartConstructor";
+import ChartConstructor from "@/views/BasicChart";
 
 Vue.use(VueRouter);
 
