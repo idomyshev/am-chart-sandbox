@@ -14,8 +14,6 @@
           <v-btn :to="ROUTES.COLUMNS_CHART">Column chart</v-btn>
           <v-btn :to="ROUTES.BAR_CHART" class="mr-3">Bar chart</v-btn>
           <v-btn :to="ROUTES.RADAR_CHART" class="mr-3">Radar chart</v-btn>
-
-          <div class="subtitle">Sample charts</div>
           <v-btn :to="ROUTES.POLAR_CHART" class="mr-3">Polar chart</v-btn>
           <v-btn :to="ROUTES.AREA_CHART" class="mr-3">Line/Area chart</v-btn>
           <v-btn :to="ROUTES.XY_CHART" class="mr-3">XY/Bubble chart</v-btn>
