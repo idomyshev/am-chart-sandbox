@@ -122,7 +122,6 @@ export default {
         width: am5.percent(100),
         height: am5.percent(100),
         stroke: am5.color(0xffffff),
-        radius: 200,
         cornerRadiusTL: 4,
         cornerRadiusTR: 4,
         cornerRadiusBL: 4,

@@ -139,6 +139,7 @@ export default {
   .chart-select {
     width: 160px;
     margin-right: 40px;
+    border-radius: 10px;
   }
   .v-text-field--box .v-input__slot,
   .v-text-field--outline .v-input__slot {
