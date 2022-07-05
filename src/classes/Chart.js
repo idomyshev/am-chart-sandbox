@@ -1,8 +1,21 @@
+import {
+  __animationSettings,
+  __featureSettings,
+} from "@/settings/charts/__reusedSettings";
+
 export const Chart = class Chart {
-  constructor(settings, chart, seriesArray) {
-    this.settings = settings;
+  init(chart, seriesArray) {
     this.chart = chart;
     this.series = seriesArray;
+  }
+
+  initSettings(settings) {
+    this.settings = {
+      features: __featureSettings(),
+      animation: __animationSettings(),
+      ...settings,
+    };
+    return this.settings;
   }
 
   initAnimation() {

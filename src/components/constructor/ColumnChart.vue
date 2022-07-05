@@ -17,6 +17,7 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { diagramsMockData } from "@/mockData/diagramsData";
 import { columnChartConfig } from "@/settings/charts/columnChartConfig";
 import SettingsArea from "@/components/SettingsArea";
+import { Chart } from "@/classes/Chart";
 
 export default {
   name: "ColumnChart",
@@ -27,6 +28,11 @@ export default {
     return {
       chartSettings: columnChartConfig(),
     };
+  },
+
+  beforeMount() {
+    this.chart = new Chart();
+    this.chartSettings = this.chart.initSettings(this.chartSettings);
   },
 
   mounted() {

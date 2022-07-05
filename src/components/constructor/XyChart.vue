@@ -16,6 +16,7 @@ import SettingsArea from "@/components/SettingsArea";
 import { emptyChartConfig } from "@/settings/charts/emptyChartConfig";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import { Chart } from "@/classes/Chart";
 
 export default {
   name: "XyChart",
@@ -34,6 +35,11 @@ export default {
     },
   },
 
+  beforeMount() {
+    this.chart = new Chart();
+    this.chartSettings = this.chart.initSettings(this.chartSettings);
+  },
+
   mounted() {
     this.initDiagram();
   },
@@ -48,7 +54,6 @@ export default {
     chartSettings: {
       handler() {
         this.initDiagram();
-        console.log("settings updated");
       },
       deep: true,
     },
@@ -70,8 +75,6 @@ export default {
 
       root.setThemes([am5themes_Animated.new(root)]);
 
-      // Create chart
-      // https://www.amcharts.com/docs/v5/charts/xy-chart/
       let chart = root.container.children.push(
         am5xy.XYChart.new(root, {
           panX: true,
@@ -1721,10 +1724,8 @@ export default {
         })
       );
 
-      // Make stuff animate on load
-      // https://www.amcharts.com/docs/v5/concepts/animations/
-      series.appear(1000);
-      chart.appear(1000, 100);
+      this.chart.init(chart, [series]);
+      this.chart.initAnimation();
 
       this.root = root;
     },

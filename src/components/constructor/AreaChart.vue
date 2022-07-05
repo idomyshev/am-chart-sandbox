@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       chartSettings: emptyChartConfig(),
+      chart: null,
     };
   },
 
@@ -33,6 +34,11 @@ export default {
     isNoSettings() {
       return !Object.keys(this.chartSettings).length;
     },
+  },
+
+  beforeMount() {
+    this.chart = new Chart();
+    this.chartSettings = this.chart.initSettings(this.chartSettings);
   },
 
   mounted() {
@@ -264,8 +270,8 @@ export default {
         })
       );
 
-      const chartObj = new Chart(this.chartSettings, chart, [series]);
-      chartObj.initAnimation();
+      this.chart.init(chart, [series]);
+      this.chart.initAnimation();
 
       this.root = root;
     },

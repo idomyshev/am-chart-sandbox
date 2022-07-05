@@ -17,6 +17,7 @@ import * as am5percent from "@amcharts/amcharts5/percent";
 import { diagramsMockData } from "@/mockData/diagramsData";
 import SettingsArea from "@/components/SettingsArea";
 import { pieChartConfig } from "@/settings/charts/pieChartConfig";
+import { Chart } from "@/classes/Chart";
 
 export default {
   name: "PieChart",
@@ -27,6 +28,11 @@ export default {
     return {
       chartSettings: pieChartConfig(),
     };
+  },
+
+  beforeMount() {
+    this.chart = new Chart();
+    this.chartSettings = this.chart.initSettings(this.chartSettings);
   },
 
   mounted() {

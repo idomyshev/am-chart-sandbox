@@ -16,6 +16,8 @@ import SettingsArea from "@/components/SettingsArea";
 import { emptyChartConfig } from "@/settings/charts/emptyChartConfig";
 import * as am5hierarchy from "@amcharts/amcharts5/hierarchy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import { Chart } from "@/classes/Chart";
+import { hierarchyMockData } from "@/mockData/hierarchyMockData";
 
 export default {
   name: "HierarchyChart",
@@ -32,6 +34,11 @@ export default {
     isNoSettings() {
       return !Object.keys(this.chartSettings).length;
     },
+  },
+
+  beforeMount() {
+    this.chart = new Chart();
+    this.chartSettings = this.chart.initSettings(this.chartSettings);
   },
 
   mounted() {
@@ -70,101 +77,7 @@ export default {
 
       root.setThemes([am5themes_Animated.new(root)]);
 
-      let data = {
-        name: "Root",
-        value: 0,
-        children: [
-          {
-            name: "1",
-            linkWith: ["2"],
-            children: [
-              {
-                name: "A",
-                children: [
-                  { name: "A1", value: 1 },
-                  { name: "A2", value: 1 },
-                  { name: "A3", value: 1 },
-                  { name: "A4", value: 1 },
-                  { name: "A5", value: 1 },
-                ],
-              },
-              {
-                name: "B",
-                children: [
-                  { name: "B1", value: 1 },
-                  { name: "B2", value: 1 },
-                  { name: "B3", value: 1 },
-                  { name: "B4", value: 1 },
-                  { name: "B5", value: 1 },
-                ],
-              },
-              {
-                name: "C",
-                children: [
-                  { name: "C1", value: 1 },
-                  { name: "C2", value: 1 },
-                  { name: "C3", value: 1 },
-                  { name: "C4", value: 1 },
-                  { name: "C5", value: 1 },
-                ],
-              },
-            ],
-          },
-
-          {
-            name: "2",
-            linkWith: ["3"],
-            children: [
-              {
-                name: "D",
-                value: 1,
-              },
-              {
-                name: "E",
-                value: 1,
-              },
-            ],
-          },
-          {
-            name: "3",
-            children: [
-              {
-                name: "F",
-                children: [
-                  { name: "F1", value: 1 },
-                  { name: "F2", value: 1 },
-                  { name: "F3", value: 1 },
-                  { name: "F4", value: 1 },
-                  { name: "F5", value: 1 },
-                ],
-              },
-              {
-                name: "H",
-                children: [
-                  { name: "H1", value: 1 },
-                  { name: "H2", value: 1 },
-                  { name: "H3", value: 1 },
-                  { name: "H4", value: 1 },
-                  { name: "H5", value: 1 },
-                ],
-              },
-              {
-                name: "G",
-                children: [
-                  { name: "G1", value: 1 },
-                  { name: "G2", value: 1 },
-                  { name: "G3", value: 1 },
-                  { name: "G4", value: 1 },
-                  { name: "G5", value: 1 },
-                ],
-              },
-            ],
-          },
-        ],
-      };
-
-      // Create wrapper container
-      let container = root.container.children.push(
+      let chart = root.container.children.push(
         am5.Container.new(root, {
           width: am5.percent(100),
           height: am5.percent(100),
@@ -172,9 +85,7 @@ export default {
         })
       );
 
-      // Create series
-      // https://www.amcharts.com/docs/v5/charts/hierarchy/#Adding
-      let series = container.children.push(
+      let series = chart.children.push(
         am5hierarchy.ForceDirected.new(root, {
           singleBranchOnly: false,
           downDepth: 1,
@@ -194,11 +105,12 @@ export default {
 
       series.get("colors").set("step", 2);
 
-      series.data.setAll([data]);
+      series.data.setAll([hierarchyMockData]);
       series.set("selectedDataItem", series.dataItems[0]);
 
       // Make stuff animate on load
-      series.appear(1000, 100);
+      this.chart.init(chart, [series]);
+      this.chart.initAnimation();
 
       this.root = root;
     },

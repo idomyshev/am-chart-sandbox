@@ -16,6 +16,7 @@ import SettingsArea from "@/components/SettingsArea";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import { emptyChartConfig } from "@/settings/charts/emptyChartConfig";
 import * as am5radar from "@amcharts/amcharts5/radar";
+import { Chart } from "@/classes/Chart";
 
 export default {
   name: "PolarChart",
@@ -24,6 +25,11 @@ export default {
     return {
       chartSettings: emptyChartConfig(),
     };
+  },
+
+  beforeMount() {
+    this.chart = new Chart();
+    this.chartSettings = this.chart.initSettings(this.chartSettings);
   },
 
   mounted() {
@@ -229,10 +235,8 @@ export default {
 
       chart.radarContainer.children.moveValue(chart.topGridContainer, 0);
 
-      // Animate chart
-      // https://www.amcharts.com/docs/v5/concepts/animations/#Initial_animation
-      series.appear(1000);
-      chart.appear(1000, 100);
+      this.chart.init(chart, [series]);
+      this.chart.initAnimation();
 
       this.root = root;
     },

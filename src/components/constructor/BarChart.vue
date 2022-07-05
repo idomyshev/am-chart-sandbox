@@ -27,7 +27,13 @@ export default {
   data() {
     return {
       chartSettings: barChartConfig(),
+      chart: null,
     };
+  },
+
+  beforeMount() {
+    this.chart = new Chart();
+    this.chartSettings = this.chart.initSettings(this.chartSettings);
   },
 
   mounted() {
@@ -228,8 +234,8 @@ export default {
       yAxis.data.setAll(barMockData);
       series.data.setAll(barMockData);
 
-      const chartObj = new Chart(this.chartSettings, chart, [series]);
-      chartObj.initAnimation();
+      this.chart.init(chart, [series]);
+      this.chart.initAnimation();
 
       this.root = root;
     },

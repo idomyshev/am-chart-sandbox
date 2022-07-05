@@ -1,11 +1,5 @@
-import {
-  __animationSettings,
-  __featureSettings,
-} from "@/settings/charts/__reusedSettings";
-
 export const radarChartConfig = () => {
   return {
-    features: __featureSettings(),
     labels: {
       _noSubGroup: {
         radius: {
@@ -30,6 +24,5 @@ export const radarChartConfig = () => {
         },
       },
     },
-    animation: __animationSettings(),
   };
 };

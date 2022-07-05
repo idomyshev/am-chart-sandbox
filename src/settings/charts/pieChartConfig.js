@@ -1,8 +1,5 @@
-import { __featureSettings } from "@/settings/charts/__reusedSettings";
-
 export const pieChartConfig = () => {
   return {
-    features: __featureSettings(),
     general: {
       _noSubGroup: {
         customColors: {

@@ -1,11 +1,5 @@
-import {
-  __animationSettings,
-  __featureSettings,
-} from "@/settings/charts/__reusedSettings";
-
 export const barChartConfig = () => {
   return {
-    features: __featureSettings(),
     columnTemplate: {
       _noSubGroup: {
         draggable: {
@@ -30,6 +24,5 @@ export const barChartConfig = () => {
         },
       },
     },
-    animation: __animationSettings(),
   };
 };

@@ -18,6 +18,7 @@ import * as am5radar from "@amcharts/amcharts5/radar";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import { radarChartConfig } from "@/settings/charts/radarChartConfig";
+import { Chart } from "@/classes/Chart";
 
 export default {
   name: "RadarChart",
@@ -28,6 +29,11 @@ export default {
     return {
       chartSettings: radarChartConfig(),
     };
+  },
+
+  beforeMount() {
+    this.chart = new Chart();
+    this.chartSettings = this.chart.initSettings(this.chartSettings);
   },
 
   mounted() {
@@ -171,13 +177,8 @@ export default {
       series.data.setAll(radarMockData);
       xAxis.data.setAll(radarMockData);
 
-      series.appear(
-        this.chartSettings.animation._noSubGroup.seriesAppear.value
-      );
-      chart.appear(
-        this.chartSettings.animation._noSubGroup.chartOpacityAppear.value,
-        this.chartSettings.animation._noSubGroup.chartAppear.value
-      );
+      this.chart.init(chart, [series]);
+      this.chart.initAnimation();
 
       this.root = root;
     },
