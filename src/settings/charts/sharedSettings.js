@@ -38,6 +38,10 @@ export const __featureSettings = () => {
         value: true,
         type: "checkbox",
       },
+      columnTemplate: {
+        value: true,
+        type: "checkbox",
+      },
       cursor: {
         value: true,
         type: "checkbox",
