@@ -28,7 +28,6 @@ export default {
     return {
       chartSettings: null,
       chart: null,
-      test1: null,
       chartConfig: null,
     };
   },

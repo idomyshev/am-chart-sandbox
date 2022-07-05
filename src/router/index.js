@@ -36,7 +36,7 @@ const routes = [
   },
   {
     path: ROUTES.RADAR_CHART,
-    name: "radar",
+    name: "radarChart",
     component: ChartConstructor,
   },
   {
