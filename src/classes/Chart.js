@@ -1,7 +1,7 @@
 import {
   __animationSettings,
   __featureSettings,
-} from "@/settings/charts/__reusedSettings";
+} from "@/settings/charts/sharedSettings";
 
 export const Chart = class Chart {
   init(chart, seriesArray) {

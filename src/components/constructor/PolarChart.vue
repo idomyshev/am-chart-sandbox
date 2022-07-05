@@ -14,7 +14,7 @@
 import * as am5 from "@amcharts/amcharts5";
 import SettingsArea from "@/components/SettingsArea";
 import * as am5xy from "@amcharts/amcharts5/xy";
-import { emptyChartConfig } from "@/settings/charts/emptyChartConfig";
+import { emptyChartConfig } from "@/settings/charts/configs/emptyChartConfig";
 import * as am5radar from "@amcharts/amcharts5/radar";
 import { Chart } from "@/classes/Chart";
 

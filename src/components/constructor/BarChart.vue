@@ -16,7 +16,7 @@ import { barMockData } from "@/mockData/diagramsData";
 import SettingsArea from "@/components/SettingsArea";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as am5xy from "@amcharts/amcharts5/xy";
-import { barChartConfig } from "@/settings/charts/barChartConfig";
+import { barChartConfig } from "@/settings/charts/configs/barChartConfig";
 import { Chart } from "@/classes/Chart";
 
 export default {

@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { ROUTES } from "@/settings/routes";
 import ColumnChart from "@/components/constructor/ColumnChart";
-import PieChart from "@/components/constructor/PieChart";
 import DemoCharts from "@/views/DemoCharts";
 import BarChart from "@/components/constructor/BarChart";
 import AreaChart from "@/components/constructor/AreaChart";
@@ -21,8 +20,8 @@ const routes = [
   },
   {
     path: ROUTES.PIE_CHART,
-    name: "pie",
-    component: PieChart,
+    name: "pieChart",
+    component: ChartConstructor,
   },
   {
     path: ROUTES.COLUMNS_CHART,

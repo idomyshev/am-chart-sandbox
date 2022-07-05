@@ -13,7 +13,7 @@
 <script>
 import * as am5 from "@amcharts/amcharts5";
 import SettingsArea from "@/components/SettingsArea";
-import { emptyChartConfig } from "@/settings/charts/emptyChartConfig";
+import { emptyChartConfig } from "@/settings/charts/configs/emptyChartConfig";
 import * as am5hierarchy from "@amcharts/amcharts5/hierarchy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { Chart } from "@/classes/Chart";
