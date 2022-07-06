@@ -88,6 +88,7 @@ export default {
     );
 
     yAxis.get("renderer").labels.template.set("forceHidden", true);
+    root.interfaceColors.set("grid", "#fff");
 
     yAxis.data.setAll([
       { y: "1" },
@@ -115,6 +116,7 @@ export default {
           openCategoryXField: "x",
           clustered: false,
           fill: color,
+          stroke: am5.color(0xffffff),
         })
       );
 
