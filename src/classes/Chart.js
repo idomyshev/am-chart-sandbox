@@ -67,9 +67,11 @@ export const Chart = class Chart {
       if (setting.value === "undefined") {
         return undefined;
       } else {
-        return `#${setting.value}`;
+        return `${setting.value}`;
       }
     }
+
+    return setting.value;
   }
 
   addBullets() {

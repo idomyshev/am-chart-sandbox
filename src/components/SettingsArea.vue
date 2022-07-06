@@ -54,8 +54,21 @@
                   "
                   :disabled="item[1].disabled"
                 />
+                <div v-if="item[1].type === 'color'">
+                  <div class="diagram-settings__color-picker-title">
+                    {{ item[0] }}
+                  </div>
+                  <div class="diagram-settings__color-picker-box">
+                    <v-color-picker
+                      v-model="
+                        chartSettings[group[0]][subGroup[0]][item[0]].value
+                      "
+                      label="color!!"
+                    />
+                  </div>
+                </div>
                 <v-select
-                  v-if="item[1].type === 'color'"
+                  v-if="item[1].type === 'color1'"
                   v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
                   :items="COLORS"
                   :label="item[0]"
