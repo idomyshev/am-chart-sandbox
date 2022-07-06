@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import { ROUTES } from "@/settings/routes";
 import DemoCharts from "@/views/DemoCharts";
 import PolarChart from "@/components/constructor/PolarChart";
-import HierarchyChart from "@/components/constructor/HierarchyChart";
 import XyChart from "@/components/constructor/XyChart";
 import BasicChart from "@/views/BasicChart";
 
@@ -52,8 +51,8 @@ const routes = [
   },
   {
     path: ROUTES.HIERARCHY_CHART,
-    name: "hierarchy",
-    component: HierarchyChart,
+    name: "hierarchyChart",
+    component: BasicChart,
   },
 ];
 
