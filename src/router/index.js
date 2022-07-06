@@ -1,15 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import { ROUTES } from "@/settings/routes";
-import ColumnChart from "@/components/constructor/ColumnChart";
-import PieChart from "@/components/constructor/PieChart";
 import DemoCharts from "@/views/DemoCharts";
-import RadarChart from "@/components/constructor/RadarChart";
-import BarChart from "@/components/constructor/BarChart";
-import AreaChart from "@/components/constructor/AreaChart";
-import PolarChart from "@/components/constructor/PolarChart";
-import HierarchyChart from "@/components/constructor/HierarchyChart";
-import XyChart from "@/components/constructor/XyChart";
+import BasicChart from "@/views/BasicChart";
 
 Vue.use(VueRouter);
 
@@ -21,43 +14,43 @@ const routes = [
   },
   {
     path: ROUTES.PIE_CHART,
-    name: "pie",
-    component: PieChart,
+    name: "pieChart",
+    component: BasicChart,
   },
   {
     path: ROUTES.COLUMNS_CHART,
-    name: "column",
-    component: ColumnChart,
+    name: "columnChart",
+    component: BasicChart,
   },
   {
     path: ROUTES.BAR_CHART,
-    name: "bar",
-    component: BarChart,
+    name: "barChart",
+    component: BasicChart,
   },
   {
     path: ROUTES.RADAR_CHART,
-    name: "radar",
-    component: RadarChart,
+    name: "radarChart",
+    component: BasicChart,
   },
   {
     path: ROUTES.POLAR_CHART,
-    name: "polar",
-    component: PolarChart,
+    name: "polarChart",
+    component: BasicChart,
   },
   {
     path: ROUTES.AREA_CHART,
-    name: "area",
-    component: AreaChart,
+    name: "areaChart",
+    component: BasicChart,
   },
   {
     path: ROUTES.XY_CHART,
-    name: "xy",
-    component: XyChart,
+    name: "xyChart",
+    component: BasicChart,
   },
   {
     path: ROUTES.HIERARCHY_CHART,
-    name: "hierarchy",
-    component: HierarchyChart,
+    name: "hierarchyChart",
+    component: BasicChart,
   },
 ];
 
