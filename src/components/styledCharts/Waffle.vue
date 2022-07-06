@@ -122,6 +122,10 @@ export default {
         width: am5.percent(100),
         height: am5.percent(100),
         stroke: am5.color(0xffffff),
+        cornerRadiusTL: 4,
+        cornerRadiusTR: 4,
+        cornerRadiusBL: 4,
+        cornerRadiusBR: 4,
       });
 
       series.appear();

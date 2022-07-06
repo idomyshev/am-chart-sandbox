@@ -55,7 +55,7 @@ export default {
   height: 30px;
   background-color: #000;
   margin-right: 10px;
-  border-radius: 10px;
+  border-radius: 14px;
 }
 .header {
   display: flex;
