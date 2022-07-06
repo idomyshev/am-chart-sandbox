@@ -48,8 +48,8 @@ export default {
     // Add legend
     let legend = chart.children.push(
       am5.Legend.new(root, {
-        centerX: am5.p50,
-        x: 265,
+        centerX: am5.percent(50),
+        x: am5.percent(50),
         width: 500,
       })
     );

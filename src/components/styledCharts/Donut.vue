@@ -64,9 +64,9 @@ export default {
 
     let legend = legendRoot.container.children.push(
       am5.Legend.new(legendRoot, {
-        width: am5.percent(50),
-        centerX: am5.percent(0),
-        x: am5.percent(25),
+        // width: am5.percent(100),
+        centerX: am5.percent(50),
+        x: am5.percent(50),
         y: am5.percent(35),
         layout: am5.GridLayout.new(root, {
           maxColumns: 3,
