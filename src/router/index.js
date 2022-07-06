@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import { ROUTES } from "@/settings/routes";
 import DemoCharts from "@/views/DemoCharts";
 import PolarChart from "@/components/constructor/PolarChart";
-import XyChart from "@/components/constructor/XyChart";
 import BasicChart from "@/views/BasicChart";
 
 Vue.use(VueRouter);
@@ -36,7 +35,7 @@ const routes = [
   },
   {
     path: ROUTES.POLAR_CHART,
-    name: "polar",
+    name: "polarChart",
     component: PolarChart,
   },
   {
@@ -46,8 +45,8 @@ const routes = [
   },
   {
     path: ROUTES.XY_CHART,
-    name: "xy",
-    component: XyChart,
+    name: "xyChart",
+    component: BasicChart,
   },
   {
     path: ROUTES.HIERARCHY_CHART,

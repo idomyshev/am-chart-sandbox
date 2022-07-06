@@ -33,15 +33,7 @@ export default {
   },
 
   async beforeMount() {
-    this.chart = new Chart();
-    this.chartConfig = chartConfigs[this.$route.name];
-    if (!this.chartConfig) {
-      console.error("Config file for chart is not defined!");
-      return;
-    }
-    this.settingsLoaded = true;
-    const chartSettings = this.chartConfig.initConfig();
-    this.chartSettings = this.chart.initSettings(chartSettings);
+    this.runChart();
   },
 
   mounted() {
@@ -51,22 +43,39 @@ export default {
   },
 
   beforeDestroy() {
-    if (this.root) {
-      this.root.dispose();
-    }
+    this.stopChart();
   },
 
   watch: {
     chartSettings: {
       handler() {
         this.initDiagram();
-        console.log("settings updated");
       },
       deep: true,
+    },
+    $route() {
+      this.stopChart();
+      this.runChart();
     },
   },
 
   methods: {
+    runChart() {
+      this.chart = new Chart();
+      this.chartConfig = chartConfigs[this.$route.name];
+      if (!this.chartConfig) {
+        console.error("Config file for chart is not defined!");
+        return;
+      }
+      this.settingsLoaded = true;
+      const chartSettings = this.chartConfig.initConfig();
+      this.chartSettings = this.chart.initSettings(chartSettings);
+    },
+    stopChart() {
+      if (this.root) {
+        this.root.dispose();
+      }
+    },
     initDiagram() {
       am5.ready(async () => {
         await this.createDiagram();

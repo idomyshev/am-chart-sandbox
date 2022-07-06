@@ -83,6 +83,14 @@ export default {
       capitalizeFirstLetter,
     };
   },
+  watch: {
+    parentChartSettings: {
+      handler() {
+        this.chartSettings = this.parentChartSettings;
+      },
+      deep: true,
+    },
+  },
   methods: {
     getGroups() {
       return Object.entries(this.chartSettings);
