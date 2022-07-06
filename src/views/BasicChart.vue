@@ -99,8 +99,15 @@ export default {
 
       const [chart, series] = initChartResult;
 
-      this.chart.init(chart, [series]);
-      this.chart.initAnimation();
+      this.chart.init(root, chart, [series]);
+
+      if (this.chartSettings.features._noSubGroup.animation.value) {
+        this.chart.addAnimation();
+      }
+
+      if (this.chartSettings.features._noSubGroup.bullets.value) {
+        this.chart.addBullets();
+      }
 
       this.root = root;
     },

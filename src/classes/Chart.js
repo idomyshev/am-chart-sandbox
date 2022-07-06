@@ -2,9 +2,11 @@ import {
   __animationSettings,
   __featureSettings,
 } from "@/settings/charts/sharedSettings";
+import * as am5 from "@amcharts/amcharts5";
 
 export const Chart = class Chart {
-  init(chart, seriesArray) {
+  init(root, chart, seriesArray) {
+    this.root = root;
     this.chart = chart;
     this.series = seriesArray;
   }
@@ -18,7 +20,7 @@ export const Chart = class Chart {
     return this.settings;
   }
 
-  initAnimation() {
+  addAnimation() {
     this.series.forEach((el) => {
       el.appear(this.settings.animation._noSubGroup.seriesAppear.value);
     });
@@ -26,5 +28,20 @@ export const Chart = class Chart {
       this.settings.animation._noSubGroup.chartOpacityAppear.value,
       this.settings.animation._noSubGroup.chartAppear.value
     );
+  }
+
+  addBullets() {
+    this.series.forEach((el) => {
+      el.bullets.push(() => {
+        return am5.Bullet.new(this.root, {
+          sprite: am5.Circle.new(this.root, {
+            radius: 35,
+            fill: "#fff",
+            strokeWidth: 2,
+            stroke: "#00f",
+          }),
+        });
+      });
+    });
   }
 };
