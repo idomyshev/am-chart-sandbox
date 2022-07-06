@@ -63,20 +63,12 @@
                       v-model="
                         chartSettings[group[0]][subGroup[0]][item[0]].value
                       "
-                      label="color!!"
                     />
                   </div>
                 </div>
-                <v-select
-                  v-if="item[1].type === 'color1'"
-                  v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
-                  :items="COLORS"
-                  :label="item[0]"
-                  :class="
-                    item[1].type !== 'text-field.text' ? 'limited-width' : ''
-                  "
-                  :disabled="item[1].disabled"
-                />
+                <div>
+                  {{ chartSettings[group[0]][subGroup[0]][item[0]].value }}
+                </div>
               </div>
             </div>
           </v-expansion-panel-content>

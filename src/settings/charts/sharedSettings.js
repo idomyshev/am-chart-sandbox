@@ -29,7 +29,7 @@ export const __bulletsSettings = () => {
         type: "text-field.number",
       },
       fill: {
-        value: "fff",
+        value: "#fff",
         type: "color",
       },
       strokeWidth: {
@@ -37,7 +37,7 @@ export const __bulletsSettings = () => {
         type: "text-field.number",
       },
       stroke: {
-        value: "00f",
+        value: "#00f",
         type: "color",
       },
     },

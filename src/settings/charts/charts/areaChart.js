@@ -172,15 +172,6 @@ const initChart = (root) => {
     templateField: "fillSettings",
   });
 
-  series.bullets.push(function () {
-    return am5.Bullet.new(root, {
-      sprite: am5.Circle.new(root, {
-        templateField: "bulletSettings",
-        radius: 5,
-      }),
-    });
-  });
-
   series.data.setAll(data);
 
   // Add scrollbar
