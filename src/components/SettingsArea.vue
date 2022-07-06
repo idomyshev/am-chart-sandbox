@@ -43,11 +43,9 @@
                 />
                 <v-text-field
                   v-if="
-                    [
-                      'text-field.number',
-                      'text-field.color',
-                      'text-field.text',
-                    ].includes(item[1].type)
+                    ['text-field.number', 'color', 'text-field.text'].includes(
+                      item[1].type
+                    )
                   "
                   v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
                   :label="item[0]"
