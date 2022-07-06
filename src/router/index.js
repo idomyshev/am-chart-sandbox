@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import { ROUTES } from "@/settings/routes";
-import ColumnChart from "@/components/constructor/ColumnChart";
 import DemoCharts from "@/views/DemoCharts";
 import PolarChart from "@/components/constructor/PolarChart";
 import HierarchyChart from "@/components/constructor/HierarchyChart";
@@ -23,8 +22,8 @@ const routes = [
   },
   {
     path: ROUTES.COLUMNS_CHART,
-    name: "column",
-    component: ColumnChart,
+    name: "columnChart",
+    component: BasicChart,
   },
   {
     path: ROUTES.BAR_CHART,
