@@ -1,8 +1,7 @@
 import * as am5xy from "@amcharts/amcharts5/xy";
 import * as am5 from "@amcharts/amcharts5";
 
-const initChart = (root, chartSettings) => {
-  console.log(typeof chartSettings);
+const initChart = (root) => {
   let chart = root.container.children.push(
     am5xy.XYChart.new(root, {
       panX: true,
