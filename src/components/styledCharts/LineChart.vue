@@ -138,7 +138,7 @@ export default {
   }
   .chart-select {
     width: 160px;
-    margin-right: 40px;
+    margin-right: 10px !important;
     border-radius: 10px;
   }
   .v-text-field--box .v-input__slot,
