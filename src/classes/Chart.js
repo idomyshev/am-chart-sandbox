@@ -64,7 +64,7 @@ export const Chart = class Chart {
       : settings[groupName][settingName];
 
     if (setting.type === "color") {
-      if (!setting.value) {
+      if (setting.value === "undefined") {
         return undefined;
       } else {
         return `#${setting.value}`;

@@ -43,11 +43,21 @@
                 />
                 <v-text-field
                   v-if="
-                    ['text-field.number', 'color', 'text-field.text'].includes(
+                    ['text-field.number', 'text-field.text'].includes(
                       item[1].type
                     )
                   "
                   v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
+                  :label="item[0]"
+                  :class="
+                    item[1].type !== 'text-field.text' ? 'limited-width' : ''
+                  "
+                  :disabled="item[1].disabled"
+                />
+                <v-select
+                  v-if="item[1].type === 'color'"
+                  v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
+                  :items="COLORS"
                   :label="item[0]"
                   :class="
                     item[1].type !== 'text-field.text' ? 'limited-width' : ''
@@ -65,6 +75,7 @@
 
 <script>
 import { capitalizeFirstLetter } from "@/helpers";
+import { COLORS } from "@/settings/colors";
 
 export default {
   name: "SettingsArea",
@@ -79,6 +90,7 @@ export default {
       panel: [],
       chartSettings: {},
       capitalizeFirstLetter,
+      COLORS,
     };
   },
   watch: {
