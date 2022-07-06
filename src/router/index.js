@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import { ROUTES } from "@/settings/routes";
 import ColumnChart from "@/components/constructor/ColumnChart";
 import DemoCharts from "@/views/DemoCharts";
-import AreaChart from "@/components/constructor/AreaChart";
 import PolarChart from "@/components/constructor/PolarChart";
 import HierarchyChart from "@/components/constructor/HierarchyChart";
 import XyChart from "@/components/constructor/XyChart";
@@ -44,8 +43,8 @@ const routes = [
   },
   {
     path: ROUTES.AREA_CHART,
-    name: "area",
-    component: AreaChart,
+    name: "areaChart",
+    component: BasicChart,
   },
   {
     path: ROUTES.XY_CHART,

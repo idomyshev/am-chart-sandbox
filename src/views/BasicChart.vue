@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-row>
     <v-col cols="5">
-      <SettingsArea v-model="chartSettings" />
+      <SettingsArea v-if="settingsLoaded" v-model="chartSettings" />
     </v-col>
     <v-col cols="7">
       <div class="chart-wrapper">
@@ -13,7 +13,6 @@
 
 <script>
 import SettingsArea from "@/components/SettingsArea";
-// import { initConfig } from "@/settings/charts/radarChartConfig";
 import { Chart } from "@/classes/Chart";
 import * as am5 from "@amcharts/amcharts5";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
@@ -29,18 +28,26 @@ export default {
       chartSettings: null,
       chart: null,
       chartConfig: null,
+      settingsLoaded: false,
     };
   },
 
   async beforeMount() {
     this.chart = new Chart();
     this.chartConfig = chartConfigs[this.$route.name];
+    if (!this.chartConfig) {
+      console.error("Config file for chart is not defined!");
+      return;
+    }
+    this.settingsLoaded = true;
     const chartSettings = this.chartConfig.initConfig();
     this.chartSettings = this.chart.initSettings(chartSettings);
   },
 
   mounted() {
-    this.initDiagram();
+    if (this.settingsLoaded) {
+      this.initDiagram();
+    }
   },
 
   beforeDestroy() {
@@ -67,7 +74,6 @@ export default {
     },
 
     async createDiagram() {
-      // const chartModule = await import("@/settings/charts/radarChartConfig.js");
       if (this.root) {
         this.root.dispose();
       }
@@ -77,12 +83,12 @@ export default {
 
       root.setThemes([am5themes_Animated.new(root)]);
 
-      const [chart, series] = this.chartConfig.initChart(
+      const initChartResult = this.chartConfig.initChart(
         root,
         this.chartSettings
       );
 
-      //mod1.testImport();
+      const [chart, series] = initChartResult;
 
       this.chart.init(chart, [series]);
       this.chart.initAnimation();
