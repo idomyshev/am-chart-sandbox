@@ -36,7 +36,9 @@
                   :disabled="item[1].disabled"
                 />
                 <v-checkbox
-                  v-if="item[1].type === 'checkbox'"
+                  v-if="
+                    getSettingModel(group[0], item[0], 'type') === 'checkbox'
+                  "
                   v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
                   :label="item[0]"
                   :disabled="item[1].disabled"
@@ -81,6 +83,7 @@
 <script>
 import { capitalizeFirstLetter } from "@/helpers";
 import { COLORS } from "@/settings/colors";
+import { getSettingModel } from "@/settings/charts/settingsModels";
 
 export default {
   name: "SettingsArea",
@@ -96,6 +99,7 @@ export default {
       chartSettings: {},
       capitalizeFirstLetter,
       COLORS,
+      getSettingModel,
     };
   },
   watch: {

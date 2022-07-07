@@ -4,6 +4,7 @@ import {
   __featureSettings,
 } from "@/settings/charts/sharedSettings";
 import * as am5 from "@amcharts/amcharts5";
+// import { settingsModels } from "@/settings/charts/settingsModels";
 
 export const Chart = class Chart {
   init(root, chart, seriesArray) {
@@ -33,6 +34,17 @@ export const Chart = class Chart {
   }
 
   settingValue(groupName, seriesName, settingName) {
+    // if (!settingsModels[groupName]) {
+    //   console.error(`Settings model for group ${groupName} not exist.`);
+    //   return null;
+    // } else if (settingsModels[groupName][settingName]) {
+    //   console.error(
+    //     `Settings model for setting ${settingName} of group ${groupName} not exist.`
+    //   );
+    //   return null;
+    // }
+
+    // const settingsModel = settingsModels[groupName][settingName];
     const settings = this.settings;
 
     if (!settings[groupName]) {
@@ -44,7 +56,7 @@ export const Chart = class Chart {
           `Series ${seriesName} for settings group ${groupName} not exist.`
         );
         return null;
-      } else if (!settings[groupName][seriesName][settingName]) {
+      } else if (settings[groupName][seriesName][settingName] === undefined) {
         console.error(
           `Setting ${settingName} for series ${seriesName} for settings group ${groupName} not exist.`
         );
@@ -63,30 +75,23 @@ export const Chart = class Chart {
       ? settings[groupName][seriesName][settingName]
       : settings[groupName][settingName];
 
-    if (setting.type === "color") {
-      if (setting.value === "undefined") {
-        return undefined;
-      } else {
-        return `${setting.value}`;
-      }
-    }
-
     return setting.value;
   }
 
   addBullets() {
     this.series.forEach((el) => {
+      const seriesName = "_noSubGroup";
       el.bullets.push(() => {
         return am5.Bullet.new(this.root, {
           sprite: am5.Circle.new(this.root, {
-            radius: this.settingValue("bullets", "_noSubGroup", "radius"),
-            fill: this.settingValue("bullets", "_noSubGroup", "fill"),
+            radius: this.settingValue("bullets", seriesName, "radius"),
+            fill: this.settingValue("bullets", seriesName, "fill"),
             strokeWidth: this.settingValue(
               "bullets",
-              "_noSubGroup",
+              seriesName,
               "strokeWidth"
             ),
-            stroke: this.settingValue("bullets", "_noSubGroup", "stroke"),
+            stroke: this.settingValue("bullets", seriesName, "stroke"),
           }),
         });
       });

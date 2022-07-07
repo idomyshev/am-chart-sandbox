@@ -157,4 +157,16 @@ const initChart = (root) => {
   return [chart, series];
 };
 
-export default { initChart, initConfig: () => {} };
+export default {
+  initChart,
+  initConfig: () => {
+    return {
+      bullets: {
+        radius: 25,
+        fill: "#f00",
+        strokeWidth: 2,
+        stroke: "#00f",
+      },
+    };
+  },
+};
