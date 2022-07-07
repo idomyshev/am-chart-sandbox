@@ -37,6 +37,7 @@ export default {
   background-color: white;
   border-radius: 10px;
   margin: 10px 5px;
+  padding: 0;
 }
 .legend {
   height: 100px;
@@ -46,7 +47,6 @@ export default {
   display: flex;
   font-weight: 700;
   font-size: 30px;
-  padding-left: 20px;
 }
 .title:before {
   display: inline-block;
@@ -60,5 +60,8 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
+  padding: 0 32px;
+  padding-top: 32px;
+  padding-bottom: 52px;
 }
 </style>
