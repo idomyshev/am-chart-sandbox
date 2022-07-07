@@ -1,3 +1,5 @@
+import { getSettingsSet } from "@/helpers/settings";
+
 export const settingsModels = {
   animation: {
     chartAppear: {
@@ -112,15 +114,22 @@ export const getSettingModelProperty = (
 
 export const settingsFeatures = Object.keys(settingsModels);
 
-export const getSettingGroupMeta = (groupName, metaName, check) => {
-  if (check) {
-    if (!settingsModels[groupName]) {
+const enabledSettingsUnprepared = getSettingsSet("pieChart", "features");
+export const enabledSettingsFeatures = settingsFeatures.filter((el) => {
+  return enabledSettingsUnprepared.some((x) => x === el);
+});
+
+export const getSettingGroupMeta = (groupName, metaName, showError) => {
+  if (!settingsModels[groupName]) {
+    if (showError) {
       console.error(`Setting group '${groupName}' not exist`);
-      return "";
-    } else if (!settingsModels[groupName][`__${metaName}`]) {
-      console.error(`Setting group meta '${groupName}.${metaName}' not exist`);
-      return "";
     }
+    return "";
+  } else if (!settingsModels[groupName][`__${metaName}`]) {
+    if (showError) {
+      console.error(`Setting group meta '${groupName}.${metaName}' not exist`);
+    }
+    return "";
   }
   return settingsModels[groupName][`__${metaName}`];
 };

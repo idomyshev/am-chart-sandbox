@@ -82,6 +82,7 @@
 import { capitalizeFirstLetter } from "@/helpers";
 import { COLORS } from "@/settings/colors";
 import {
+  enabledSettingsFeatures,
   getSettingGroupMeta,
   getSettingModelProperty,
   settingsFeatures,
@@ -96,12 +97,10 @@ export default {
   props: {
     parentChartSettings: Object,
   },
-  mounted() {
-    this.enabledSettingsFeatures = this.settingsFeatures;
-  },
+  mounted() {},
   data() {
     return {
-      enabledSettingsFeatures: [],
+      enabledSettingsFeatures,
       settingsModels,
       panel: [],
       chartSettings: {},
