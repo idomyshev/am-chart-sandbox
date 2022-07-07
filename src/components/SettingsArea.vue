@@ -1,15 +1,15 @@
 <template>
   <div class="diagram-settings">
-    <v-card class="mb-5">
-      <v-card-title>Enabled features</v-card-title>
+    <v-card class="mb-2">
+      <v-card-title>Settings features</v-card-title>
       <v-card-text>
         <v-select
           v-model="enabledSettingsFeatures"
           :items="settingsFeatures"
-          label="Select features to enable"
+          label="Enabled features"
           multiple
           chips
-          solo
+          outlined
         />
       </v-card-text>
     </v-card>
