@@ -64,10 +64,10 @@
                         chartSettings[group[0]][subGroup[0]][item[0]].value
                       "
                     />
+                    <div>
+                      {{ chartSettings[group[0]][subGroup[0]][item[0]].value }}
+                    </div>
                   </div>
-                </div>
-                <div>
-                  {{ chartSettings[group[0]][subGroup[0]][item[0]].value }}
                 </div>
               </div>
             </div>
