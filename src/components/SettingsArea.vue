@@ -43,11 +43,9 @@
                 />
                 <v-text-field
                   v-if="
-                    [
-                      'text-field.number',
-                      'text-field.color',
-                      'text-field.text',
-                    ].includes(item[1].type)
+                    ['text-field.number', 'text-field.text'].includes(
+                      item[1].type
+                    )
                   "
                   v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
                   :label="item[0]"
@@ -56,6 +54,21 @@
                   "
                   :disabled="item[1].disabled"
                 />
+                <div v-if="item[1].type === 'color'">
+                  <div class="diagram-settings__color-picker-title">
+                    {{ item[0] }}
+                  </div>
+                  <div class="diagram-settings__color-picker-box">
+                    <v-color-picker
+                      v-model="
+                        chartSettings[group[0]][subGroup[0]][item[0]].value
+                      "
+                    />
+                    <div>
+                      {{ chartSettings[group[0]][subGroup[0]][item[0]].value }}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </v-expansion-panel-content>
@@ -67,6 +80,7 @@
 
 <script>
 import { capitalizeFirstLetter } from "@/helpers";
+import { COLORS } from "@/settings/colors";
 
 export default {
   name: "SettingsArea",
@@ -81,6 +95,7 @@ export default {
       panel: [],
       chartSettings: {},
       capitalizeFirstLetter,
+      COLORS,
     };
   },
   watch: {

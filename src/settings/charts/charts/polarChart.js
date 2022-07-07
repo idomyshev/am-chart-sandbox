@@ -77,16 +77,6 @@ const initChart = (root) => {
   );
 
   // series.strokes.template.set("strokeWidth", 2);
-  series.bullets.push(function () {
-    return am5.Bullet.new(root, {
-      sprite: am5.Circle.new(root, {
-        radius: 5,
-        fill: "#fff",
-        strokeWidth: 2,
-        stroke: "#f00",
-      }),
-    });
-  });
 
   let data = [
     {

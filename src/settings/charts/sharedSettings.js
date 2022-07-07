@@ -21,6 +21,29 @@ export const __animationSettings = () => {
   };
 };
 
+export const __bulletsSettings = () => {
+  return {
+    _noSubGroup: {
+      radius: {
+        value: 15,
+        type: "text-field.number",
+      },
+      fill: {
+        value: "#fff",
+        type: "color",
+      },
+      strokeWidth: {
+        value: 2,
+        type: "text-field.number",
+      },
+      stroke: {
+        value: "#00f",
+        type: "color",
+      },
+    },
+  };
+};
+
 export const __featureSettings = () => {
   return {
     __title: "Enabled features",
@@ -35,6 +58,10 @@ export const __featureSettings = () => {
         type: "checkbox",
       },
       axes: {
+        value: true,
+        type: "checkbox",
+      },
+      bullets: {
         value: true,
         type: "checkbox",
       },

@@ -123,28 +123,6 @@ const initChart = (root, chartSettings) => {
     })
   );
 
-  cafe.bullets.push(function () {
-    return am5.Bullet.new(root, {
-      sprite: am5.Circle.new(root, {
-        radius: 35,
-        fill: "#fff",
-        strokeWidth: 2,
-        stroke: "#f00",
-      }),
-    });
-  });
-
-  food.bullets.push(function () {
-    return am5.Bullet.new(root, {
-      sprite: am5.Circle.new(root, {
-        radius: 35,
-        fill: "#fff",
-        strokeWidth: 2,
-        stroke: "#00f",
-      }),
-    });
-  });
-
   food.data.setAll(diagramsMockData);
   cafe.data.setAll(diagramsMockData);
 

@@ -27,6 +27,18 @@ const initConfig = () => {
           value: 5,
           type: "text-field.number",
         },
+        fill: {
+          value: "#B0CB3543",
+          type: "color",
+        },
+        strokeWidth: {
+          value: 2,
+          type: "text-field.number",
+        },
+        stroke: {
+          value: "#247A2DFF",
+          type: "color",
+        },
       },
     },
   };
@@ -92,26 +104,6 @@ const initChart = (root, chartSettings) => {
 
   series.strokes.template.setAll({
     strokeWidth: chartSettings.strokes._noSubGroup.strokeWidth.value,
-  });
-
-  // series.bullets.push(() => {
-  //   return am5.Bullet.new(root, {
-  //     sprite: am5.Circle.new(root, {
-  //       radius: chartSettings.bullets._noSubGroup.radius.value,
-  //       fill: series.get("fill"),
-  //     }),
-  //   });
-  // });
-
-  series.bullets.push(function () {
-    return am5.Bullet.new(root, {
-      sprite: am5.Circle.new(root, {
-        radius: 5,
-        fill: "#fff",
-        strokeWidth: 2,
-        stroke: "#f00",
-      }),
-    });
   });
 
   let range2 = xAxis.createAxisRange(
