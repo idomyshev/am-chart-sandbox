@@ -1,4 +1,4 @@
-const settingsModels = {
+export const settingsModels = {
   animation: {
     chartAppear: {
       value: 100,
@@ -33,44 +33,6 @@ const settingsModels = {
     stroke: {
       type: "color",
       defaultValue: "#247A2DFF",
-    },
-  },
-  features: {
-    animation: {
-      type: "checkbox",
-      defaultValue: true,
-    },
-    axes: {
-      type: "checkbox",
-      defaultValue: true,
-    },
-    bullets: {
-      type: "checkbox",
-      defaultValue: true,
-    },
-    columnTemplate: {
-      type: "checkbox",
-      defaultValue: true,
-    },
-    cursor: {
-      type: "checkbox",
-      defaultValue: true,
-    },
-    grid: {
-      type: "checkbox",
-      defaultValue: true,
-    },
-    labels: {
-      type: "checkbox",
-      defaultValue: true,
-    },
-    legend: {
-      type: "checkbox",
-      defaultValue: true,
-    },
-    ticks: {
-      type: "checkbox",
-      defaultValue: true,
     },
   },
   labels: {
@@ -121,22 +83,26 @@ const settingsModels = {
   },
 };
 
-export const getSettingModel = (settingGroup, settingName, propertyName) => {
+export const getSettingModelProperty = (
+  settingGroup,
+  settingName,
+  propertyName
+) => {
   if (settingsModels[settingGroup] === undefined) {
     console.error(
-      `getSettingModel() call for no existent setting group '${settingGroup}'.`
+      `getSettingModelProperty() call for no existent setting group '${settingGroup}'.`
     );
     return null;
   } else if (settingsModels[settingGroup][settingName] === undefined) {
     console.error(
-      `getSettingModel() call for no existent setting '${settingGroup}.${settingName}'.`
+      `getSettingModelProperty() call for no existent setting '${settingGroup}.${settingName}'.`
     );
     return null;
   } else if (
     settingsModels[settingGroup][settingName][propertyName] === undefined
   ) {
     console.error(
-      `getSettingModel() call for no existent setting property '${settingGroup}.${settingName}.${propertyName}'.`
+      `getSettingModelProperty() call for no existent setting property '${settingGroup}.${settingName}.${propertyName}'.`
     );
     return null;
   }

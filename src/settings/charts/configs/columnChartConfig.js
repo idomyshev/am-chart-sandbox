@@ -77,10 +77,6 @@ export const columnChartConfig = () => {
     ticks: {
       y: {
         __type: "axis",
-        enabled: {
-          value: true,
-          type: "radio",
-        },
         stroke: {
           value: "666",
           type: "text-field.color",

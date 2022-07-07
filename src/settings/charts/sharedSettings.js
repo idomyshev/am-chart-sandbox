@@ -44,55 +44,6 @@ export const __bulletsSettings = () => {
   };
 };
 
-export const __featureSettings = () => {
-  return {
-    __title: "Enabled features",
-    __bold: true,
-    _noSubGroup: {
-      __alignment: "flex",
-      features: {
-        value: true,
-      },
-      animation: {
-        value: true,
-        type: "checkbox",
-      },
-      axes: {
-        value: true,
-        type: "checkbox",
-      },
-      bullets: {
-        value: false,
-        type: "checkbox",
-      },
-      columnTemplate: {
-        value: true,
-        type: "checkbox",
-      },
-      cursor: {
-        value: true,
-        type: "checkbox",
-      },
-      grid: {
-        value: true,
-        type: "checkbox",
-      },
-      ticks: {
-        value: true,
-        type: "checkbox",
-      },
-      labels: {
-        value: true,
-        type: "checkbox",
-      },
-      legend: {
-        value: true,
-        type: "checkbox",
-      },
-    },
-  };
-};
-
 export const __greenBullets = () => {
   return {
     _noSubGroup: {

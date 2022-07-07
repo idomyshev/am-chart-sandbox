@@ -1,7 +1,6 @@
 import {
   __animationSettings,
   __bulletsSettings,
-  __featureSettings,
 } from "@/settings/charts/sharedSettings";
 import * as am5 from "@amcharts/amcharts5";
 // import { settingsModels } from "@/settings/charts/settingsModels";
@@ -15,7 +14,6 @@ export const Chart = class Chart {
 
   initSettings(settings) {
     this.settings = {
-      features: __featureSettings(),
       animation: __animationSettings(),
       bullets: __bulletsSettings(),
       ...settings,
