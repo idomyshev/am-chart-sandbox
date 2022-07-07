@@ -38,6 +38,7 @@ export default {
   border-radius: 10px;
   margin: 10px 5px;
   padding: 0;
+  padding-bottom: 20px;
 }
 .legend {
   height: 100px;
