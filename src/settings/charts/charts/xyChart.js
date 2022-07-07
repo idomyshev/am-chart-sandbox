@@ -1651,4 +1651,30 @@ const initChart = (root) => {
   return [chart, series];
 };
 
-export default { initChart, initConfig: () => {} };
+export default {
+  initChart,
+  initConfig: () => {
+    return {
+      bullets: {
+        _noSubGroup: {
+          radius: {
+            value: 0,
+            type: "text-field.number",
+          },
+          fill: {
+            value: "#B0CB3543",
+            type: "color",
+          },
+          strokeWidth: {
+            value: 0,
+            type: "text-field.number",
+          },
+          stroke: {
+            value: "#247A2DFF",
+            type: "color",
+          },
+        },
+      },
+    };
+  },
+};

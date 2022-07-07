@@ -25,7 +25,7 @@ export const __bulletsSettings = () => {
   return {
     _noSubGroup: {
       radius: {
-        value: 15,
+        value: 5,
         type: "text-field.number",
       },
       fill: {
@@ -33,11 +33,11 @@ export const __bulletsSettings = () => {
         type: "color",
       },
       strokeWidth: {
-        value: 2,
+        value: undefined,
         type: "text-field.number",
       },
       stroke: {
-        value: "#00f",
+        value: "#0000FF00",
         type: "color",
       },
     },
@@ -88,6 +88,29 @@ export const __featureSettings = () => {
       legend: {
         value: true,
         type: "checkbox",
+      },
+    },
+  };
+};
+
+export const __greenBullets = () => {
+  return {
+    _noSubGroup: {
+      radius: {
+        value: 5,
+        type: "text-field.number",
+      },
+      fill: {
+        value: "#B0CB3543",
+        type: "color",
+      },
+      strokeWidth: {
+        value: 2,
+        type: "text-field.number",
+      },
+      stroke: {
+        value: "#247A2DFF",
+        type: "color",
       },
     },
   };

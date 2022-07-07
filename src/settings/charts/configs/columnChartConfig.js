@@ -1,3 +1,5 @@
+import { __greenBullets } from "@/settings/charts/sharedSettings";
+
 export const columnChartConfig = () => {
   return {
     axes: {
@@ -156,5 +158,6 @@ export const columnChartConfig = () => {
         },
       },
     },
+    bullets: __greenBullets(),
   };
 };
