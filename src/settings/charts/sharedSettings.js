@@ -62,7 +62,7 @@ export const __featureSettings = () => {
         type: "checkbox",
       },
       bullets: {
-        value: true,
+        value: false,
         type: "checkbox",
       },
       columnTemplate: {
