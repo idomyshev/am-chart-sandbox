@@ -1,12 +1,19 @@
 <template>
   <div class="header">
     <h1>Global Overview</h1>
-    <v-btn class="header__btn" depressed color="secondary">Edit Layout</v-btn>
+    <v-btn
+      :to="ROUTES.DEMO_CHARTS"
+      class="header__btn"
+      depressed
+      color="secondary"
+      >Edit Layout</v-btn
+    >
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
+import { ROUTES } from "@/settings/routes";
 
 export default Vue.extend({
   name: "Header",
@@ -14,14 +21,16 @@ export default Vue.extend({
   components: {},
 
   data() {
-    return {};
+    return {
+      ROUTES,
+    };
   },
 });
 </script>
 
 <style lang="scss" scoped>
-@import "@/scss/theme.scss";
-@import "@/scss/custom_variables.scss";
+@import "./src/scss/theme.scss";
+@import "./src/scss/custom_variables.scss";
 
 .header {
   display: flex;
