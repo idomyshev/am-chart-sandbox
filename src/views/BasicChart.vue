@@ -101,13 +101,13 @@ export default {
 
       this.chart.init(root, chart, [series]);
 
-      if (this.chartSettings.features._noSubGroup.animation.value) {
-        this.chart.addAnimation();
-      }
-
-      if (this.chartSettings.features._noSubGroup.bullets.value) {
-        this.chart.addBullets();
-      }
+      // if (this.chartSettings.features._noSubGroup.animation.value) {
+      //   this.chart.addAnimation();
+      // }
+      //
+      // if (this.chartSettings.features._noSubGroup.bullets.value) {
+      //   this.chart.addBullets();
+      // }
 
       this.root = root;
     },

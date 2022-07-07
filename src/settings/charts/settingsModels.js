@@ -109,3 +109,18 @@ export const getSettingModelProperty = (
 
   return settingsModels[settingGroup][settingName];
 };
+
+export const settingsFeatures = Object.keys(settingsModels);
+
+export const getSettingGroupMeta = (groupName, metaName, check) => {
+  if (check) {
+    if (!settingsModels[groupName]) {
+      console.error(`Setting group '${groupName}' not exist`);
+      return "";
+    } else if (!settingsModels[groupName][`__${metaName}`]) {
+      console.error(`Setting group meta '${groupName}.${metaName}' not exist`);
+      return "";
+    }
+  }
+  return settingsModels[groupName][`__${metaName}`];
+};

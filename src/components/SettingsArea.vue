@@ -1,7 +1,7 @@
 <template>
   <div class="diagram-settings">
     <v-card class="mb-5">
-      <v-card-title>Enabled settings features</v-card-title>
+      <v-card-title>Enabled features</v-card-title>
       <v-card-text>
         <v-select
           v-model="enabledSettingsFeatures"
@@ -17,8 +17,8 @@
       <template v-for="settingsGroupName in enabledSettingsFeatures">
         <v-expansion-panel :key="settingsGroupName">
           <v-expansion-panel-header>
-            <span v-if="settingsModels[settingsGroupName].__title">{{
-              settingsModels[settingsGroupName].__title
+            <span v-if="getSettingGroupMeta(settingsGroupName, 'title')">{{
+              getSettingGroupMeta(settingsGroupName, "title")
             }}</span>
             <span v-else>{{ capitalizeFirstLetter(settingsGroupName) }}</span>
           </v-expansion-panel-header>
@@ -82,7 +82,9 @@
 import { capitalizeFirstLetter } from "@/helpers";
 import { COLORS } from "@/settings/colors";
 import {
+  getSettingGroupMeta,
   getSettingModelProperty,
+  settingsFeatures,
   settingsModels,
 } from "@/settings/charts/settingsModels";
 
@@ -106,13 +108,11 @@ export default {
       capitalizeFirstLetter,
       COLORS,
       getSettingModelProperty,
+      settingsFeatures,
+      getSettingGroupMeta,
     };
   },
-  computed: {
-    settingsFeatures() {
-      return Object.keys(settingsModels);
-    },
-  },
+  computed: {},
   watch: {
     parentChartSettings: {
       handler() {
