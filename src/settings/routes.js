@@ -8,4 +8,5 @@ export const ROUTES = {
   POLAR_CHART: "/polar",
   XY_CHART: "/xy",
   HIERARCHY_CHART: "/hierarchy",
+  GRID: "/grid",
 };
