@@ -69,4 +69,14 @@ export default {
   padding-top: 32px;
   padding-bottom: 52px;
 }
+.v-application--is-ltr .v-data-footer__select {
+  display: none;
+}
+th span {
+  font-weight: 600;
+  color: #222542;
+}
+.v-application .elevation-1 {
+  box-shadow: unset !important;
+}
 </style>
