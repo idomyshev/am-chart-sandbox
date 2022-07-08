@@ -1,5 +1,9 @@
 <template>
   <div class="container">
+    <div class="header">
+      <span class="title">Advertiser List</span>
+      <v-icon>mdi-dots-horizontal</v-icon>
+    </div>
     <v-data-table
       :headers="headers"
       :items="itemsWithIndex"
