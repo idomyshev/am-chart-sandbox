@@ -17,11 +17,11 @@
 
 <script>
 import SettingsArea from "@/components/SettingsArea";
-import { Chart, PieChart } from "@/classes/Chart";
 import * as am5 from "@amcharts/amcharts5";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { chartConfigs } from "@/settings/charts";
 import { isFeatureEnabled } from "@/helpers/settings";
+import { ChartA } from "@/classes/customCharts/ChartA";
 
 export default {
   name: "BasicChart",
@@ -39,7 +39,6 @@ export default {
   },
 
   async beforeMount() {
-    console.log("before mount");
     this.runChart();
   },
 
@@ -56,13 +55,16 @@ export default {
   watch: {
     chartSettings: {
       handler() {
-        console.log("watch on chartSettings");
         this.initDiagram();
       },
       deep: true,
     },
+    enabledFeatures: {
+      handler() {
+        this.initDiagram();
+      },
+    },
     $route() {
-      console.log("watch on $route");
       this.stopChart();
       this.runChart();
     },
@@ -73,14 +75,10 @@ export default {
       this.enabledFeatures = val;
     },
     runChart() {
-      const className = "PieChart";
-      // this.chart = new Function(`return class ${className} {}`);
+      const className = "ChartA";
       switch (className) {
-        case "PieChart":
-          this.chart = new PieChart();
-          break;
-        case "Chart":
-          this.chart = new Chart();
+        case "ChartA":
+          this.chart = new ChartA();
           break;
       }
       this.chartConfig = chartConfigs[this.$route.name];
@@ -110,19 +108,17 @@ export default {
       const root = am5.Root.new(this.$refs.amChart, {
         useSafeResolution: false,
       });
-      console.log("am chart root created!");
+
+      this.chart.setRoot(root);
+      this.chart.setEnabledFeatures(this.enabledFeatures);
 
       root.setThemes([am5themes_Animated.new(root)]);
 
-      this.chart.setRoot(root);
-
       const initChartResult = this.chart.initChart(
-        root,
         this.chartSettings,
         this.enabledFeatures
       );
 
-      this.chart.testFunc();
       const [chart, series] = initChartResult;
 
       this.chart.init(root, chart, [series]);
