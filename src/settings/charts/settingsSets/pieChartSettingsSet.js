@@ -1,4 +1,4 @@
 export const pieChartSettingsSet = {
-  features: ["animation", "adadf"],
+  features: ["animation"],
   settings: {},
 };

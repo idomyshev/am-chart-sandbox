@@ -85,31 +85,41 @@ export const settingsModels = {
   },
 };
 
-export const getSettingModelProperty = (
-  settingGroup,
+export const getSettingsModel = (modelName) => {
+  if (settingsModels[modelName] === undefined) {
+    console.error(
+      `getSettingsModel() call for no existent setting group '${modelName}'.`
+    );
+    return null;
+  }
+  return Object.entries(settingsModels[modelName]);
+};
+
+export const getSettingsModelProperty = (
+  settingsGroup,
   settingName,
   propertyName
 ) => {
-  if (settingsModels[settingGroup] === undefined) {
+  if (settingsModels[settingsGroup] === undefined) {
     console.error(
-      `getSettingModelProperty() call for no existent setting group '${settingGroup}'.`
+      `getSettingsModelProperty() call for no existent setting group '${settingsGroup}'.`
     );
     return null;
-  } else if (settingsModels[settingGroup][settingName] === undefined) {
+  } else if (settingsModels[settingsGroup][settingName] === undefined) {
     console.error(
-      `getSettingModelProperty() call for no existent setting '${settingGroup}.${settingName}'.`
+      `getSettingsModelProperty() call for no existent setting '${settingsGroup}.${settingName}'.`
     );
     return null;
   } else if (
-    settingsModels[settingGroup][settingName][propertyName] === undefined
+    settingsModels[settingsGroup][settingName][propertyName] === undefined
   ) {
     console.error(
-      `getSettingModelProperty() call for no existent setting property '${settingGroup}.${settingName}.${propertyName}'.`
+      `getSettingsModelProperty() call for no existent setting property '${settingsGroup}.${settingName}.${propertyName}'.`
     );
     return null;
   }
 
-  return settingsModels[settingGroup][settingName];
+  return settingsModels[settingsGroup][settingName];
 };
 
 export const settingsFeatures = Object.keys(settingsModels);

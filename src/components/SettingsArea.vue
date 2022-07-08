@@ -1,7 +1,7 @@
 <template>
   <div class="diagram-settings">
     <v-card class="mb-2">
-      <v-card-title>Settings features</v-card-title>
+      <v-card-title>Settings</v-card-title>
       <v-card-text>
         <v-select
           v-model="enabledSettingsFeatures"
@@ -23,54 +23,51 @@
             <span v-else>{{ capitalizeFirstLetter(settingsGroupName) }}</span>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <!--            <div-->
-            <!--              v-for="item in getItems(subGroup[1])"-->
-            <!--              :key="`${group[0]}_${subGroup[0]}_${item[0]}`"-->
-            <!--            >-->
-            <!--              <v-switch-->
-            <!--                v-if="item[1].type === 'radio'"-->
-            <!--                v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"-->
-            <!--                :label="item[0]"-->
-            <!--                :disabled="item[1].disabled"-->
-            <!--              />-->
-            <!--              <v-checkbox-->
-            <!--                v-if="-->
-            <!--                  getSettingModelProperty(group[0], item[0], 'type') ===-->
-            <!--                  'checkbox'-->
-            <!--                "-->
-            <!--                v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"-->
-            <!--                :label="item[0]"-->
-            <!--                :disabled="item[1].disabled"-->
-            <!--              />-->
-            <!--              <v-text-field-->
-            <!--                v-if="-->
-            <!--                  ['text-field.number', 'text-field.text'].includes(-->
-            <!--                    item[1].type-->
-            <!--                  )-->
-            <!--                "-->
-            <!--                v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"-->
-            <!--                :label="item[0]"-->
-            <!--                :class="-->
-            <!--                  item[1].type !== 'text-field.text' ? 'limited-width' : ''-->
-            <!--                "-->
-            <!--                :disabled="item[1].disabled"-->
-            <!--              />-->
-            <!--              <div v-if="item[1].type === 'color'">-->
-            <!--                <div class="diagram-settings__color-picker-title">-->
-            <!--                  {{ item[0] }}-->
-            <!--                </div>-->
-            <!--                <div class="diagram-settings__color-picker-box">-->
-            <!--                  <v-color-picker-->
-            <!--                    v-model="-->
-            <!--                      chartSettings[group[0]][subGroup[0]][item[0]].value-->
-            <!--                    "-->
-            <!--                  />-->
-            <!--                  <div>-->
-            <!--                    {{ chartSettings[group[0]][subGroup[0]][item[0]].value }}-->
-            <!--                  </div>-->
-            <!--                </div>-->
-            <!--              </div>-->
-            <!--            </div>-->
+            <div
+              v-for="item in getSettingsModel(settingsGroupName)"
+              :key="`${settingsGroupName}_${item[0]}`"
+            >
+              <!--              <v-switch-->
+              <!--                v-if="item[1].type === 'radio'"-->
+              <!--                v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"-->
+              <!--                :label="item[0]"-->
+              <!--                :disabled="item[1].disabled"-->
+              <!--              />-->
+              <!--              <v-checkbox-->
+              <!--                v-if="-->
+              <!--                  getSettingsModelProperty(group[0], item[0], 'type') ===-->
+              <!--                  'checkbox'-->
+              <!--                "-->
+              <!--                v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"-->
+              <!--                :label="item[0]"-->
+              <!--                :disabled="item[1].disabled"-->
+              <!--              />-->
+              {{ item[0] }}
+              <!--            <v-text-field-->
+              <!--              v-if="-->
+              <!--                ['text-field.number', 'text-field.text'].includes(item[1].type)-->
+              <!--              "-->
+              <!--              v-model="chartSettings[settingsGroupName][item[0]].value"-->
+              <!--              :label="item[0]"-->
+              <!--              :class="item[1].type !== 'text-field.text' ? 'limited-width' : ''"-->
+              <!--              :disabled="item[1].disabled"-->
+              <!--            />-->
+              <!--              <div v-if="item[1].type === 'color'">-->
+              <!--                <div class="diagram-settings__color-picker-title">-->
+              <!--                  {{ item[0] }}-->
+              <!--                </div>-->
+              <!--                <div class="diagram-settings__color-picker-box">-->
+              <!--                  <v-color-picker-->
+              <!--                    v-model="-->
+              <!--                      chartSettings[group[0]][subGroup[0]][item[0]].value-->
+              <!--                    "-->
+              <!--                  />-->
+              <!--                  <div>-->
+              <!--                    {{ chartSettings[group[0]][subGroup[0]][item[0]].value }}-->
+              <!--                  </div>-->
+              <!--                </div>-->
+              <!--              </div>-->
+            </div>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </template>
@@ -84,7 +81,8 @@ import { COLORS } from "@/settings/colors";
 import {
   enabledSettingsFeatures,
   getSettingGroupMeta,
-  getSettingModelProperty,
+  getSettingsModel,
+  getSettingsModelProperty,
   settingsFeatures,
   settingsModels,
 } from "@/settings/charts/settingsModels";
@@ -106,9 +104,10 @@ export default {
       chartSettings: {},
       capitalizeFirstLetter,
       COLORS,
-      getSettingModelProperty,
+      getSettingsModelProperty,
       settingsFeatures,
       getSettingGroupMeta,
+      getSettingsModel,
     };
   },
   computed: {},
