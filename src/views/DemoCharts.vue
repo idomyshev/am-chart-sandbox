@@ -10,6 +10,9 @@
     <div class="chart-row">
       <LineChart />
     </div>
+    <div class="chart-row">
+      <DataTable />
+    </div>
   </div>
 </template>
 
@@ -18,10 +21,11 @@ import Donut from "@/components/styledCharts/Donut.vue";
 import LineChart from "@/components/styledCharts/LineChart.vue";
 import Progress from "@/components/styledCharts/Progress.vue";
 import Waffle from "@/components/styledCharts/Waffle.vue";
+import DataTable from "@/components/styledCharts/DataTable.vue";
 
 export default {
   name: "DemoCharts",
-  components: { Donut, LineChart, Progress, Waffle },
+  components: { Donut, LineChart, Progress, Waffle, DataTable },
 };
 </script>
 
