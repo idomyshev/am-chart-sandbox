@@ -1,7 +1,11 @@
 <template>
   <v-row>
     <v-col cols="5">
-      <SettingsArea v-if="settingsLoaded" v-model="chartSettings" />
+      <SettingsArea
+        v-if="settingsLoaded"
+        v-model="chartSettings"
+        @enabledFeaturesUpdated="enabledFeaturesUpdated"
+      />
     </v-col>
     <v-col cols="7">
       <div class="chart-wrapper">
@@ -17,6 +21,7 @@ import { Chart } from "@/classes/Chart";
 import * as am5 from "@amcharts/amcharts5";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { chartConfigs } from "@/settings/charts";
+import { isFeatureEnabled } from "@/helpers/settings";
 
 export default {
   name: "BasicChart",
@@ -29,6 +34,7 @@ export default {
       chart: null,
       chartConfig: null,
       settingsLoaded: false,
+      enabledFeatures: [],
     };
   },
 
@@ -60,6 +66,9 @@ export default {
   },
 
   methods: {
+    enabledFeaturesUpdated(val) {
+      this.enabledFeatures = val;
+    },
     runChart() {
       this.chart = new Chart();
       this.chartConfig = chartConfigs[this.$route.name];
@@ -68,8 +77,8 @@ export default {
         return;
       }
       this.settingsLoaded = true;
-      const chartSettings = this.chartConfig.initConfig();
-      this.chartSettings = this.chart.initSettings(chartSettings);
+      // const chartSettings = this.chartConfig.initConfig();
+      this.chartSettings = this.chart.initSettings();
     },
     stopChart() {
       if (this.root) {
@@ -94,16 +103,16 @@ export default {
 
       const initChartResult = this.chartConfig.initChart(
         root,
-        this.chartSettings
+        this.chartSettings,
+        this.enabledFeatures
       );
 
       const [chart, series] = initChartResult;
 
       this.chart.init(root, chart, [series]);
-
-      // if (this.chartSettings.features._noSubGroup.animation.value) {
-      //   this.chart.addAnimation();
-      // }
+      if (isFeatureEnabled(this.enabledFeatures, "animation")) {
+        this.chart.addAnimation();
+      }
       //
       // if (this.chartSettings.features._noSubGroup.bullets.value) {
       //   this.chart.addBullets();

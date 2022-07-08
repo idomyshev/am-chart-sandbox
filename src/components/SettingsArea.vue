@@ -42,16 +42,20 @@
               <!--                :label="item[0]"-->
               <!--                :disabled="item[1].disabled"-->
               <!--              />-->
-              {{ item[0] }}
-              <!--            <v-text-field-->
-              <!--              v-if="-->
-              <!--                ['text-field.number', 'text-field.text'].includes(item[1].type)-->
-              <!--              "-->
-              <!--              v-model="chartSettings[settingsGroupName][item[0]].value"-->
-              <!--              :label="item[0]"-->
-              <!--              :class="item[1].type !== 'text-field.text' ? 'limited-width' : ''"-->
-              <!--              :disabled="item[1].disabled"-->
-              <!--            />-->
+              <!--              {{ chartSettings }}-->
+              <v-text-field
+                v-if="
+                  ['text-field.number', 'text-field.text'].includes(
+                    item[1].type
+                  )
+                "
+                v-model="chartSettings[settingsGroupName][item[0]]"
+                :label="item[0]"
+                :class="
+                  item[1].type !== 'text-field.text' ? 'limited-width' : ''
+                "
+                :disabled="item[1].disabled"
+              />
               <!--              <div v-if="item[1].type === 'color'">-->
               <!--                <div class="diagram-settings__color-picker-title">-->
               <!--                  {{ item[0] }}-->
@@ -95,7 +99,9 @@ export default {
   props: {
     parentChartSettings: Object,
   },
-  mounted() {},
+  mounted() {
+    this.$emit("enabledFeaturesUpdated", this.enabledSettingsFeatures);
+  },
   data() {
     return {
       enabledSettingsFeatures,
@@ -117,6 +123,11 @@ export default {
         this.chartSettings = this.parentChartSettings;
       },
       deep: true,
+    },
+    enabledSettingsFeatures: {
+      handler() {
+        this.$emit("enabledFeaturesUpdated", this.enabledSettingsFeatures);
+      },
     },
   },
   methods: {

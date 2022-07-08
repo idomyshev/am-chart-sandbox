@@ -3,20 +3,20 @@ import { getSettingsSet } from "@/helpers/settings";
 export const settingsModels = {
   animation: {
     chartAppear: {
-      value: 100,
       type: "text-field.number",
+      defaultValue: 100,
     },
     chartOpacityAppear: {
-      value: 1000,
       type: "text-field.number",
+      defaultValue: 1000,
     },
     seriesAppear: {
-      value: 1000,
       type: "text-field.number",
+      defaultValue: 1000,
     },
     animateSpeedOnDrop: {
-      value: 600,
       type: "text-field.number",
+      defaultValue: 600,
     },
   },
   bullets: {
@@ -39,47 +39,47 @@ export const settingsModels = {
   },
   labels: {
     inside: {
-      value: true,
+      defaultValue: true,
       type: "checkbox",
     },
     circular: {
-      value: true,
+      defaultValue: true,
       type: "checkbox",
     },
     radius: {
-      value: 80,
+      defaultValue: 80,
       type: "text-field.number",
     },
   },
   legend: {
     centerX: {
-      value: 50,
+      defaultValue: 50,
       type: "text-field.number",
     },
     x: {
-      value: 50,
+      defaultValue: 50,
       type: "text-field.number",
     },
     y: {
-      value: 1,
+      defaultValue: 1,
       type: "text-field.number",
     },
   },
   ticks: {
     color: {
-      value: "666",
+      defaultValue: "666",
       type: "text-field.color",
     },
     width: {
-      value: 2,
+      defaultValue: 2,
       type: "text-field.number",
     },
     stroke: {
-      value: "666",
+      defaultValue: "666",
       type: "text-field.color",
     },
     strokeWidth: {
-      value: 2,
+      defaultValue: 2,
       type: "text-field.number",
     },
   },

@@ -1,8 +1,9 @@
-import {
-  __animationSettings,
-  __bulletsSettings,
-} from "@/settings/charts/sharedSettings";
+// import {
+//   __animationSettings,
+//   __bulletsSettings,
+// } from "@/settings/charts/sharedSettings";
 import * as am5 from "@amcharts/amcharts5";
+import { settingsModels } from "@/settings/charts/settingsModels";
 // import { settingsModels } from "@/settings/charts/settingsModels";
 
 export const Chart = class Chart {
@@ -12,22 +13,34 @@ export const Chart = class Chart {
     this.series = seriesArray;
   }
 
-  initSettings(settings) {
-    this.settings = {
-      animation: __animationSettings(),
-      bullets: __bulletsSettings(),
-      ...settings,
-    };
+  initSettings() {
+    // this.enabledFeatures = enabledFeatures;
+    const settings = {};
+    Object.entries(settingsModels).forEach((modelArray) => {
+      const [modelName, model] = modelArray;
+      Object.entries(model).forEach((settingArray) => {
+        const [settingName, setting] = settingArray;
+        settings[modelName] = settings[modelName] ? settings[modelName] : {};
+        settings[modelName][settingName] = setting.defaultValue;
+      });
+    });
+    this.settings = settings;
+    // console.log(3, settings);
+    // this.settings = {
+    //   animation: __animationSettings(),
+    //   bullets: __bulletsSettings(),
+    //   ...oldSettings,
+    // };
     return this.settings;
   }
 
   addAnimation() {
     this.series.forEach((el) => {
-      el.appear(this.settings.animation._noSubGroup.seriesAppear.value);
+      el.appear(this.settings.animation.seriesAppear);
     });
     this.chart.appear(
-      this.settings.animation._noSubGroup.chartOpacityAppear.value,
-      this.settings.animation._noSubGroup.chartAppear.value
+      this.settings.animation.chartOpacityAppear,
+      this.settings.animation.chartAppear
     );
   }
 

@@ -2,14 +2,14 @@ import * as am5percent from "@amcharts/amcharts5/percent";
 import * as am5 from "@amcharts/amcharts5";
 import { diagramsMockData } from "@/mockData/diagramsData";
 import { pieChartConfig } from "@/settings/charts/configs/pieChartConfig";
+// import { isFeatureEnabled } from "@/helpers/settings";
 
-const initChart = (root, chartSettings) => {
+const initChart = (root, chartSettings, enabledFeatures) => {
+  console.log(enabledFeatures);
   const chart = root.container.children.push(
     am5percent.PieChart.new(root, {
-      radius: am5.percent(chartSettings.chart._noSubGroup.radius.value),
-      innerRadius: am5.percent(
-        chartSettings.chart._noSubGroup.innerRadius.value
-      ),
+      radius: am5.percent(90),
+      innerRadius: am5.percent(75),
     })
   );
 
@@ -24,105 +24,94 @@ const initChart = (root, chartSettings) => {
 
   // Second series.
   let foodSeries = null;
-  if (chartSettings.series.food.enabled.value) {
-    foodSeries = chart.series.push(
-      am5percent.PieSeries.new(root, {
-        name: "Series",
-        valueField: "food",
-        categoryField: "month",
-        alignLabels: false,
-        startAngle: chartSettings.series.food.startAngle.value,
-        endAngle: chartSettings.series.food.endAngle.value,
-      })
-    );
-  }
-
-  // Ticks.
-  if (!chartSettings.ticks.cafe.enabled.value) {
-    cafeSeries.ticks.template.set("visible", false);
-  } else {
-    cafeSeries.ticks.template.setAll({
-      stroke: am5.color(`#${chartSettings.ticks.cafe.color.value}`),
-      strokeWidth: chartSettings.ticks.cafe.width.value,
-    });
-  }
-
-  // Labels.
-  if (!chartSettings.labels.cafe.enabled.value) {
-    cafeSeries.labels.template.set("forceHidden", true);
-  } else {
-    cafeSeries.labels.template.setAll({
-      text: "{category}",
-      radius: chartSettings.labels.cafe.radius.value,
-      inside: chartSettings.labels.cafe.inside.value,
-      textType: chartSettings.labels.cafe.circular.value
-        ? "circular"
-        : undefined,
-      // centerX: am5.percent(10),
-    });
-  }
-
-  if (!chartSettings.tooltips.cafe.enabled.value) {
-    cafeSeries.slices.template.set("tooltipText", "");
-  } else {
-    cafeSeries.slices.template.set(
-      "tooltipText",
-      chartSettings.tooltips.cafe.text.value
-    );
-  }
-
-  // Slices settings.
-  if (chartSettings.slices.cafe.enabled.value) {
-    cafeSeries.slices.template.setAll({
-      fillOpacity: chartSettings.slices.cafe.opacity.value,
-      stroke: am5.color(`#${chartSettings.slices.cafe.borderColor.value}`),
-      strokeWidth: chartSettings.slices.cafe.borderWidth.value,
-    });
-  }
-
-  // Slice click settings.
-  if (!chartSettings.clickedSlices.cafe.enabled.value) {
-    cafeSeries.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
-  } else {
-    if (chartSettings.clickedSlices.cafe.customStyle.value) {
-      cafeSeries.slices.template.states.create("active", {
-        shiftRadius: chartSettings.clickedSlices.cafe.radius.value,
-        stroke: am5.color(
-          `#${chartSettings.clickedSlices.cafe.borderColor.value}`
-        ),
-        strokeWidth: chartSettings.clickedSlices.cafe.borderWidth.value,
-      });
-    }
-  }
-
-  // Custom colors.
-  if (chartSettings.general._noSubGroup.customColors.value) {
-    cafeSeries
-      .get("colors")
-      .set("colors", [
-        am5.color(0x095256),
-        am5.color(0x087f8c),
-        am5.color(0x5aaa95),
-      ]);
-  }
-
-  // Legend settings.
-  const legend = chart.children.push(
-    am5.Legend.new(root, {
-      centerX: am5.percent(chartSettings.legend.cafe.centerX.value),
-      x: am5.percent(chartSettings.legend.cafe.x.value),
-      y: am5.percent(chartSettings.legend.cafe.y.value),
-      layout: root.horizontalLayout,
+  foodSeries = chart.series.push(
+    am5percent.PieSeries.new(root, {
+      name: "Series",
+      valueField: "food",
+      categoryField: "month",
+      alignLabels: false,
+      startAngle: 0,
+      endAngle: 50,
     })
   );
 
-  cafeSeries.data.setAll(diagramsMockData);
-  legend.data.setAll(cafeSeries.dataItems);
+  // Ticks.
+  // if (!isFeatureEnabled(enabledFeatures, "ticks")) {
+  //   cafeSeries.ticks.template.set("visible", false);
+  // } else {
+  //   cafeSeries.ticks.template.setAll({
+  //     stroke: am5.color(`#${chartSettings.ticks.cafe.color.value}`),
+  //     strokeWidth: chartSettings.ticks.cafe.width.value,
+  //   });
+  // }
 
-  if (chartSettings.series.food.enabled.value) {
-    foodSeries.data.setAll(diagramsMockData);
-    legend.data.setAll(foodSeries.dataItems);
-  }
+  // Labels.
+  // if (!isFeatureEnabled(enabledFeatures, "labels")) {
+  //   cafeSeries.labels.template.set("forceHidden", true);
+  // } else {
+  //   cafeSeries.labels.template.setAll({
+  //     text: "{category}",
+  //     radius: chartSettings.labels.radius,
+  //     inside: chartSettings.labels.inside,
+  //     textType: chartSettings.labels.circular ? "circular" : undefined,
+  //     // centerX: am5.percent(10),
+  //   });
+  // }
+
+  // if (!isFeatureEnabled(enabledFeatures, "tooltips")) {
+  //   cafeSeries.slices.template.set("tooltipText", "");
+  // } else {
+  //   cafeSeries.slices.template.set("tooltipText", chartSettings.tooltips.text);
+  // }
+
+  // Slices settings.
+  // if (!isFeatureEnabled(enabledFeatures, "slices")) {
+  //   cafeSeries.slices.template.setAll({
+  //     fillOpacity: chartSettings.slices.opacity,
+  //     stroke: am5.color(`#${chartSettings.slices.borderColor}`),
+  //     strokeWidth: chartSettings.slices.borderWidth,
+  //   });
+  // }
+
+  // Slice click settings.
+  // if (!isFeatureEnabled(enabledFeatures, "clickedSlices")) {
+  //   cafeSeries.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
+  // } else {
+  //   cafeSeries.slices.template.states.create("active", {
+  //     shiftRadius: chartSettings.clickedSlices.radius,
+  //     stroke: am5.color(`#${chartSettings.clickedSlices.borderColor}`),
+  //     strokeWidth: chartSettings.clickedSlices.borderWidth,
+  //   });
+  // }
+
+  // Custom colors.
+  // if (chartSettings.general._noSubGroup.customColors.value) {
+  //   cafeSeries
+  //     .get("colors")
+  //     .set("colors", [
+  //       am5.color(0x095256),
+  //       am5.color(0x087f8c),
+  //       am5.color(0x5aaa95),
+  //     ]);
+  // }
+
+  // Legend settings.
+  // const legend = chart.children.push(
+  //   am5.Legend.new(root, {
+  //     centerX: am5.percent(chartSettings.legend.cafe.centerX.value),
+  //     x: am5.percent(chartSettings.legend.cafe.x.value),
+  //     y: am5.percent(chartSettings.legend.cafe.y.value),
+  //     layout: root.horizontalLayout,
+  //   })
+  // );
+
+  cafeSeries.data.setAll(diagramsMockData);
+  // legend.data.setAll(cafeSeries.dataItems);
+
+  // if (chartSettings.series.food.enabled.value) {
+  foodSeries.data.setAll(diagramsMockData);
+  // legend.data.setAll(foodSeries.dataItems);
+  // }
 
   return [chart, foodSeries];
   // foodSeries = null;
