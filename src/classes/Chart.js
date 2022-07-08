@@ -4,6 +4,9 @@
 // } from "@/settings/charts/sharedSettings";
 import * as am5 from "@amcharts/amcharts5";
 import { settingsModels } from "@/settings/charts/settingsModels";
+// import * as am5percent from "@amcharts/amcharts4/charts";
+import * as am5percent from "@amcharts/amcharts5/percent";
+import { diagramsMockData } from "@/mockData/diagramsData";
 // import { settingsModels } from "@/settings/charts/settingsModels";
 
 export const Chart = class Chart {
@@ -88,6 +91,15 @@ export const Chart = class Chart {
 
     return setting.value;
   }
+  setRoot(root) {
+    this.root = root;
+    // root.container.children.push(
+    //   am5percent.PieChart.new(root, {
+    //     radius: am5.percent(90),
+    //     innerRadius: am5.percent(75),
+    //   })
+    // );
+  }
 
   addBullets() {
     this.series.forEach((el) => {
@@ -107,5 +119,56 @@ export const Chart = class Chart {
         });
       });
     });
+  }
+};
+
+export const PieChart = class PieChart extends Chart {
+  testFunc() {
+    console.log("test func");
+  }
+  initChart(root1, chartSettings, enabledFeatures) {
+    console.log(enabledFeatures);
+    // root = this.root;
+    console.log("root", root1);
+
+    const chart = root1.container.children.push(
+      am5percent.PieChart.new(root1, {
+        radius: am5.percent(90),
+        innerRadius: am5.percent(75),
+      })
+    );
+
+    const cafeSeries = chart.series.push(
+      am5percent.PieSeries.new(root1, {
+        name: "Series",
+        valueField: "cafe",
+        categoryField: "month",
+        alignLabels: false,
+      })
+    );
+
+    // Second series.
+    let foodSeries = null;
+    foodSeries = chart.series.push(
+      am5percent.PieSeries.new(root1, {
+        name: "Series",
+        valueField: "food",
+        categoryField: "month",
+        alignLabels: false,
+        startAngle: 0,
+        endAngle: 50,
+      })
+    );
+
+    cafeSeries.data.setAll(diagramsMockData);
+    // legend.data.setAll(cafeSeries.dataItems);
+
+    // if (chartSettings.series.food.enabled.value) {
+    foodSeries.data.setAll(diagramsMockData);
+    // legend.data.setAll(foodSeries.dataItems);
+    // }
+
+    return [chart, foodSeries];
+    // foodSeries = null;
   }
 };

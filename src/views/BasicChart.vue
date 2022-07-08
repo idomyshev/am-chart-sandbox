@@ -17,7 +17,7 @@
 
 <script>
 import SettingsArea from "@/components/SettingsArea";
-import { Chart } from "@/classes/Chart";
+import { Chart, PieChart } from "@/classes/Chart";
 import * as am5 from "@amcharts/amcharts5";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { chartConfigs } from "@/settings/charts";
@@ -39,12 +39,13 @@ export default {
   },
 
   async beforeMount() {
+    console.log("before mount");
     this.runChart();
   },
 
   mounted() {
     if (this.settingsLoaded) {
-      this.initDiagram();
+      // this.initDiagram();
     }
   },
 
@@ -55,11 +56,13 @@ export default {
   watch: {
     chartSettings: {
       handler() {
+        console.log("watch on chartSettings");
         this.initDiagram();
       },
       deep: true,
     },
     $route() {
+      console.log("watch on $route");
       this.stopChart();
       this.runChart();
     },
@@ -70,7 +73,16 @@ export default {
       this.enabledFeatures = val;
     },
     runChart() {
-      this.chart = new Chart();
+      const className = "PieChart";
+      // this.chart = new Function(`return class ${className} {}`);
+      switch (className) {
+        case "PieChart":
+          this.chart = new PieChart();
+          break;
+        case "Chart":
+          this.chart = new Chart();
+          break;
+      }
       this.chartConfig = chartConfigs[this.$route.name];
       if (!this.chartConfig) {
         console.error("Config file for chart is not defined!");
@@ -98,15 +110,19 @@ export default {
       const root = am5.Root.new(this.$refs.amChart, {
         useSafeResolution: false,
       });
+      console.log("am chart root created!");
 
       root.setThemes([am5themes_Animated.new(root)]);
 
-      const initChartResult = this.chartConfig.initChart(
+      this.chart.setRoot(root);
+
+      const initChartResult = this.chart.initChart(
         root,
         this.chartSettings,
         this.enabledFeatures
       );
 
+      this.chart.testFunc();
       const [chart, series] = initChartResult;
 
       this.chart.init(root, chart, [series]);
