@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="header">
-      <span class="title">Advertiser List</span>
+      <span class="title">Advertiser Chart</span>
       <v-icon>mdi-dots-horizontal</v-icon>
     </div>
     <v-data-table
