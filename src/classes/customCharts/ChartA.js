@@ -1,9 +1,9 @@
 import * as am5percent from "@amcharts/amcharts5/percent";
 import * as am5 from "@amcharts/amcharts5";
 import { diagramsMockData } from "@/mockData/diagramsData";
-import { Chart } from "@/classes/Chart";
+import { ChartConstructor } from "@/classes/ChartConstructor";
 
-export const ChartA = class PieChart extends Chart {
+export const ChartA = class PieChart extends ChartConstructor {
   initChart() {
     const root = this.root;
 
