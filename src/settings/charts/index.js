@@ -1,5 +1,5 @@
 import radarChart from "@/settings/charts/charts/radarChart";
-import pieChart from "@/settings/charts/charts/pieChart";
+import pieChartConfig from "@/settings/charts/charts/pieChart";
 import barChart from "@/settings/charts/charts/barChart";
 import areaChart from "@/settings/charts/charts/areaChart";
 import columnChart from "@/settings/charts/charts/columnChart";
@@ -9,7 +9,7 @@ import polarChart from "@/settings/charts/charts/polarChart";
 
 export const chartConfigs = {
   radarChart,
-  pieChart,
+  ChartA: pieChartConfig,
   barChart,
   areaChart,
   columnChart,

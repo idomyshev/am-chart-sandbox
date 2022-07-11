@@ -14,25 +14,22 @@ export const ChartConstructor = class ChartConstructor {
     this.series = seriesArray;
   }
 
-  initSettings() {
-    // this.enabledFeatures = enabledFeatures;
+  loadSettings(config) {
     const settings = {};
     Object.entries(settingsModels).forEach((modelArray) => {
       const [modelName, model] = modelArray;
       Object.entries(model).forEach((settingArray) => {
         const [settingName, setting] = settingArray;
         settings[modelName] = settings[modelName] ? settings[modelName] : {};
-        settings[modelName][settingName] = setting.defaultValue;
+        if (config[modelName] && config[modelName][settingName]) {
+          settings[modelName][settingName] = config[modelName][settingName];
+        } else {
+          settings[modelName][settingName] = setting.defaultValue;
+        }
       });
     });
     this.settings = settings;
-    // console.log(3, settings);
-    // this.settings = {
-    //   animation: __animationSettings(),
-    //   bullets: __bulletsSettings(),
-    //   ...oldSettings,
-    // };
-    return this.settings;
+    return settings;
   }
 
   settingValue(groupName, param1, param2) {

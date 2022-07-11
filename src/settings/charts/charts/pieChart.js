@@ -1,120 +1,160 @@
-// import * as am5percent from "@amcharts/amcharts5/percent";
-// import * as am5 from "@amcharts/amcharts5";
-// import { diagramsMockData } from "@/mockData/diagramsData";
-import { pieChartConfig } from "@/settings/charts/configs/pieChartConfig";
-// // import { isFeatureEnabled } from "@/helpers/settings";
-//
-// const initChart = (root, chartSettings, enabledFeatures) => {
-//   console.log(enabledFeatures);
-//   const chart = root.container.children.push(
-//     am5percent.PieChart.new(root, {
-//       radius: am5.percent(90),
-//       innerRadius: am5.percent(75),
-//     })
-//   );
-//
-//   const cafeSeries = chart.series.push(
-//     am5percent.PieSeries.new(root, {
-//       name: "Series",
-//       valueField: "cafe",
-//       categoryField: "month",
-//       alignLabels: false,
-//     })
-//   );
-//
-//   // Second series.
-//   let foodSeries = null;
-//   foodSeries = chart.series.push(
-//     am5percent.PieSeries.new(root, {
-//       name: "Series",
-//       valueField: "food",
-//       categoryField: "month",
-//       alignLabels: false,
-//       startAngle: 0,
-//       endAngle: 50,
-//     })
-//   );
-//
-//   // Ticks.
-//   // if (!isFeatureEnabled(enabledFeatures, "ticks")) {
-//   //   cafeSeries.ticks.template.set("visible", false);
-//   // } else {
-//   //   cafeSeries.ticks.template.setAll({
-//   //     stroke: am5.color(`#${chartSettings.ticks.cafe.color.value}`),
-//   //     strokeWidth: chartSettings.ticks.cafe.width.value,
-//   //   });
-//   // }
-//
-//   // Labels.
-//   // if (!isFeatureEnabled(enabledFeatures, "labels")) {
-//   //   cafeSeries.labels.template.set("forceHidden", true);
-//   // } else {
-//   //   cafeSeries.labels.template.setAll({
-//   //     text: "{category}",
-//   //     radius: chartSettings.labels.radius,
-//   //     inside: chartSettings.labels.inside,
-//   //     textType: chartSettings.labels.circular ? "circular" : undefined,
-//   //     // centerX: am5.percent(10),
-//   //   });
-//   // }
-//
-//   // if (!isFeatureEnabled(enabledFeatures, "tooltips")) {
-//   //   cafeSeries.slices.template.set("tooltipText", "");
-//   // } else {
-//   //   cafeSeries.slices.template.set("tooltipText", chartSettings.tooltips.text);
-//   // }
-//
-//   // Slices settings.
-//   // if (!isFeatureEnabled(enabledFeatures, "slices")) {
-//   //   cafeSeries.slices.template.setAll({
-//   //     fillOpacity: chartSettings.slices.opacity,
-//   //     stroke: am5.color(`#${chartSettings.slices.borderColor}`),
-//   //     strokeWidth: chartSettings.slices.borderWidth,
-//   //   });
-//   // }
-//
-//   // Slice click settings.
-//   // if (!isFeatureEnabled(enabledFeatures, "clickedSlices")) {
-//   //   cafeSeries.slices.template.set("toggleKey", "none"); // Disable slice shift on click.
-//   // } else {
-//   //   cafeSeries.slices.template.states.create("active", {
-//   //     shiftRadius: chartSettings.clickedSlices.radius,
-//   //     stroke: am5.color(`#${chartSettings.clickedSlices.borderColor}`),
-//   //     strokeWidth: chartSettings.clickedSlices.borderWidth,
-//   //   });
-//   // }
-//
-//   // Custom colors.
-//   // if (chartSettings.general._noSubGroup.customColors.value) {
-//   //   cafeSeries
-//   //     .get("colors")
-//   //     .set("colors", [
-//   //       am5.color(0x095256),
-//   //       am5.color(0x087f8c),
-//   //       am5.color(0x5aaa95),
-//   //     ]);
-//   // }
-//
-//   // Legend settings.
-//   // const legend = chart.children.push(
-//   //   am5.Legend.new(root, {
-//   //     centerX: am5.percent(chartSettings.legend.cafe.centerX.value),
-//   //     x: am5.percent(chartSettings.legend.cafe.x.value),
-//   //     y: am5.percent(chartSettings.legend.cafe.y.value),
-//   //     layout: root.horizontalLayout,
-//   //   })
-//   // );
-//
-//   cafeSeries.data.setAll(diagramsMockData);
-//   // legend.data.setAll(cafeSeries.dataItems);
-//
-//   // if (chartSettings.series.food.enabled.value) {
-//   foodSeries.data.setAll(diagramsMockData);
-//   // legend.data.setAll(foodSeries.dataItems);
-//   // }
-//
-//   return [chart, foodSeries];
-//   // foodSeries = null;
-// };
-
-export default { initConfig: pieChartConfig };
+export default () => {
+  return {
+    animation: {
+      chartAppear: 200,
+      chartOpacityAppear: 6000,
+    },
+    general: {
+      _noSubGroup: {
+        customColors: {
+          value: true,
+          type: "radio",
+        },
+      },
+    },
+    chart: {
+      _noSubGroup: {
+        radius: {
+          value: 80,
+          type: "text-field.number",
+        },
+        innerRadius: {
+          value: 55,
+          type: "text-field.number",
+        },
+      },
+    },
+    labels: {
+      cafe: {
+        __type: "series",
+        enabled: {
+          value: true,
+          type: "radio",
+        },
+        inside: {
+          value: true,
+          type: "checkbox",
+        },
+        circular: {
+          value: true,
+          type: "checkbox",
+        },
+        radius: {
+          value: 80,
+          type: "text-field.number",
+        },
+      },
+    },
+    slices: {
+      cafe: {
+        __type: "series",
+        enabled: {
+          value: true,
+          type: "radio",
+        },
+        opacity: {
+          value: 1,
+          type: "text-field.number",
+        },
+        borderWidth: {
+          value: 2,
+          type: "text-field.number",
+        },
+        borderColor: {
+          value: "fff",
+          type: "text-field.color",
+        },
+      },
+    },
+    clickedSlices: {
+      cafe: {
+        __type: "series",
+        enabled: {
+          value: true,
+          type: "radio",
+        },
+        customStyle: {
+          value: true,
+          type: "checkbox",
+        },
+        radius: {
+          value: 10,
+          type: "text-field.number",
+        },
+        borderWidth: {
+          value: 2,
+          type: "text-field.number",
+        },
+        borderColor: {
+          value: "fff",
+          type: "text-field.color",
+        },
+      },
+    },
+    legend: {
+      cafe: {
+        __type: "series",
+        centerX: {
+          value: 50,
+          type: "text-field.number",
+        },
+        x: {
+          value: 50,
+          type: "text-field.number",
+        },
+        y: {
+          value: 1,
+          type: "text-field.number",
+        },
+      },
+    },
+    ticks: {
+      cafe: {
+        __type: "series",
+        enabled: {
+          value: true,
+          type: "radio",
+        },
+        width: {
+          value: 1,
+          type: "text-field.number",
+        },
+        color: {
+          value: "000",
+          type: "text-field.color",
+        },
+      },
+    },
+    tooltips: {
+      cafe: {
+        __type: "series",
+        enabled: {
+          value: true,
+          type: "radio",
+        },
+        text: {
+          value:
+            "{category}: [bold]{valuePercentTotal.formatNumber('0.00')}%[/] ({value})",
+          type: "text-field.text",
+        },
+      },
+    },
+    series: {
+      food: {
+        __type: "series",
+        enabled: {
+          value: true,
+          type: "radio",
+        },
+        startAngle: {
+          value: 0,
+          type: "text-field.number",
+        },
+        endAngle: {
+          value: 135,
+          type: "text-field.number",
+        },
+      },
+    },
+  };
+};

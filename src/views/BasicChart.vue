@@ -32,7 +32,6 @@ export default {
     return {
       chartSettings: null,
       chart: null,
-      chartConfig: null,
       settingsLoaded: false,
       enabledFeatures: [],
     };
@@ -75,20 +74,18 @@ export default {
       this.enabledFeatures = val;
     },
     runChart() {
-      const className = "ChartA";
-      switch (className) {
+      const chartName = "ChartA";
+      switch (chartName) {
         case "ChartA":
           this.chart = new ChartA();
           break;
       }
-      this.chartConfig = chartConfigs[this.$route.name];
-      if (!this.chartConfig) {
+      const config = chartConfigs[chartName]();
+      if (!config) {
         console.error("Config file for chart is not defined!");
-        return;
       }
+      this.chartSettings = this.chart.loadSettings(config);
       this.settingsLoaded = true;
-      // const chartSettings = this.chartConfig.initConfig();
-      this.chartSettings = this.chart.initSettings();
     },
     stopChart() {
       if (this.root) {
@@ -114,10 +111,7 @@ export default {
 
       root.setThemes([am5themes_Animated.new(root)]);
 
-      const initChartResult = this.chart.initChart(
-        this.chartSettings,
-        this.enabledFeatures
-      );
+      const initChartResult = this.chart.initChart();
 
       const [chart, series] = initChartResult;
 
