@@ -60,8 +60,13 @@
                   :disabled="item[1].disabled"
                 />
                 <template v-else>
-                  {{ item[1].type }}
-                  <v-select :items="seriesTabs[modelName][item[0]]" />
+                  <v-select
+                    :items="seriesItems"
+                    v-model="seriesTabs[modelName][item[0]]"
+                    label="Series #"
+                  />
+                  [{{ modelName }}/{{ item[0] }}] [{{ seriesTabs }}]
+                  {{ seriesTabs[modelName][item[0]] }}
                   <v-text-field
                     v-for="(seriesSetting, key) in chartSettings[modelName][
                       item[0]
@@ -120,13 +125,13 @@ export default {
   },
   props: {
     parentChartSettings: Object,
+    configMeta: Object,
   },
   beforeMount() {
     this.enabledSettingsFeatures.forEach((modelName) => {
       this.seriesTabs[modelName] = {};
       getSettingsModel(modelName).forEach((el) => {
-        console.log(11, el);
-        this.seriesTabs[modelName][el[0]] = 0;
+        this.seriesTabs[modelName][el[0]] = 1;
       });
     });
     console.log(this.seriesTabs);
@@ -150,7 +155,13 @@ export default {
       seriesTabs: {},
     };
   },
-  computed: {},
+  computed: {
+    seriesItems() {
+      const tst = [...Array(this.configMeta.seriesNumber).keys()];
+      console.log("tst", tst);
+      return tst;
+    },
+  },
   watch: {
     parentChartSettings: {
       handler() {

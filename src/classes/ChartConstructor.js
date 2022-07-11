@@ -14,7 +14,12 @@ export const ChartConstructor = class ChartConstructor {
     this.series = seriesArray;
   }
 
-  loadSettings(config) {
+  setChartConfig(config) {
+    this.config = config;
+  }
+
+  loadSettings() {
+    const config = this.config;
     const settings = {};
     Object.entries(settingsModels).forEach((modelArray) => {
       const [modelName, model] = modelArray;
@@ -30,6 +35,21 @@ export const ChartConstructor = class ChartConstructor {
     });
     this.settings = settings;
     return settings;
+  }
+
+  getConfigMeta() {
+    const configMeta = {};
+    Object.entries(this.config).forEach((el) => {
+      if (el[0].substring(0, 2) === "__") {
+        const newName = el[0].substring(2);
+        configMeta[newName] = el[1];
+      }
+    });
+    if (configMeta.seriesNumber === undefined) {
+      configMeta.seriesNumber = 1;
+    }
+    this.configMeta = configMeta;
+    return configMeta;
   }
 
   settingValue(groupName, settingName, seriesIndex) {

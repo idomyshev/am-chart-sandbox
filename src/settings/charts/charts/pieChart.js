@@ -1,5 +1,6 @@
 export default () => {
   return {
+    __seriesNumber: 2,
     animation: {
       chartAppear: 200,
       chartOpacityAppear: 200,

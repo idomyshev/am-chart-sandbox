@@ -5,6 +5,7 @@
         v-if="settingsLoaded"
         v-model="chartSettings"
         @enabledFeaturesUpdated="enabledFeaturesUpdated"
+        :configMeta="configMeta"
       />
     </v-col>
     <v-col cols="7">
@@ -34,6 +35,7 @@ export default {
       chart: null,
       settingsLoaded: false,
       enabledFeatures: [],
+      configMeta: {},
     };
   },
 
@@ -84,7 +86,10 @@ export default {
       if (!config) {
         console.error("Config file for chart is not defined!");
       }
-      this.chartSettings = this.chart.loadSettings(config);
+      this.chart.setChartConfig(config);
+      this.chartSettings = this.chart.loadSettings();
+      this.configMeta = this.chart.getConfigMeta();
+      console.log(911, this.configMeta);
       this.settingsLoaded = true;
     },
     stopChart() {
