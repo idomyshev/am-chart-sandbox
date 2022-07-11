@@ -11,6 +11,15 @@
           chips
           outlined
         />
+        <v-select
+          v-if="seriesItems.length"
+          :items="seriesItems"
+          item-value="index"
+          item-text="name"
+          v-model="seriesSelector"
+          label="Selected series"
+          outlined
+        />
       </v-card-text>
     </v-card>
     <v-expansion-panels v-model="panel" multiple>
@@ -60,13 +69,6 @@
                   :disabled="item[1].disabled"
                 />
                 <template v-else>
-                  <v-select
-                    :items="seriesItems"
-                    v-model="seriesTabs[modelName][item[0]]"
-                    label="Series #"
-                  />
-                  [{{ modelName }}/{{ item[0] }}] [{{ seriesTabs }}]
-                  {{ seriesTabs[modelName][item[0]] }}
                   <v-text-field
                     v-for="(seriesSetting, key) in chartSettings[modelName][
                       item[0]
@@ -76,7 +78,7 @@
                     :label="item[0] + key"
                     :class="{
                       'limited-width': item[1].type === 'text-field.number',
-                      'd-none': seriesTabs[modelName][item[0]] !== key,
+                      'd-none': seriesSelector !== key,
                     }"
                     :disabled="item[1].disabled"
                     >{{ seriesSetting }}</v-text-field
@@ -128,13 +130,16 @@ export default {
     configMeta: Object,
   },
   beforeMount() {
-    this.enabledSettingsFeatures.forEach((modelName) => {
-      this.seriesTabs[modelName] = {};
-      getSettingsModel(modelName).forEach((el) => {
-        this.seriesTabs[modelName][el[0]] = 1;
-      });
-    });
-    console.log(this.seriesTabs);
+    // const seriesSelector = {};
+    // this.enabledSettingsFeatures.forEach((modelName) => {
+    //   seriesSelector[modelName] = {};
+    //   getSettingsModel(modelName).forEach((el) => {
+    //     if (el[1].serial) {
+    //       seriesSelector[modelName][el[0]] = 1;
+    //     }
+    //   });
+    // });
+    // this.seriesSelector = seriesSelector;
     this.updateSettings();
   },
   mounted() {
@@ -152,14 +157,17 @@ export default {
       settingsFeatures,
       getSettingGroupMeta,
       getSettingsModel,
-      seriesTabs: {},
+      seriesSelector: 0,
+      tst: { group: { value: 1 } },
     };
   },
   computed: {
     seriesItems() {
-      const tst = [...Array(this.configMeta.seriesNumber).keys()];
-      console.log("tst", tst);
-      return tst;
+      const items = [];
+      this.configMeta.series.forEach((name, index) =>
+        items.push({ index, name })
+      );
+      return items;
     },
   },
   watch: {

@@ -45,10 +45,6 @@ export const ChartConstructor = class ChartConstructor {
         configMeta[newName] = el[1];
       }
     });
-    if (configMeta.seriesNumber === undefined) {
-      configMeta.seriesNumber = 1;
-    }
-    this.configMeta = configMeta;
     return configMeta;
   }
 
@@ -95,7 +91,7 @@ export const ChartConstructor = class ChartConstructor {
 
   addAnimation() {
     this.series.forEach((el, index) => {
-      el.appear(this.settingValue("animation", "seriesAppear", index));
+      el.appear(this.settingValue("animation", "seriesAppearTime", index));
     });
     this.chart.appear(
       this.settingValue("animation", "chartOpacityAppear"),

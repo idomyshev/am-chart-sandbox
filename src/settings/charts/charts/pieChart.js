@@ -1,10 +1,10 @@
 export default () => {
   return {
-    __seriesNumber: 2,
+    __series: ["Cafe", "Food"],
     animation: {
       chartAppear: 200,
       chartOpacityAppear: 200,
-      seriesAppear: [3000, 10000],
+      seriesAppearTime: [3000, 10000],
     },
     general: {
       _noSubGroup: {

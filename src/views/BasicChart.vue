@@ -89,7 +89,6 @@ export default {
       this.chart.setChartConfig(config);
       this.chartSettings = this.chart.loadSettings();
       this.configMeta = this.chart.getConfigMeta();
-      console.log(911, this.configMeta);
       this.settingsLoaded = true;
     },
     stopChart() {

@@ -10,7 +10,8 @@ export const settingsModels = {
       type: "text-field.number",
       defaultValue: 1000,
     },
-    seriesAppear: {
+    seriesAppearTime: {
+      serial: true,
       type: "text-field.number",
       defaultValue: 1000,
     },

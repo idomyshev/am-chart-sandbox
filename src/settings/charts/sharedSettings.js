@@ -9,7 +9,7 @@ export const __animationSettings = () => {
         value: 1000,
         type: "text-field.number",
       },
-      seriesAppear: {
+      seriesAppearTime: {
         value: 1000,
         type: "text-field.number",
       },
