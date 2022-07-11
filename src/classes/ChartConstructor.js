@@ -33,17 +33,6 @@ export const ChartConstructor = class ChartConstructor {
   }
 
   settingValue(groupName, param1, param2) {
-    // if (!settingsModels[groupName]) {
-    //   console.error(`Settings model for group ${groupName} not exist.`);
-    //   return null;
-    // } else if (settingsModels[groupName][settingName]) {
-    //   console.error(
-    //     `Settings model for setting ${settingName} of group ${groupName} not exist.`
-    //   );
-    //   return null;
-    // }
-
-    // const settingsModel = settingsModels[groupName][settingName];
     let seriesName = param2 ? param1 : null;
     const settingName = param2 ? param2 : param1;
 
@@ -83,12 +72,6 @@ export const ChartConstructor = class ChartConstructor {
   }
   setRoot(root) {
     this.root = root;
-    // root.container.children.push(
-    //   am5percent.PieChart.new(root, {
-    //     radius: am5.percent(90),
-    //     innerRadius: am5.percent(75),
-    //   })
-    // );
   }
 
   setEnabledFeatures(val) {
