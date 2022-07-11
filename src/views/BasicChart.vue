@@ -113,9 +113,9 @@ export default {
 
       const initChartResult = this.chart.initChart();
 
-      const [chart, series] = initChartResult;
+      const { chart, series } = initChartResult;
 
-      this.chart.init(root, chart, [series]);
+      this.chart.init(root, chart, series);
       if (isFeatureEnabled(this.enabledFeatures, "animation")) {
         this.chart.addAnimation();
       }

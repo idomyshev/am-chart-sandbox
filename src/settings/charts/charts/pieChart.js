@@ -2,7 +2,8 @@ export default () => {
   return {
     animation: {
       chartAppear: 200,
-      chartOpacityAppear: 6000,
+      chartOpacityAppear: 200,
+      seriesAppear: [3000, 10000],
     },
     general: {
       _noSubGroup: {

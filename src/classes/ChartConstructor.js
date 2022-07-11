@@ -32,31 +32,12 @@ export const ChartConstructor = class ChartConstructor {
     return settings;
   }
 
-  settingValue(groupName, param1, param2) {
-    let seriesName = param2 ? param1 : null;
-    const settingName = param2 ? param2 : param1;
-
+  settingValue(groupName, settingName, seriesIndex) {
     const settings = this.settings;
 
     if (!settings[groupName]) {
       console.error(`settingValue(): Settings group '${groupName}' not exist.`);
       return null;
-    }
-
-    if (seriesName) {
-      if (!settings[groupName][seriesName]) {
-        console.error(
-          `settingValue(): Series '${seriesName}' for settings group '${groupName}' not exist.`
-        );
-        return null;
-      }
-
-      if (settings[groupName][seriesName][settingName] === undefined) {
-        console.error(
-          `settingValue(): Setting '${settingName}' for series '${seriesName}' for settings group '${groupName}' not exist.`
-        );
-        return null;
-      }
     }
 
     if (settings[groupName][settingName] === undefined) {
@@ -66,9 +47,24 @@ export const ChartConstructor = class ChartConstructor {
       return null;
     }
 
-    return seriesName
-      ? settings[groupName][seriesName][settingName]
-      : settings[groupName][settingName];
+    let returnVal = null;
+    if (seriesIndex !== undefined) {
+      if (
+        !settings[groupName][settingName].length ||
+        settings[groupName][settingName][seriesIndex] === undefined
+      ) {
+        console.error(
+          `settingValue(): Setting '${settingName}' for settings group '${groupName}' with series index '${seriesIndex}' not exist.`
+        );
+        return null;
+      }
+
+      returnVal = settings[groupName][settingName][seriesIndex];
+    } else {
+      returnVal = settings[groupName][settingName];
+    }
+    console.log(groupName, settingName, seriesIndex, returnVal);
+    return returnVal;
   }
   setRoot(root) {
     this.root = root;
@@ -79,8 +75,8 @@ export const ChartConstructor = class ChartConstructor {
   }
 
   addAnimation() {
-    this.series.forEach((el) => {
-      el.appear(this.settings.animation.seriesAppear);
+    this.series.forEach((el, index) => {
+      el.appear(this.settingValue("animation", "seriesAppear", index));
     });
     this.chart.appear(
       this.settingValue("animation", "chartOpacityAppear"),

@@ -44,7 +44,7 @@ export const ChartA = class PieChart extends ChartConstructor {
     // legend.data.setAll(foodSeries.dataItems);
     // }
 
-    return [chart, foodSeries];
+    return { chart, series: [cafeSeries, foodSeries] };
     // foodSeries = null;
   }
 };
