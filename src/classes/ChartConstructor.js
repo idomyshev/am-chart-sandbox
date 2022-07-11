@@ -35,17 +35,7 @@ export const ChartConstructor = class ChartConstructor {
     return this.settings;
   }
 
-  addAnimation() {
-    this.series.forEach((el) => {
-      el.appear(this.settings.animation.seriesAppear);
-    });
-    this.chart.appear(
-      this.settings.animation.chartOpacityAppear,
-      this.settings.animation.chartAppear
-    );
-  }
-
-  settingValue(groupName, seriesName, settingName) {
+  settingValue(groupName, param1, param2) {
     // if (!settingsModels[groupName]) {
     //   console.error(`Settings model for group ${groupName} not exist.`);
     //   return null;
@@ -57,37 +47,42 @@ export const ChartConstructor = class ChartConstructor {
     // }
 
     // const settingsModel = settingsModels[groupName][settingName];
+    let seriesName = param2 ? param1 : null;
+    const settingName = param2 ? param2 : param1;
+
     const settings = this.settings;
 
     if (!settings[groupName]) {
-      console.error(`Settings group ${groupName} not exist.`);
+      console.error(`settingValue(): Settings group '${groupName}' not exist.`);
       return null;
-    } else if (seriesName) {
+    }
+
+    if (seriesName) {
       if (!settings[groupName][seriesName]) {
         console.error(
-          `Series ${seriesName} for settings group ${groupName} not exist.`
-        );
-        return null;
-      } else if (settings[groupName][seriesName][settingName] === undefined) {
-        console.error(
-          `Setting ${settingName} for series ${seriesName} for settings group ${groupName} not exist.`
+          `settingValue(): Series '${seriesName}' for settings group '${groupName}' not exist.`
         );
         return null;
       }
-    } else {
-      if (!settings[groupName][settingName]) {
+
+      if (settings[groupName][seriesName][settingName] === undefined) {
         console.error(
-          `Setting ${settingName} for settings group ${groupName} not exist.`
+          `settingValue(): Setting '${settingName}' for series '${seriesName}' for settings group '${groupName}' not exist.`
         );
         return null;
       }
     }
 
-    const setting = seriesName
+    if (settings[groupName][settingName] === undefined) {
+      console.error(
+        `settingValue(): Setting '${settingName}' for settings group '${groupName}' not exist.`
+      );
+      return null;
+    }
+
+    return seriesName
       ? settings[groupName][seriesName][settingName]
       : settings[groupName][settingName];
-
-    return setting.value;
   }
   setRoot(root) {
     this.root = root;
@@ -101,6 +96,16 @@ export const ChartConstructor = class ChartConstructor {
 
   setEnabledFeatures(val) {
     this.enabledFeatures = val;
+  }
+
+  addAnimation() {
+    this.series.forEach((el) => {
+      el.appear(this.settings.animation.seriesAppear);
+    });
+    this.chart.appear(
+      this.settingValue("animation", "chartOpacityAppear"),
+      this.settingValue("animation", "chartAppear")
+    );
   }
 
   addBullets() {
