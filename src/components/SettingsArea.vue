@@ -14,18 +14,18 @@
       </v-card-text>
     </v-card>
     <v-expansion-panels v-model="panel" multiple>
-      <template v-for="settingsGroupName in enabledSettingsFeatures">
-        <v-expansion-panel :key="settingsGroupName">
+      <template v-for="modelName in enabledSettingsFeatures">
+        <v-expansion-panel :key="modelName">
           <v-expansion-panel-header>
-            <span v-if="getSettingGroupMeta(settingsGroupName, 'title')">{{
-              getSettingGroupMeta(settingsGroupName, "title")
+            <span v-if="getSettingGroupMeta(modelName, 'title')">{{
+              getSettingGroupMeta(modelName, "title")
             }}</span>
-            <span v-else>{{ capitalizeFirstLetter(settingsGroupName) }}</span>
+            <span v-else>{{ capitalizeFirstLetter(modelName) }}</span>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <div
-              v-for="item in getSettingsModel(settingsGroupName)"
-              :key="`${settingsGroupName}_${item[0]}`"
+              v-for="item in getSettingsModel(modelName)"
+              :key="`${modelName}_${item[0]}`"
             >
               <!--              <v-switch-->
               <!--                v-if="item[1].type === 'radio'"-->
@@ -43,19 +43,41 @@
               <!--                :disabled="item[1].disabled"-->
               <!--              />-->
               <!--              {{ chartSettings }}-->
-              <v-text-field
+              <template
                 v-if="
                   ['text-field.number', 'text-field.text'].includes(
                     item[1].type
                   )
                 "
-                v-model="chartSettings[settingsGroupName][item[0]]"
-                :label="item[0]"
-                :class="
-                  item[1].type !== 'text-field.text' ? 'limited-width' : ''
-                "
-                :disabled="item[1].disabled"
-              />
+              >
+                <v-text-field
+                  v-if="!chartSettings[modelName][item[0]].length"
+                  v-model="chartSettings[modelName][item[0]]"
+                  :label="item[0]"
+                  :class="
+                    item[1].type !== 'text-field.text' ? 'limited-width' : ''
+                  "
+                  :disabled="item[1].disabled"
+                />
+                <template v-else>
+                  {{ item[1].type }}
+                  <v-select :items="seriesTabs[modelName][item[0]]" />
+                  <v-text-field
+                    v-for="(seriesSetting, key) in chartSettings[modelName][
+                      item[0]
+                    ]"
+                    :key="`${modelName}_${item[0]}_${key}`"
+                    v-model="chartSettings[modelName][item[0]][key]"
+                    :label="item[0] + key"
+                    :class="{
+                      'limited-width': item[1].type === 'text-field.number',
+                      'd-none': seriesTabs[modelName][item[0]] !== key,
+                    }"
+                    :disabled="item[1].disabled"
+                    >{{ seriesSetting }}</v-text-field
+                  >
+                </template>
+              </template>
               <!--              <div v-if="item[1].type === 'color'">-->
               <!--                <div class="diagram-settings__color-picker-title">-->
               <!--                  {{ item[0] }}-->
@@ -99,6 +121,17 @@ export default {
   props: {
     parentChartSettings: Object,
   },
+  beforeMount() {
+    this.enabledSettingsFeatures.forEach((modelName) => {
+      this.seriesTabs[modelName] = {};
+      getSettingsModel(modelName).forEach((el) => {
+        console.log(11, el);
+        this.seriesTabs[modelName][el[0]] = 0;
+      });
+    });
+    console.log(this.seriesTabs);
+    this.updateSettings();
+  },
   mounted() {
     this.$emit("enabledFeaturesUpdated", this.enabledSettingsFeatures);
   },
@@ -114,13 +147,14 @@ export default {
       settingsFeatures,
       getSettingGroupMeta,
       getSettingsModel,
+      seriesTabs: {},
     };
   },
   computed: {},
   watch: {
     parentChartSettings: {
       handler() {
-        this.chartSettings = this.parentChartSettings;
+        this.updateSettings();
       },
       deep: true,
     },
@@ -134,19 +168,14 @@ export default {
     getGroups() {
       return Object.entries(this.chartSettings);
     },
-    getSubGroups(subGroups) {
-      return Object.entries(subGroups).filter((el) => {
-        return el[0].substring(0, 2) !== "__";
-      });
-    },
     getItems(subgroup) {
       return Object.entries(subgroup).filter((el) => {
         return el[0].substring(0, 2) !== "__" && el[1].type;
       });
     },
-  },
-  beforeMount() {
-    this.chartSettings = this.parentChartSettings;
+    updateSettings() {
+      this.chartSettings = this.parentChartSettings;
+    },
   },
 };
 </script>

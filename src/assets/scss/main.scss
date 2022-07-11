@@ -14,9 +14,6 @@
     }
   }
   &__line, &__line-block {
-    .limited-width {
-      max-width: 150px;
-    }
   }
   &__title {
     align-items: center;
@@ -57,4 +54,7 @@
   //margin: 40px auto 0;
 
   //background: #fff;
+}
+.limited-width {
+  max-width: 150px;
 }

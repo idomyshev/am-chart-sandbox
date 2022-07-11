@@ -63,7 +63,6 @@ export const ChartConstructor = class ChartConstructor {
     } else {
       returnVal = settings[groupName][settingName];
     }
-    console.log(groupName, settingName, seriesIndex, returnVal);
     return returnVal;
   }
   setRoot(root) {
