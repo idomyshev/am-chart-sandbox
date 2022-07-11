@@ -16,7 +16,7 @@
           :items="seriesItems"
           item-value="index"
           item-text="name"
-          v-model="seriesSelector"
+          v-model="seriesSelectorIndex"
           label="Selected series"
           outlined
         />
@@ -60,7 +60,7 @@
                 "
               >
                 <v-text-field
-                  v-if="!chartSettings[modelName][item[0]].length"
+                  v-if="!item[1].serial"
                   v-model="chartSettings[modelName][item[0]]"
                   :label="item[0]"
                   :class="
@@ -75,10 +75,10 @@
                     ]"
                     :key="`${modelName}_${item[0]}_${key}`"
                     v-model="chartSettings[modelName][item[0]][key]"
-                    :label="item[0] + key"
+                    :label="`${item[0]} (Series: ${seriesSelector})`"
                     :class="{
                       'limited-width': item[1].type === 'text-field.number',
-                      'd-none': seriesSelector !== key,
+                      'd-none': seriesSelectorIndex !== key,
                     }"
                     :disabled="item[1].disabled"
                     >{{ seriesSetting }}</v-text-field
@@ -130,16 +130,16 @@ export default {
     configMeta: Object,
   },
   beforeMount() {
-    // const seriesSelector = {};
+    // const seriesSelectorIndex = {};
     // this.enabledSettingsFeatures.forEach((modelName) => {
-    //   seriesSelector[modelName] = {};
+    //   seriesSelectorIndex[modelName] = {};
     //   getSettingsModel(modelName).forEach((el) => {
     //     if (el[1].serial) {
-    //       seriesSelector[modelName][el[0]] = 1;
+    //       seriesSelectorIndex[modelName][el[0]] = 1;
     //     }
     //   });
     // });
-    // this.seriesSelector = seriesSelector;
+    // this.seriesSelectorIndex = seriesSelectorIndex;
     this.updateSettings();
   },
   mounted() {
@@ -157,7 +157,7 @@ export default {
       settingsFeatures,
       getSettingGroupMeta,
       getSettingsModel,
-      seriesSelector: 0,
+      seriesSelectorIndex: 0,
       tst: { group: { value: 1 } },
     };
   },
@@ -168,6 +168,12 @@ export default {
         items.push({ index, name })
       );
       return items;
+    },
+    seriesSelector() {
+      const series = this.seriesItems.find(
+        (el) => el.index === this.seriesSelectorIndex
+      );
+      return series ? series.name : "";
     },
   },
   watch: {
