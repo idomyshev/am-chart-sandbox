@@ -87,7 +87,7 @@ export default {
         console.error("Config file for chart is not defined!");
       }
       this.chart.setChartConfig(config);
-      this.configMeta = this.chart.getConfigMeta();
+      this.configMeta = config.meta;
       this.chartSettings = this.chart.loadSettings();
       this.settingsLoaded = true;
     },

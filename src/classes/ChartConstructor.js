@@ -15,7 +15,8 @@ export const ChartConstructor = class ChartConstructor {
   }
 
   setChartConfig(config) {
-    this.config = config;
+    this.config = config.settings;
+    this.configMeta = config.meta;
   }
 
   loadSettings() {
@@ -42,18 +43,6 @@ export const ChartConstructor = class ChartConstructor {
     });
     this.settings = settings;
     return settings;
-  }
-
-  getConfigMeta() {
-    const configMeta = {};
-    Object.entries(this.config).forEach((el) => {
-      if (el[0].substring(0, 2) === "__") {
-        const newName = el[0].substring(2);
-        configMeta[newName] = el[1];
-      }
-    });
-    this.configMeta = configMeta;
-    return configMeta;
   }
 
   settingValue(groupName, settingName, seriesIndex) {
