@@ -25,13 +25,7 @@ export default {
   data() {
     return {
       headers: [
-        {
-          text: "",
-          align: "start",
-          sortable: false,
-          value: "checkbox",
-        },
-        { text: "#", value: "index" },
+        { text: "#", value: "index", align: "start" },
         { text: "Name", value: "name" },
         { text: "Industry", value: "industry" },
         { text: "Channel", value: "channel" },

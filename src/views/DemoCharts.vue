@@ -79,4 +79,25 @@ th span {
 .v-application .elevation-1 {
   box-shadow: unset !important;
 }
+.v-data-footer {
+  padding-top: 16px;
+  position: relative;
+}
+.v-data-footer__icons-before {
+  position: absolute;
+  right: 3%;
+}
+.v-data-footer__icons-after {
+  position: absolute;
+  right: 1%;
+}
+.v-application--is-ltr .v-data-footer__pagination {
+  margin: 0 33px 0 34px;
+}
+tr th:first-child {
+  padding-left: 40px !important;
+}
+tr td:first-child {
+  padding-left: 40px !important;
+}
 </style>
