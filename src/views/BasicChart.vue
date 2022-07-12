@@ -4,7 +4,7 @@
       <SettingsArea
         v-if="settingsLoaded"
         v-model="chartSettings"
-        @enabledFeaturesUpdated="enabledFeaturesUpdated"
+        @updateEnabledFeatures="updateEnabledFeatures"
         :configMeta="configMeta"
       />
     </v-col>
@@ -21,7 +21,6 @@ import SettingsArea from "@/components/SettingsArea";
 import * as am5 from "@amcharts/amcharts5";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { chartConfigs } from "@/settings/charts";
-import { isFeatureEnabled } from "@/helpers/settings";
 import { ChartA } from "@/classes/customCharts/ChartA";
 
 export default {
@@ -41,12 +40,6 @@ export default {
 
   async beforeMount() {
     this.runChart();
-  },
-
-  mounted() {
-    if (this.settingsLoaded) {
-      // this.initDiagram();
-    }
   },
 
   beforeDestroy() {
@@ -72,7 +65,7 @@ export default {
   },
 
   methods: {
-    enabledFeaturesUpdated(val) {
+    updateEnabledFeatures(val) {
       this.enabledFeatures = val;
     },
     runChart() {
@@ -120,11 +113,11 @@ export default {
       const { chart, series } = initChartResult;
 
       this.chart.init(root, chart, series);
-      if (isFeatureEnabled(this.enabledFeatures, "animation")) {
+      if (this.chart.isFeatureEnabled("animation")) {
         this.chart.addAnimation();
       }
 
-      if (isFeatureEnabled(this.enabledFeatures, "bullets")) {
+      if (this.chart.isFeatureEnabled("bullets")) {
         this.chart.addBullets();
       }
 

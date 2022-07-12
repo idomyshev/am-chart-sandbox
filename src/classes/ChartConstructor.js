@@ -86,6 +86,10 @@ export const ChartConstructor = class ChartConstructor {
     this.enabledFeatures = val;
   }
 
+  isFeatureEnabled(featureName) {
+    return !!this.enabledFeatures.find((el) => el === featureName);
+  }
+
   addAnimation() {
     this.series.forEach((el, index) => {
       el.appear(this.settingValue("animation", "seriesAppearTime", index));

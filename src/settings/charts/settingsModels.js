@@ -1,5 +1,3 @@
-import { getSettingsSet } from "@/helpers/settings";
-
 export const settingsModels = {
   animation: {
     chartAppear: {
@@ -128,11 +126,6 @@ export const getSettingsModelProperty = (
 };
 
 export const settingsFeatures = Object.keys(settingsModels);
-
-const enabledSettingsUnprepared = getSettingsSet("pieChart", "features");
-export const enabledSettingsFeatures = settingsFeatures.filter((el) => {
-  return enabledSettingsUnprepared.some((x) => x === el);
-});
 
 export const getSettingGroupMeta = (groupName, metaName, showError) => {
   if (!settingsModels[groupName]) {

@@ -134,7 +134,6 @@
 import { capitalizeFirstLetter } from "@/helpers";
 import { COLORS } from "@/settings/colors";
 import {
-  enabledSettingsFeatures,
   getSettingGroupMeta,
   getSettingsModel,
   getSettingsModelProperty,
@@ -152,24 +151,13 @@ export default {
     configMeta: Object,
   },
   beforeMount() {
-    // const seriesSelector = {};
-    // this.enabledSettingsFeatures.forEach((modelName) => {
-    //   seriesSelector[modelName] = {};
-    //   getSettingsModel(modelName).forEach((el) => {
-    //     if (el[1].serial) {
-    //       seriesSelector[modelName][el[0]] = 1;
-    //     }
-    //   });
-    // });
-    // this.seriesSelector = seriesSelector;
     this.updateSettings();
   },
   mounted() {
-    this.$emit("enabledFeaturesUpdated", this.enabledSettingsFeatures);
+    this.$emit("updateEnabledFeatures", this.enabledSettingsFeatures);
   },
   data() {
     return {
-      enabledSettingsFeatures,
       settingsModels,
       panel: [0, 1, 2, 3, 4],
       chartSettings: {},
@@ -191,12 +179,16 @@ export default {
       );
       return items;
     },
-    // seriesSelector() {
-    //   const series = this.seriesItems.find(
-    //     (el) => el.index === this.seriesSelector
-    //   );
-    //   return series ? series.name : "";
-    // },
+    enabledSettingsFeatures: {
+      get() {
+        return settingsFeatures.filter((el) => {
+          return this.configMeta.features.some((x) => x === el);
+        });
+      },
+      set(val) {
+        this.$emit("updateEnabledFeatures", val.sort());
+      },
+    },
   },
   watch: {
     parentChartSettings: {
@@ -204,11 +196,6 @@ export default {
         this.updateSettings();
       },
       deep: true,
-    },
-    enabledSettingsFeatures: {
-      handler() {
-        this.$emit("enabledFeaturesUpdated", this.enabledSettingsFeatures);
-      },
     },
   },
   methods: {
