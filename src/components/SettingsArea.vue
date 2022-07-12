@@ -6,7 +6,7 @@
         <v-select
           v-model="enabledSettingsFeatures"
           :items="settingsFeatures"
-          label="Customize settings for selected groups"
+          label="Customize settings for selected features"
           multiple
           chips
           outlined
@@ -16,8 +16,9 @@
           :items="seriesItems"
           item-value="index"
           item-text="name"
-          v-model="seriesSelectorIndex"
+          v-model="seriesSelector"
           label="Customize settings for selected series"
+          multiple
           outlined
         />
       </v-card-text>
@@ -75,10 +76,10 @@
                     ]"
                     :key="`${modelName}_${item[0]}_${key}`"
                     v-model="chartSettings[modelName][item[0]][key]"
-                    :label="`${item[0]} (Series: ${seriesSelector})`"
+                    :label="`${item[0]} (Series: ${getSeries(key)})`"
                     :class="{
                       'limited-width': item[1].type === 'text-field.number',
-                      'd-none': seriesSelectorIndex !== key,
+                      'd-none': !seriesSelector.includes(key),
                     }"
                     :disabled="item[1].disabled"
                     >{{ seriesSetting }}</v-text-field
@@ -105,7 +106,7 @@
                       item[0]
                     ]"
                     :key="`${modelName}_${item[0]}_${key}`"
-                    :class="{ 'd-none': seriesSelectorIndex !== key }"
+                    :class="{ 'd-none': !seriesSelector.includes(key) }"
                   >
                     <div class="diagram-settings__color-picker-title">
                       {{ `${item[0]} (Series: ${getSeries(key)})` }}
@@ -151,16 +152,16 @@ export default {
     configMeta: Object,
   },
   beforeMount() {
-    // const seriesSelectorIndex = {};
+    // const seriesSelector = {};
     // this.enabledSettingsFeatures.forEach((modelName) => {
-    //   seriesSelectorIndex[modelName] = {};
+    //   seriesSelector[modelName] = {};
     //   getSettingsModel(modelName).forEach((el) => {
     //     if (el[1].serial) {
-    //       seriesSelectorIndex[modelName][el[0]] = 1;
+    //       seriesSelector[modelName][el[0]] = 1;
     //     }
     //   });
     // });
-    // this.seriesSelectorIndex = seriesSelectorIndex;
+    // this.seriesSelector = seriesSelector;
     this.updateSettings();
   },
   mounted() {
@@ -178,7 +179,7 @@ export default {
       settingsFeatures,
       getSettingGroupMeta,
       getSettingsModel,
-      seriesSelectorIndex: 0,
+      seriesSelector: [0],
       tst: { group: { value: 1 } },
     };
   },
@@ -190,12 +191,12 @@ export default {
       );
       return items;
     },
-    seriesSelector() {
-      const series = this.seriesItems.find(
-        (el) => el.index === this.seriesSelectorIndex
-      );
-      return series ? series.name : "";
-    },
+    // seriesSelector() {
+    //   const series = this.seriesItems.find(
+    //     (el) => el.index === this.seriesSelector
+    //   );
+    //   return series ? series.name : "";
+    // },
   },
   watch: {
     parentChartSettings: {
