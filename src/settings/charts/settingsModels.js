@@ -67,11 +67,19 @@ export const settingsModels = {
     },
   },
   grid: {
-    strokeWidth: {
+    xStrokeWidth: {
       type: "number",
       defaultValue: 1,
     },
-    stroke: {
+    xStroke: {
+      type: "color",
+      defaultValue: "#333",
+    },
+    yStrokeWidth: {
+      type: "number",
+      defaultValue: 1,
+    },
+    yStroke: {
       type: "color",
       defaultValue: "#333",
     },
@@ -112,11 +120,11 @@ export const settingsModels = {
       type: "number",
     },
     x: {
-      defaultValue: 50,
+      defaultValue: 30,
       type: "number",
     },
     y: {
-      defaultValue: 1,
+      defaultValue: 98,
       type: "number",
     },
   },

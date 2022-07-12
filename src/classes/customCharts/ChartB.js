@@ -20,7 +20,7 @@ export const ChartB = class ChartB extends ChartConstructor {
         renderer: am5xy.AxisRendererY.new(root, {
           strokeOpacity: this.settingValue("axes", "yStrokeOpacity"),
           strokeWidth: this.settingValue("axes", "yStrokeWidth"),
-          stroke: am5.color(this.settingValue("axes", "yStroke")),
+          stroke: this.settingValue("axes", "yStroke"),
         }),
       })
     );
@@ -31,7 +31,7 @@ export const ChartB = class ChartB extends ChartConstructor {
         renderer: am5xy.AxisRendererX.new(root, {
           strokeOpacity: this.settingValue("axes", "xStrokeOpacity"),
           strokeWidth: this.settingValue("axes", "xStrokeWidth"),
-          stroke: am5.color(this.settingValue("axes", "xStroke")),
+          stroke: this.settingValue("axes", "xStroke"),
         }),
         categoryField: "month",
         startLocation: 0,
@@ -44,18 +44,15 @@ export const ChartB = class ChartB extends ChartConstructor {
     // Renderers.
     const yRenderer = yAxis.get("renderer");
     const xRenderer = xAxis.get("renderer");
-
-    // Grid Y.
     yRenderer.grid.template.setAll({
-      stroke: am5.color(this.settingValue("grid", "stroke")),
-      strokeWidth: this.settingValue("grid", "strokeWidth"),
+      stroke: this.settingValue("grid", "yStroke"),
+      strokeWidth: this.settingValue("grid", "yStrokeWidth"),
     });
 
-    // Grid X.
-    // xRenderer.grid.template.setAll({
-    //   stroke: am5.color(`#${chartSettings.grid.x.stroke.value}`),
-    //   strokeWidth: chartSettings.grid.x.strokeWidth.value,
-    // });
+    xRenderer.grid.template.setAll({
+      stroke: this.settingValue("grid", "xStroke"),
+      strokeWidth: this.settingValue("grid", "xStrokeWidth"),
+    });
 
     // if (chartSettings.grid._noSubGroup.gridContainerToFront.value) {
     //   chart.gridContainer.toFront();
@@ -63,27 +60,27 @@ export const ChartB = class ChartB extends ChartConstructor {
 
     // Ticks Y.
     yRenderer.ticks.template.setAll({
-      stroke: am5.color(this.settingValue("ticks", "yStroke")),
+      stroke: this.settingValue("ticks", "yStroke"),
       strokeWidth: this.settingValue("ticks", "yStrokeWidth"),
       visible: this.isFeatureEnabled("ticks"),
     });
 
     // Ticks X.
     xRenderer.ticks.template.setAll({
-      stroke: am5.color(this.settingValue("ticks", "xStroke")),
+      stroke: this.settingValue("ticks", "xStroke"),
       strokeWidth: this.settingValue("ticks", "xStrokeWidth"),
       visible: this.isFeatureEnabled("ticks"),
     });
 
     // Labels Y.
     yRenderer.labels.template.setAll({
-      fill: am5.color(this.settingValue("labels", "yFill")),
+      fill: this.settingValue("labels", "yFill"),
       fontSize: `${this.settingValue("labels", "yFontSize")}em`,
     });
 
     // Labels X.
     xRenderer.labels.template.setAll({
-      fill: am5.color(this.settingValue("labels", "xFill")),
+      fill: this.settingValue("labels", "xFill"),
       fontSize: `${this.settingValue("labels", "xFontSize")}em`,
       radius: 30,
     });
@@ -92,8 +89,8 @@ export const ChartB = class ChartB extends ChartConstructor {
     let food = chart.series.push(
       am5xy.ColumnSeries.new(root, {
         name: "Food",
-        xAxis: xAxis,
-        yAxis: yAxis,
+        xAxis,
+        yAxis,
         valueYField: "food",
         categoryXField: "month",
       })
