@@ -1,5 +1,5 @@
 export const pieChartSettingsSet = {
-  features: ["animation"],
+  features: ["bullets"],
   seriesNumber: 2,
   settings: {},
 };

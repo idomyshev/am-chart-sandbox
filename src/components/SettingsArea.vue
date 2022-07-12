@@ -1,12 +1,12 @@
 <template>
   <div class="diagram-settings">
     <v-card class="mb-2">
-      <v-card-title>Settings</v-card-title>
+      <v-card-title>Settings customization</v-card-title>
       <v-card-text>
         <v-select
           v-model="enabledSettingsFeatures"
           :items="settingsFeatures"
-          label="Enabled features"
+          label="Customize settings for selected groups"
           multiple
           chips
           outlined
@@ -17,7 +17,7 @@
           item-value="index"
           item-text="name"
           v-model="seriesSelectorIndex"
-          label="Selected series"
+          label="Customize settings for selected series"
           outlined
         />
       </v-card-text>
@@ -105,9 +105,10 @@
                       item[0]
                     ]"
                     :key="`${modelName}_${item[0]}_${key}`"
+                    :class="{ 'd-none': seriesSelectorIndex !== key }"
                   >
                     <div class="diagram-settings__color-picker-title">
-                      {{ item[0] }}
+                      {{ `${item[0]} (Series: ${getSeries(key)})` }}
                     </div>
                     <div class="diagram-settings__color-picker-box">
                       <v-color-picker
@@ -169,7 +170,7 @@ export default {
     return {
       enabledSettingsFeatures,
       settingsModels,
-      panel: [],
+      panel: [0, 1, 2, 3, 4],
       chartSettings: {},
       capitalizeFirstLetter,
       COLORS,
@@ -210,6 +211,9 @@ export default {
     },
   },
   methods: {
+    getSeries(index) {
+      return this.configMeta.series[index];
+    },
     getGroups() {
       return Object.entries(this.chartSettings);
     },
