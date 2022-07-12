@@ -13,7 +13,12 @@ export const ChartConstructor = class ChartConstructor {
     this.configMeta = config.meta;
   }
 
-  loadSettings() {
+  loadSettings(savedSettings) {
+    if (savedSettings) {
+      this.settings = savedSettings;
+      return savedSettings;
+    }
+
     const config = this.config;
     const settings = {};
     Object.entries(settingsModels).forEach((modelArray) => {

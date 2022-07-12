@@ -23,6 +23,7 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { chartConfigs } from "@/settings/charts";
 import { ChartA } from "@/classes/customCharts/ChartA";
 import { ChartB } from "@/classes/customCharts/ChartB";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "BasicChart",
@@ -50,6 +51,7 @@ export default {
   watch: {
     chartSettings: {
       handler() {
+        this.setInstance({ name: this.$route.name, value: this.chartSettings });
         this.initDiagram();
       },
       deep: true,
@@ -66,6 +68,8 @@ export default {
   },
 
   methods: {
+    ...mapMutations("chart", ["setInstance"]),
+    ...mapGetters("chart", ["chartInstances"]),
     updateEnabledFeatures(val) {
       this.enabledFeatures = val;
     },
@@ -85,7 +89,14 @@ export default {
       const config = chartConfigs[chartName]();
       this.chart.setChartConfig(config);
       this.configMeta = config.meta;
-      this.chartSettings = this.chart.loadSettings();
+      const savedPlaygrounds = this.chartInstances();
+      const savedChart = savedPlaygrounds[chartName];
+      console.log(5, savedPlaygrounds);
+      console.log(4, savedChart);
+      const savedSettings = savedPlaygrounds[chartName]
+        ? savedPlaygrounds[chartName]
+        : null;
+      this.chartSettings = this.chart.loadSettings(savedSettings);
       this.settingsLoaded = true;
     },
     stopChart() {
