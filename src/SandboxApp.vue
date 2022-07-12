@@ -12,14 +12,14 @@
           </div>
           <v-btn :to="ROUTES.PIE_CHART">Pie/donut chart</v-btn>
           <v-btn :to="ROUTES.COLUMNS_CHART">Column chart</v-btn>
-          <v-btn :to="ROUTES.BAR_CHART" class="mr-3">Bar chart</v-btn>
-          <v-btn :to="ROUTES.RADAR_CHART" class="mr-3">Radar chart</v-btn>
-          <v-btn :to="ROUTES.POLAR_CHART" class="mr-3">Polar chart</v-btn>
-          <v-btn :to="ROUTES.AREA_CHART" class="mr-3">Line/Area chart</v-btn>
-          <v-btn :to="ROUTES.XY_CHART" class="mr-3">XY/Bubble chart</v-btn>
-          <v-btn :to="ROUTES.HIERARCHY_CHART" class="mr-3"
-            >Hierarchy chart</v-btn
-          >
+          <!--          <v-btn :to="ROUTES.BAR_CHART" class="mr-3">Bar chart</v-btn>-->
+          <!--          <v-btn :to="ROUTES.RADAR_CHART" class="mr-3">Radar chart</v-btn>-->
+          <!--          <v-btn :to="ROUTES.POLAR_CHART" class="mr-3">Polar chart</v-btn>-->
+          <!--          <v-btn :to="ROUTES.AREA_CHART" class="mr-3">Line/Area chart</v-btn>-->
+          <!--          <v-btn :to="ROUTES.XY_CHART" class="mr-3">XY/Bubble chart</v-btn>-->
+          <!--          <v-btn :to="ROUTES.HIERARCHY_CHART" class="mr-3"-->
+          <!--            >Hierarchy chart</v-btn-->
+          <!--          >-->
         </v-col>
         <v-col>
           <router-view />
