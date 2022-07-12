@@ -85,21 +85,41 @@
                   >
                 </template>
               </template>
-              <!--              <div v-if="item[1].type === 'color'">-->
-              <!--                <div class="diagram-settings__color-picker-title">-->
-              <!--                  {{ item[0] }}-->
-              <!--                </div>-->
-              <!--                <div class="diagram-settings__color-picker-box">-->
-              <!--                  <v-color-picker-->
-              <!--                    v-model="-->
-              <!--                      chartSettings[group[0]][subGroup[0]][item[0]].value-->
-              <!--                    "-->
-              <!--                  />-->
-              <!--                  <div>-->
-              <!--                    {{ chartSettings[group[0]][subGroup[0]][item[0]].value }}-->
-              <!--                  </div>-->
-              <!--                </div>-->
-              <!--              </div>-->
+              <template v-if="item[1].type === 'color'">
+                <template v-if="!item[1].serial">
+                  <div class="diagram-settings__color-picker-title">
+                    {{ item[0] }}
+                  </div>
+                  <div class="diagram-settings__color-picker-box">
+                    <v-color-picker
+                      v-model="chartSettings[modelName][item[0]]"
+                    />
+                    <div>
+                      {{ chartSettings[modelName][item[0]] }}
+                    </div>
+                  </div>
+                </template>
+                <template v-else>
+                  <div
+                    v-for="(seriesSetting, key) in chartSettings[modelName][
+                      item[0]
+                    ]"
+                    :key="`${modelName}_${item[0]}_${key}`"
+                  >
+                    <div class="diagram-settings__color-picker-title">
+                      {{ item[0] }}
+                    </div>
+                    <div class="diagram-settings__color-picker-box">
+                      <v-color-picker
+                        v-model="chartSettings[modelName][item[0]][key]"
+                      />
+                      <div>
+                        {{ chartSettings[modelName][item[0]][key] }}
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </template>
             </div>
           </v-expansion-panel-content>
         </v-expansion-panel>

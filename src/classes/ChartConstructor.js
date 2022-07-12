@@ -29,7 +29,14 @@ export const ChartConstructor = class ChartConstructor {
         if (config[modelName] && config[modelName][settingName]) {
           settings[modelName][settingName] = config[modelName][settingName];
         } else {
-          settings[modelName][settingName] = setting.defaultValue;
+          if (!setting.serial) {
+            settings[modelName][settingName] = setting.defaultValue;
+          } else {
+            settings[modelName][settingName] = [];
+            this.configMeta.series.forEach(() => {
+              settings[modelName][settingName].push(setting.defaultValue);
+            });
+          }
         }
       });
     });
@@ -45,6 +52,7 @@ export const ChartConstructor = class ChartConstructor {
         configMeta[newName] = el[1];
       }
     });
+    this.configMeta = configMeta;
     return configMeta;
   }
 
@@ -100,19 +108,14 @@ export const ChartConstructor = class ChartConstructor {
   }
 
   addBullets() {
-    this.series.forEach((el) => {
-      const seriesName = "_noSubGroup";
+    this.series.forEach((el, i) => {
       el.bullets.push(() => {
         return am5.Bullet.new(this.root, {
           sprite: am5.Circle.new(this.root, {
-            radius: this.settingValue("bullets", seriesName, "radius"),
-            fill: this.settingValue("bullets", seriesName, "fill"),
-            strokeWidth: this.settingValue(
-              "bullets",
-              seriesName,
-              "strokeWidth"
-            ),
-            stroke: this.settingValue("bullets", seriesName, "stroke"),
+            radius: this.settingValue("bullets", "radius", i),
+            fill: this.settingValue("bullets", "fill", i),
+            strokeWidth: this.settingValue("bullets", "strokeWidth", i),
+            stroke: this.settingValue("bullets", "stroke", i),
           }),
         });
       });

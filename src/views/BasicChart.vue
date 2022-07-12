@@ -87,8 +87,8 @@ export default {
         console.error("Config file for chart is not defined!");
       }
       this.chart.setChartConfig(config);
-      this.chartSettings = this.chart.loadSettings();
       this.configMeta = this.chart.getConfigMeta();
+      this.chartSettings = this.chart.loadSettings();
       this.settingsLoaded = true;
     },
     stopChart() {
@@ -123,10 +123,10 @@ export default {
       if (isFeatureEnabled(this.enabledFeatures, "animation")) {
         this.chart.addAnimation();
       }
-      //
-      // if (this.chartSettings.features._noSubGroup.bullets.value) {
-      //   this.chart.addBullets();
-      // }
+
+      if (isFeatureEnabled(this.enabledFeatures, "bullets")) {
+        this.chart.addBullets();
+      }
 
       this.root = root;
     },

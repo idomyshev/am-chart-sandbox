@@ -22,18 +22,22 @@ export const settingsModels = {
   },
   bullets: {
     radius: {
+      serial: true,
       type: "text-field.number",
       defaultValue: 5,
     },
     fill: {
+      serial: true,
       type: "color",
       defaultValue: "#B0CB3543",
     },
     strokeWidth: {
+      serial: true,
       type: "text-field.number",
       defaultValue: 2,
     },
     stroke: {
+      serial: true,
       type: "color",
       defaultValue: "#247A2DFF",
     },
