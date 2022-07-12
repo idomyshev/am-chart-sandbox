@@ -1,7 +1,7 @@
 export default () => {
   return {
     meta: {
-      features: ["bullets"],
+      features: ["animation", "bullets"],
       series: ["Cafe", "Food"],
     },
     settings: {

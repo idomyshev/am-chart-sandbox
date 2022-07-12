@@ -4,7 +4,7 @@
       <v-card-title>Settings customization</v-card-title>
       <v-card-text>
         <v-select
-          v-model="enabledSettingsFeatures"
+          v-model="enabledFeatures"
           :items="settingsFeatures"
           label="Customize settings for selected features"
           multiple
@@ -24,7 +24,7 @@
       </v-card-text>
     </v-card>
     <v-expansion-panels v-model="panel" multiple>
-      <template v-for="modelName in enabledSettingsFeatures">
+      <template v-for="modelName in enabledFeatures">
         <v-expansion-panel :key="modelName">
           <v-expansion-panel-header>
             <span v-if="getSettingGroupMeta(modelName, 'title')">{{
@@ -149,12 +149,12 @@ export default {
     this.updateSettings();
   },
   mounted() {
-    this.$emit("updateEnabledFeatures", this.enabledSettingsFeatures);
+    this.$emit("updateEnabledFeatures", this.enabledFeatures);
   },
   data() {
     return {
       settingsModels,
-      panel: [0, 1, 2, 3, 4],
+      panel: [],
       chartSettings: {},
       capitalizeFirstLetter,
       getSettingsModelProperty,
@@ -163,6 +163,7 @@ export default {
       getSettingsModel,
       seriesSelector: [0],
       tst: { group: { value: 1 } },
+      enabledFeatures: (() => this.configMeta.features)(),
     };
   },
   computed: {
@@ -173,16 +174,6 @@ export default {
       );
       return items;
     },
-    enabledSettingsFeatures: {
-      get() {
-        return settingsFeatures.filter((el) => {
-          return this.configMeta.features.some((x) => x === el);
-        });
-      },
-      set(val) {
-        this.$emit("updateEnabledFeatures", val.sort());
-      },
-    },
   },
   watch: {
     parentChartSettings: {
@@ -190,6 +181,9 @@ export default {
         this.updateSettings();
       },
       deep: true,
+    },
+    enabledFeatures(val) {
+      this.$emit("updateEnabledFeatures", val);
     },
   },
   methods: {
