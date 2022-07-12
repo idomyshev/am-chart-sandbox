@@ -20,11 +20,11 @@ export const initConfig = () => {
         },
         cornerRadiusBR: {
           value: 10,
-          type: "text-field.number",
+          type: "number",
         },
         cornerRadiusTR: {
           value: 10,
-          type: "text-field.number",
+          type: "number",
         },
       },
     },

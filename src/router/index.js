@@ -32,12 +32,12 @@ const routes = [
       },
       {
         path: ROUTES.PIE_CHART,
-        name: "pieChart",
+        name: "ChartA",
         component: BasicChart,
       },
       {
         path: ROUTES.COLUMNS_CHART,
-        name: "columnChart",
+        name: "ChartB",
         component: BasicChart,
       },
       {

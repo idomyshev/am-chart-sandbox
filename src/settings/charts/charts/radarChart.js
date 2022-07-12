@@ -9,7 +9,7 @@ const initConfig = () => {
       _noSubGroup: {
         radius: {
           value: 10,
-          type: "text-field.number",
+          type: "number",
         },
       },
     },
@@ -17,7 +17,7 @@ const initConfig = () => {
       _noSubGroup: {
         strokeWidth: {
           value: 2,
-          type: "text-field.number",
+          type: "number",
         },
       },
     },
@@ -25,7 +25,7 @@ const initConfig = () => {
       _noSubGroup: {
         radius: {
           value: 5,
-          type: "text-field.number",
+          type: "number",
         },
         fill: {
           value: "#B0CB3543",
@@ -33,7 +33,7 @@ const initConfig = () => {
         },
         strokeWidth: {
           value: 2,
-          type: "text-field.number",
+          type: "number",
         },
         stroke: {
           value: "#247A2DFF",

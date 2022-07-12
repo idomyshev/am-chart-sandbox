@@ -3,7 +3,7 @@ import * as am5 from "@amcharts/amcharts5";
 import { diagramsMockData } from "@/mockData/diagramsData";
 import { ChartConstructor } from "@/classes/ChartConstructor";
 
-export const ChartA = class PieChart extends ChartConstructor {
+export const ChartA = class ChartA extends ChartConstructor {
   initChart() {
     const root = this.root;
 
@@ -45,6 +45,5 @@ export const ChartA = class PieChart extends ChartConstructor {
     // }
 
     return { chart, series: [cafeSeries, foodSeries] };
-    // foodSeries = null;
   }
 };

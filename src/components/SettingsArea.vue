@@ -54,11 +54,7 @@
               <!--              />-->
               <!--              {{ chartSettings }}-->
               <template
-                v-if="
-                  ['text-field.number', 'text-field.text'].includes(
-                    item[1].type
-                  )
-                "
+                v-if="['number', 'text-field.text'].includes(item[1].type)"
               >
                 <v-text-field
                   v-if="!item[1].serial"
@@ -78,7 +74,7 @@
                     v-model="chartSettings[modelName][item[0]][key]"
                     :label="`${item[0]} (Series: ${getSeries(key)})`"
                     :class="{
-                      'limited-width': item[1].type === 'text-field.number',
+                      'limited-width': item[1].type === 'number',
                       'd-none': !seriesSelector.includes(key),
                     }"
                     :disabled="item[1].disabled"

@@ -22,6 +22,7 @@ import * as am5 from "@amcharts/amcharts5";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { chartConfigs } from "@/settings/charts";
 import { ChartA } from "@/classes/customCharts/ChartA";
+import { ChartB } from "@/classes/customCharts/ChartB";
 
 export default {
   name: "BasicChart",
@@ -69,16 +70,19 @@ export default {
       this.enabledFeatures = val;
     },
     runChart() {
-      const chartName = "ChartA";
+      const chartName = this.$route.name;
       switch (chartName) {
         case "ChartA":
           this.chart = new ChartA();
           break;
+        case "ChartB":
+          this.chart = new ChartB();
+          break;
       }
-      const config = chartConfigs[chartName]();
-      if (!config) {
+      if (!chartConfigs[chartName]) {
         console.error("Config file for chart is not defined!");
       }
+      const config = chartConfigs[chartName]();
       this.chart.setChartConfig(config);
       this.configMeta = config.meta;
       this.chartSettings = this.chart.loadSettings();

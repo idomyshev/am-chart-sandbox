@@ -22,11 +22,11 @@ export default () => {
         _noSubGroup: {
           radius: {
             value: 80,
-            type: "text-field.number",
+            type: "number",
           },
           innerRadius: {
             value: 55,
-            type: "text-field.number",
+            type: "number",
           },
         },
       },
@@ -47,7 +47,7 @@ export default () => {
           },
           radius: {
             value: 80,
-            type: "text-field.number",
+            type: "number",
           },
         },
       },
@@ -60,15 +60,15 @@ export default () => {
           },
           opacity: {
             value: 1,
-            type: "text-field.number",
+            type: "number",
           },
           borderWidth: {
             value: 2,
-            type: "text-field.number",
+            type: "number",
           },
           borderColor: {
             value: "fff",
-            type: "text-field.color",
+            type: "color",
           },
         },
       },
@@ -85,15 +85,15 @@ export default () => {
           },
           radius: {
             value: 10,
-            type: "text-field.number",
+            type: "number",
           },
           borderWidth: {
             value: 2,
-            type: "text-field.number",
+            type: "number",
           },
           borderColor: {
             value: "fff",
-            type: "text-field.color",
+            type: "color",
           },
         },
       },
@@ -102,15 +102,15 @@ export default () => {
           __type: "series",
           centerX: {
             value: 50,
-            type: "text-field.number",
+            type: "number",
           },
           x: {
             value: 50,
-            type: "text-field.number",
+            type: "number",
           },
           y: {
             value: 1,
-            type: "text-field.number",
+            type: "number",
           },
         },
       },
@@ -123,11 +123,11 @@ export default () => {
           },
           width: {
             value: 1,
-            type: "text-field.number",
+            type: "number",
           },
           color: {
             value: "000",
-            type: "text-field.color",
+            type: "color",
           },
         },
       },
@@ -154,11 +154,11 @@ export default () => {
           },
           startAngle: {
             value: 0,
-            type: "text-field.number",
+            type: "number",
           },
           endAngle: {
             value: 135,
-            type: "text-field.number",
+            type: "number",
           },
         },
       },

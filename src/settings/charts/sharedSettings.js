@@ -3,7 +3,7 @@ export const __greenBullets = () => {
     _noSubGroup: {
       radius: {
         value: 5,
-        type: "text-field.number",
+        type: "number",
       },
       fill: {
         value: "#B0CB3543",
@@ -11,7 +11,7 @@ export const __greenBullets = () => {
       },
       strokeWidth: {
         value: 2,
-        type: "text-field.number",
+        type: "number",
       },
       stroke: {
         value: "#247A2DFF",

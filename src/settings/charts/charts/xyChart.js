@@ -1659,7 +1659,7 @@ export default {
         _noSubGroup: {
           radius: {
             value: 0,
-            type: "text-field.number",
+            type: "number",
           },
           fill: {
             value: "#B0CB3543",
@@ -1667,7 +1667,7 @@ export default {
           },
           strokeWidth: {
             value: 0,
-            type: "text-field.number",
+            type: "number",
           },
           stroke: {
             value: "#247A2DFF",

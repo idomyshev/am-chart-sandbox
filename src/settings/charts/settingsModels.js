@@ -1,27 +1,53 @@
 export const settingsModels = {
   animation: {
     chartAppear: {
-      type: "text-field.number",
+      type: "number",
       defaultValue: 100,
     },
     chartOpacityAppear: {
-      type: "text-field.number",
+      type: "number",
       defaultValue: 1000,
     },
     seriesAppearTime: {
       serial: true,
-      type: "text-field.number",
+      type: "number",
       defaultValue: 1000,
     },
     animateSpeedOnDrop: {
-      type: "text-field.number",
+      type: "number",
       defaultValue: 600,
+    },
+  },
+  axes: {
+    xStrokeOpacity: {
+      type: "number",
+      defaultValue: 0.9,
+    },
+    xStrokeWidth: {
+      type: "number",
+      defaultValue: 2,
+    },
+    xStroke: {
+      type: "color",
+      defaultValue: "#f33",
+    },
+    yStrokeOpacity: {
+      type: "number",
+      defaultValue: 0.9,
+    },
+    yStrokeWidth: {
+      type: "number",
+      defaultValue: 2,
+    },
+    yStroke: {
+      type: "color",
+      defaultValue: "#f33",
     },
   },
   bullets: {
     radius: {
       serial: true,
-      type: "text-field.number",
+      type: "number",
       defaultValue: 5,
     },
     fill: {
@@ -31,7 +57,7 @@ export const settingsModels = {
     },
     strokeWidth: {
       serial: true,
-      type: "text-field.number",
+      type: "number",
       defaultValue: 2,
     },
     stroke: {
@@ -40,7 +66,33 @@ export const settingsModels = {
       defaultValue: "#247A2DFF",
     },
   },
+  grid: {
+    strokeWidth: {
+      type: "number",
+      defaultValue: 1,
+    },
+    stroke: {
+      type: "color",
+      defaultValue: "#333",
+    },
+  },
   labels: {
+    xFontSize: {
+      type: "number",
+      defaultValue: 1,
+    },
+    xFill: {
+      type: "color",
+      defaultValue: "#69f",
+    },
+    yFontSize: {
+      type: "number",
+      defaultValue: 1,
+    },
+    yFill: {
+      type: "color",
+      defaultValue: "#69f",
+    },
     inside: {
       defaultValue: true,
       type: "checkbox",
@@ -51,39 +103,39 @@ export const settingsModels = {
     },
     radius: {
       defaultValue: 80,
-      type: "text-field.number",
+      type: "number",
     },
   },
   legend: {
     centerX: {
       defaultValue: 50,
-      type: "text-field.number",
+      type: "number",
     },
     x: {
       defaultValue: 50,
-      type: "text-field.number",
+      type: "number",
     },
     y: {
       defaultValue: 1,
-      type: "text-field.number",
+      type: "number",
     },
   },
   ticks: {
-    color: {
-      defaultValue: "666",
-      type: "text-field.color",
+    yStroke: {
+      defaultValue: "#3f3",
+      type: "color",
     },
-    width: {
+    yStrokeWidth: {
       defaultValue: 2,
-      type: "text-field.number",
+      type: "number",
     },
-    stroke: {
-      defaultValue: "666",
-      type: "text-field.color",
+    xStroke: {
+      defaultValue: "#3f3",
+      type: "color",
     },
-    strokeWidth: {
+    xStrokeWidth: {
       defaultValue: 2,
-      type: "text-field.number",
+      type: "number",
     },
   },
 };
