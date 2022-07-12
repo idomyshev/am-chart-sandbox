@@ -132,7 +132,6 @@
 
 <script>
 import { capitalizeFirstLetter } from "@/helpers";
-import { COLORS } from "@/settings/colors";
 import {
   getSettingGroupMeta,
   getSettingsModel,
@@ -162,7 +161,6 @@ export default {
       panel: [0, 1, 2, 3, 4],
       chartSettings: {},
       capitalizeFirstLetter,
-      COLORS,
       getSettingsModelProperty,
       settingsFeatures,
       getSettingGroupMeta,

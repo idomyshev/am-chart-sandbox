@@ -1,11 +1,5 @@
-// import {
-//   __animationSettings,
-//   __bulletsSettings,
-// } from "@/settings/charts/sharedSettings";
 import * as am5 from "@amcharts/amcharts5";
 import { settingsModels } from "@/settings/charts/settingsModels";
-// import * as am5percent from "@amcharts/amcharts4/charts";
-// import { settingsModels } from "@/settings/charts/settingsModels";
 
 export const ChartConstructor = class ChartConstructor {
   init(root, chart, seriesArray) {
