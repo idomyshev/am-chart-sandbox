@@ -37,7 +37,7 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  height: 400px;
+  /* height: 400px; */
   background-color: white;
   border-radius: 10px;
   margin: 10px 5px;

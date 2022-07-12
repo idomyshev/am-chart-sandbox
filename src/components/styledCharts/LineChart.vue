@@ -141,7 +141,7 @@ export default {
 <style lang="scss">
 .line-chart {
   .chart {
-    height: 600px;
+    height: 400px;
   }
   .chart-select {
     width: 160px;
