@@ -184,7 +184,7 @@ export default {
     },
     configMeta: {
       handler() {
-        this.enabledFeatures = this.configMeta.features;
+        this.enabledFeatures = (() => this.configMeta.features)();
       },
       deep: true,
     },

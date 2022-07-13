@@ -7,8 +7,6 @@
         @updateEnabledFeatures="updateEnabledFeatures"
         :configMeta="chartMeta"
       />
-      {{ chartMeta.features }}
-      ~~ {{ enabledFeatures }}
     </v-col>
     <v-col cols="7">
       <div class="chart-wrapper">
@@ -60,8 +58,6 @@ export default {
     },
     enabledFeatures: {
       handler(val) {
-        //const enabledFeatures = (() => val)();
-        console.log(1, this.chartMeta, val);
         this.setMeta({
           name: this.$route.name,
           value: { ...this.chartMeta, features: val },
@@ -97,9 +93,7 @@ export default {
       }
       this.chart.setChartConfig(chartConfigs[chartName]());
       const savedMeta = this.chartsMeta()[chartName];
-      console.log(4, savedMeta);
       this.chartMeta = this.chart.loadMeta(savedMeta);
-      console.log(5, this.chartMeta);
       const savedChart = this.chartsInstances()[chartName];
       const savedSettings = savedChart ? savedChart : null;
       this.chartSettings = this.chart.loadSettings(savedSettings);
