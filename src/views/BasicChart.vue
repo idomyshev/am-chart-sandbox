@@ -24,6 +24,10 @@ import { chartConfigs } from "@/settings/charts";
 import { ChartA } from "@/classes/customCharts/ChartA";
 import { ChartB } from "@/classes/customCharts/ChartB";
 import { mapGetters, mapMutations } from "vuex";
+import { API_ROUTES } from "@/settings/apiRoutes";
+import { apiRequest } from "@/api/api";
+// import { apiRequest } from "@/api/api";
+// import { API_ROUTES } from "@/settings/apiRoutes";
 
 export default {
   name: "BasicChart",
@@ -37,6 +41,7 @@ export default {
       settingsLoaded: false,
       enabledFeatures: [],
       chartMeta: {},
+      firstLoad: true,
     };
   },
 
@@ -58,11 +63,15 @@ export default {
     },
     enabledFeatures: {
       handler(val) {
-        this.setMeta({
-          name: this.$route.name,
-          value: { ...this.chartMeta, features: val },
-        });
+        if (!this.firstLoad) {
+          console.log("meta set");
+          this.setMeta({
+            name: this.$route.name,
+            value: { ...this.chartMeta, features: val },
+          });
+        }
         this.initDiagram();
+        this.firstLoad = false;
       },
     },
     $route() {
@@ -78,7 +87,7 @@ export default {
       this.enabledFeatures = val;
       this.chartMeta = { ...this.chartMeta, features: val };
     },
-    runChart() {
+    async runChart() {
       const chartName = this.$route.name;
       switch (chartName) {
         case "ChartA":
@@ -92,7 +101,23 @@ export default {
         console.error("Config file for chart is not defined!");
       }
       this.chart.setChartConfig(chartConfigs[chartName]());
-      const savedMeta = this.chartsMeta()[chartName];
+      let savedMeta = this.chartsMeta()[chartName];
+      if (!savedMeta) {
+        const res = await apiRequest({
+          path: API_ROUTES.CHARTS,
+        });
+        if (res.success) {
+          savedMeta = {};
+          res.data.forEach((el) => {
+            savedMeta[el.name] = el.config;
+          });
+          console.log("meta", savedMeta);
+        } else {
+          console.error(`error when try to get charts with API`);
+        }
+      }
+
+      console.log("***", savedMeta);
       this.chartMeta = this.chart.loadMeta(savedMeta);
       const savedChart = this.chartsInstances()[chartName];
       const savedSettings = savedChart ? savedChart : null;

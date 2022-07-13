@@ -1,6 +1,5 @@
 import axios from "axios";
-import { LOCAL_STORAGE_TOKEN_FIELD } from "@/settings/auth";
-import { lang } from "@/settings/lang";
+import { LOCAL_STORAGE_TOKEN_FIELD } from "@/settings";
 
 const AXIOS_METHODS = {
   get: "get",
@@ -46,7 +45,6 @@ export const apiRequest = async (config) => {
     }
   } catch (e) {
     console.error("Axios error:", e);
-    this.toastError(lang.UNKNOWN_ERROR);
   }
   return res.data;
 };
