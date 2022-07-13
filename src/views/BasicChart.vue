@@ -24,10 +24,8 @@ import { chartConfigs } from "@/settings/charts";
 import { ChartA } from "@/classes/customCharts/ChartA";
 import { ChartB } from "@/classes/customCharts/ChartB";
 import { mapGetters, mapMutations } from "vuex";
-import { API_ROUTES } from "@/settings/apiRoutes";
 import { apiRequest } from "@/api/api";
-// import { apiRequest } from "@/api/api";
-// import { API_ROUTES } from "@/settings/apiRoutes";
+import { API_ROUTES } from "@/settings/apiRoutes";
 
 export default {
   name: "BasicChart",
@@ -64,7 +62,6 @@ export default {
     enabledFeatures: {
       handler(val) {
         if (!this.firstLoad) {
-          console.log("meta set");
           this.setMeta({
             name: this.$route.name,
             value: { ...this.chartMeta, features: val },
@@ -102,22 +99,19 @@ export default {
       }
       this.chart.setChartConfig(chartConfigs[chartName]());
       let savedMeta = this.chartsMeta()[chartName];
+
+      // Fetch meta from backend.
       if (!savedMeta) {
         const res = await apiRequest({
           path: API_ROUTES.CHARTS,
         });
         if (res.success) {
-          savedMeta = {};
-          res.data.forEach((el) => {
-            savedMeta[el.name] = el.config;
-          });
-          console.log("meta", savedMeta);
+          savedMeta = res.data.find((el) => el.name === chartName).config;
         } else {
           console.error(`error when try to get charts with API`);
         }
       }
 
-      console.log("***", savedMeta);
       this.chartMeta = this.chart.loadMeta(savedMeta);
       const savedChart = this.chartsInstances()[chartName];
       const savedSettings = savedChart ? savedChart : null;
