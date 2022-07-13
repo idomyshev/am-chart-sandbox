@@ -118,5 +118,11 @@ export default {
   .v-text-field--enclosed .v-input__append-outer {
     margin-top: 11px;
   }
+  .v-select__selection .v-select__selection--comma {
+    font-size: 14px !important;
+  }
+  .v-select__selection {
+    font-size: 14px !important;
+  }
 }
 </style>
