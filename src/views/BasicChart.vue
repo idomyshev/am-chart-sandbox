@@ -5,8 +5,10 @@
         v-if="settingsLoaded"
         v-model="chartSettings"
         @updateEnabledFeatures="updateEnabledFeatures"
-        :configMeta="configMeta"
+        :configMeta="chartMeta"
       />
+      {{ chartMeta.features }}
+      ~~ {{ enabledFeatures }}
     </v-col>
     <v-col cols="7">
       <div class="chart-wrapper">
@@ -36,7 +38,7 @@ export default {
       chart: null,
       settingsLoaded: false,
       enabledFeatures: [],
-      configMeta: {},
+      chartMeta: {},
     };
   },
 
@@ -57,7 +59,13 @@ export default {
       deep: true,
     },
     enabledFeatures: {
-      handler() {
+      handler(val) {
+        //const enabledFeatures = (() => val)();
+        console.log(1, this.chartMeta, val);
+        this.setMeta({
+          name: this.$route.name,
+          value: { ...this.chartMeta, features: val },
+        });
         this.initDiagram();
       },
     },
@@ -68,10 +76,11 @@ export default {
   },
 
   methods: {
-    ...mapMutations("chart", ["setInstance"]),
-    ...mapGetters("chart", ["chartInstances"]),
+    ...mapMutations("chart", ["setInstance", "setMeta"]),
+    ...mapGetters("chart", ["chartsInstances", "chartsMeta"]),
     updateEnabledFeatures(val) {
       this.enabledFeatures = val;
+      this.chartMeta = { ...this.chartMeta, features: val };
     },
     runChart() {
       const chartName = this.$route.name;
@@ -86,16 +95,13 @@ export default {
       if (!chartConfigs[chartName]) {
         console.error("Config file for chart is not defined!");
       }
-      const config = chartConfigs[chartName]();
-      this.chart.setChartConfig(config);
-      this.configMeta = config.meta;
-      const savedPlaygrounds = this.chartInstances();
-      const savedChart = savedPlaygrounds[chartName];
-      console.log(5, savedPlaygrounds);
-      console.log(4, savedChart);
-      const savedSettings = savedPlaygrounds[chartName]
-        ? savedPlaygrounds[chartName]
-        : null;
+      this.chart.setChartConfig(chartConfigs[chartName]());
+      const savedMeta = this.chartsMeta()[chartName];
+      console.log(4, savedMeta);
+      this.chartMeta = this.chart.loadMeta(savedMeta);
+      console.log(5, this.chartMeta);
+      const savedChart = this.chartsInstances()[chartName];
+      const savedSettings = savedChart ? savedChart : null;
       this.chartSettings = this.chart.loadSettings(savedSettings);
       this.settingsLoaded = true;
     },

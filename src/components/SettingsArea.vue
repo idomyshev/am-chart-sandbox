@@ -182,6 +182,12 @@ export default {
       },
       deep: true,
     },
+    configMeta: {
+      handler() {
+        this.enabledFeatures = this.configMeta.features;
+      },
+      deep: true,
+    },
     enabledFeatures(val) {
       this.$emit("updateEnabledFeatures", val);
     },
