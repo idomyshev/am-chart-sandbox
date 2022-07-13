@@ -4,7 +4,6 @@
       <SettingsArea
         v-if="settingsLoaded"
         v-model="settings"
-        :meta="chartMeta"
         @updateEnabledFeatures="updateEnabledFeatures"
       />
     </v-col>
@@ -38,7 +37,6 @@ export default {
       chart: null,
       settingsLoaded: false,
       enabledFeatures: [],
-      chartMeta: {},
       firstLoad: true,
     };
   },
@@ -115,7 +113,7 @@ export default {
       this.chartMeta = this.chart.loadMeta(savedMeta);
       const savedChart = this.chartsInstances()[chartName];
       const savedSettings = savedChart ? savedChart : null;
-      this.settings = this.chart.loadSettings(savedSettings);
+      this.settings = {settings: this.chart.loadSettings(savedSettings), meta: ;
       this.settingsLoaded = true;
     },
     stopChart() {

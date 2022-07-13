@@ -39,7 +39,7 @@
             >
               <!--              <v-switch-->
               <!--                v-if="item[1].type === 'radio'"-->
-              <!--                v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"-->
+              <!--                v-model="settings.settings[group[0]][subGroup[0]][item[0]].value"-->
               <!--                :label="item[0]"-->
               <!--                :disabled="item[1].disabled"-->
               <!--              />-->
@@ -48,17 +48,17 @@
               <!--                  getSettingsModelProperty(group[0], item[0], 'type') ===-->
               <!--                  'checkbox'-->
               <!--                "-->
-              <!--                v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"-->
+              <!--                v-model="settings.settings[group[0]][subGroup[0]][item[0]].value"-->
               <!--                :label="item[0]"-->
               <!--                :disabled="item[1].disabled"-->
               <!--              />-->
-              <!--              {{ chartSettings }}-->
+              <!--              {{ settings.settings }}-->
               <template
                 v-if="['number', 'text-field.text'].includes(item[1].type)"
               >
                 <v-text-field
                   v-if="!item[1].serial"
-                  v-model="chartSettings[modelName][item[0]]"
+                  v-model="settings.settings[modelName][item[0]]"
                   :label="item[0]"
                   :class="
                     item[1].type !== 'text-field.text' ? 'limited-width' : ''
@@ -67,11 +67,11 @@
                 />
                 <template v-else>
                   <v-text-field
-                    v-for="(seriesSetting, key) in chartSettings[modelName][
+                    v-for="(seriesSetting, key) in settings.settings[modelName][
                       item[0]
                     ]"
                     :key="`${modelName}_${item[0]}_${key}`"
-                    v-model="chartSettings[modelName][item[0]][key]"
+                    v-model="settings.settings[modelName][item[0]][key]"
                     :label="`${item[0]} (Series: ${getSeries(key)})`"
                     :class="{
                       'limited-width': item[1].type === 'number',
@@ -89,16 +89,16 @@
                   </div>
                   <div class="diagram-settings__color-picker-box">
                     <v-color-picker
-                      v-model="chartSettings[modelName][item[0]]"
+                      v-model="settings.settings[modelName][item[0]]"
                     />
                     <div>
-                      {{ chartSettings[modelName][item[0]] }}
+                      {{ settings.settings[modelName][item[0]] }}
                     </div>
                   </div>
                 </template>
                 <template v-else>
                   <div
-                    v-for="(seriesSetting, key) in chartSettings[modelName][
+                    v-for="(seriesSetting, key) in settings.settings[modelName][
                       item[0]
                     ]"
                     :key="`${modelName}_${item[0]}_${key}`"
@@ -109,10 +109,10 @@
                     </div>
                     <div class="diagram-settings__color-picker-box">
                       <v-color-picker
-                        v-model="chartSettings[modelName][item[0]][key]"
+                        v-model="settings.settings[modelName][item[0]][key]"
                       />
                       <div>
-                        {{ chartSettings[modelName][item[0]][key] }}
+                        {{ settings.settings[modelName][item[0]][key] }}
                       </div>
                     </div>
                   </div>
@@ -139,11 +139,10 @@ import {
 export default {
   name: "SettingsArea",
   model: {
-    prop: "parentChartSettings",
+    prop: "parentSettings",
   },
   props: {
-    parentChartSettings: Object,
-    meta: Object,
+    parentSettings: Object,
   },
   beforeMount() {
     this.updateSettings();
@@ -155,33 +154,35 @@ export default {
     return {
       settingsModels,
       panel: [],
-      chartSettings: {},
+      settings: {},
       capitalizeFirstLetter,
       getSettingsModelProperty,
       settingsFeatures,
       getSettingGroupMeta,
       getSettingsModel,
       seriesSelector: [0],
-      enabledFeatures: (() => this.meta.features)(),
+      enabledFeatures: (() => this.settings.meta.features)(),
     };
   },
   computed: {
     seriesItems() {
       const items = [];
-      this.meta.series.forEach((name, index) => items.push({ index, name }));
+      this.settings.meta.series.forEach((name, index) =>
+        items.push({ index, name })
+      );
       return items;
     },
   },
   watch: {
-    parentChartSettings: {
+    parentSettings: {
       handler() {
         this.updateSettings();
       },
       deep: true,
     },
-    meta: {
+    "settings.meta": {
       handler() {
-        this.enabledFeatures = (() => this.meta.features)();
+        this.enabledFeatures = (() => this.settings.meta.features)();
       },
       deep: true,
     },
@@ -191,10 +192,7 @@ export default {
   },
   methods: {
     getSeries(index) {
-      return this.meta.series[index];
-    },
-    getGroups() {
-      return Object.entries(this.chartSettings);
+      return this.settings.meta.series[index];
     },
     getItems(subgroup) {
       return Object.entries(subgroup).filter((el) => {
@@ -202,7 +200,7 @@ export default {
       });
     },
     updateSettings() {
-      this.chartSettings = this.parentChartSettings;
+      this.settings = this.parentSettings;
     },
   },
 };
