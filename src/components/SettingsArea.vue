@@ -143,7 +143,7 @@ export default {
   },
   props: {
     parentChartSettings: Object,
-    configMeta: Object,
+    meta: Object,
   },
   beforeMount() {
     this.updateSettings();
@@ -162,16 +162,13 @@ export default {
       getSettingGroupMeta,
       getSettingsModel,
       seriesSelector: [0],
-      tst: { group: { value: 1 } },
-      enabledFeatures: (() => this.configMeta.features)(),
+      enabledFeatures: (() => this.meta.features)(),
     };
   },
   computed: {
     seriesItems() {
       const items = [];
-      this.configMeta.series.forEach((name, index) =>
-        items.push({ index, name })
-      );
+      this.meta.series.forEach((name, index) => items.push({ index, name }));
       return items;
     },
   },
@@ -182,9 +179,9 @@ export default {
       },
       deep: true,
     },
-    configMeta: {
+    meta: {
       handler() {
-        this.enabledFeatures = (() => this.configMeta.features)();
+        this.enabledFeatures = (() => this.meta.features)();
       },
       deep: true,
     },
@@ -194,7 +191,7 @@ export default {
   },
   methods: {
     getSeries(index) {
-      return this.configMeta.series[index];
+      return this.meta.series[index];
     },
     getGroups() {
       return Object.entries(this.chartSettings);

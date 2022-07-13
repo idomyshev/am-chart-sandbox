@@ -3,9 +3,9 @@
     <v-col cols="5">
       <SettingsArea
         v-if="settingsLoaded"
-        v-model="chartSettings"
+        v-model="settings"
+        :meta="chartMeta"
         @updateEnabledFeatures="updateEnabledFeatures"
-        :configMeta="chartMeta"
       />
     </v-col>
     <v-col cols="7">
@@ -32,7 +32,7 @@ export default {
 
   data() {
     return {
-      chartSettings: null,
+      settings: null,
       chart: null,
       settingsLoaded: false,
       enabledFeatures: [],
@@ -49,9 +49,9 @@ export default {
   },
 
   watch: {
-    chartSettings: {
+    settings: {
       handler() {
-        this.setInstance({ name: this.$route.name, value: this.chartSettings });
+        this.setInstance({ name: this.$route.name, value: this.settings });
         this.initDiagram();
       },
       deep: true,
@@ -96,7 +96,7 @@ export default {
       this.chartMeta = this.chart.loadMeta(savedMeta);
       const savedChart = this.chartsInstances()[chartName];
       const savedSettings = savedChart ? savedChart : null;
-      this.chartSettings = this.chart.loadSettings(savedSettings);
+      this.settings = this.chart.loadSettings(savedSettings);
       this.settingsLoaded = true;
     },
     stopChart() {
