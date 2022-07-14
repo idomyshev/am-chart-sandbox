@@ -2,37 +2,31 @@ import { API_ROUTES } from "@/settings/apiRoutes";
 import { apiRequest } from "@/api/api";
 
 const state = () => ({
-  instances: {},
-  meta: {},
+  configs: {},
 });
 
 const getters = {
-  chartsInstances(state) {
-    return state.instances;
-  },
-  chartsMeta(state) {
-    return state.meta;
+  getConfigs(state) {
+    return state.configs;
   },
 };
 const actions = {};
 const mutations = {
-  setInstance(state, val) {
-    state.instances[val.name] = val.value;
-  },
-  async setMeta(state, val) {
-    state.meta[val.name] = val.value;
+  async saveConfig(state, val) {
+    const { name, config } = val;
+    state.configs[name] = config;
     const res = await apiRequest({
       path: API_ROUTES.CHART,
       method: "post",
       data: {
-        name: val.name,
-        config: val.value,
+        name,
+        config,
       },
     });
     if (res.success) {
-      console.log(`chart ${val.name} saved successfully`);
+      console.log(`Chart ${name} saved successfully`);
     } else {
-      console.error(`error when try to save chart ${val.name}`);
+      console.error(`Error when try to save chart ${name}`);
     }
   },
 };

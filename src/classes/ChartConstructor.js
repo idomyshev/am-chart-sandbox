@@ -18,18 +18,25 @@ export const ChartConstructor = class ChartConstructor {
     }
   }
 
-  createConfig(prototypeName) {
-    const config = {};
+  createConfig(prototypeName, savedConfig) {
+    let config = {};
 
-    if (!chartConfigs[prototypeName]) {
-      console.error(
-        `Config file for chart's prototype ${prototypeName} is not defined!`
-      );
+    console.log("saved config", savedConfig);
+    if (!savedConfig) {
+      console.log("var1");
+      if (!chartConfigs[prototypeName]) {
+        console.error(
+          `Config file for chart's prototype ${prototypeName} is not defined!`
+        );
+      }
+
+      const configFromFile = chartConfigs[prototypeName]();
+      config.settings = this.createSettings(configFromFile);
+      config.meta = configFromFile.meta;
+    } else {
+      config = savedConfig;
     }
 
-    const configFromFile = chartConfigs[prototypeName]();
-    config.settings = this.createSettings(configFromFile);
-    config.meta = configFromFile.meta;
     this.config = config;
     return config;
   }

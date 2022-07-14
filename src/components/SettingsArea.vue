@@ -4,9 +4,9 @@
       <v-card-title>Settings customization</v-card-title>
       <v-card-text>
         <v-select
-          v-model="enabledFeatures"
+          v-model="enabledSettingsGroups"
           :items="settingsFeatures"
-          label="Customize settings for selected features"
+          label="Select settings groups for customization"
           multiple
           chips
           outlined
@@ -24,7 +24,7 @@
       </v-card-text>
     </v-card>
     <v-expansion-panels v-model="panel" multiple>
-      <template v-for="modelName in enabledFeatures">
+      <template v-for="modelName in enabledSettingsGroups">
         <v-expansion-panel :key="modelName">
           <v-expansion-panel-header>
             <span v-if="getSettingGroupMeta(modelName, 'title')">{{
@@ -147,9 +147,6 @@ export default {
   beforeMount() {
     this.updateConfig();
   },
-  mounted() {
-    this.$emit("updateEnabledFeatures", this.enabledFeatures);
-  },
   data() {
     return {
       settingsModels,
@@ -161,7 +158,7 @@ export default {
       getSettingGroupMeta,
       getSettingsModel,
       seriesSelector: [0],
-      enabledFeatures: (() => {
+      enabledSettingsGroups: (() => {
         return this.parentConfig.meta.enabledSettingsGroups;
       })(),
     };
@@ -182,22 +179,16 @@ export default {
       },
       deep: true,
     },
-    // config: {
-    //   handler() {
-    //     this.updateConfig();
-    //   },
-    //   deep: true,
-    // },
     // "settings.meta": {
     //   handler() {
-    //     this.enabledFeatures = (() =>
+    //     this.enabledSettingsGroups = (() =>
     //       this.config.meta.enabledSettingsGroups)();
     //   },
     //   deep: true,
     // },
-    // enabledFeatures(val) {
-    //   this.$emit("updateEnabledFeatures", val);
-    // },
+    enabledSettingsGroups(val) {
+      this.config.meta.enabledSettingsGroups = val;
+    },
   },
   methods: {
     getSeries(index) {

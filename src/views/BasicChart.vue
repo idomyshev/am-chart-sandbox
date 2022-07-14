@@ -18,6 +18,8 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { ChartA } from "@/classes/customCharts/ChartA";
 import { ChartB } from "@/classes/customCharts/ChartB";
 import { mapGetters, mapMutations } from "vuex";
+//import { API_ROUTES } from "@/settings/apiRoutes";
+//import { apiRequest } from "@/api/api";
 
 export default {
   name: "BasicChart",
@@ -34,7 +36,7 @@ export default {
   },
 
   async beforeMount() {
-    await this.updateChartConfig();
+    await this.loadChartClass();
   },
 
   beforeDestroy() {
@@ -43,23 +45,29 @@ export default {
 
   watch: {
     config: {
-      handler() {
+      handler(val) {
+        console.log("update config in BasicChart.vue", val);
         this.createChart();
+        // if (!this.firstLoad) {
+        this.saveConfig({ name: this.$route.name, config: val });
+        // }
+        // this.firstLoad = false;
       },
       deep: true,
     },
     $route() {
       this.killChart();
-      this.updateChartConfig();
+      this.loadChartClass();
     },
   },
 
   methods: {
-    ...mapMutations("chart", ["setInstance", "setMeta"]),
-    ...mapGetters("chart", ["chartsInstances", "chartsMeta"]),
-    async updateChartConfig() {
-      const prototypeName = this.$route.name;
-      switch (prototypeName) {
+    ...mapMutations("chart", ["saveConfig"]),
+    ...mapGetters("chart", ["getConfigs"]),
+    async loadChartClass() {
+      console.log("chart class loaded");
+      const chartClassName = this.$route.name;
+      switch (chartClassName) {
         case "ChartA":
           this.chart = new ChartA();
           break;
@@ -68,28 +76,36 @@ export default {
           break;
       }
 
-      this.config = this.chart.createConfig(prototypeName);
+      const savedConfig = await this.loadSavedConfig(chartClassName);
+      console.log("saved config", savedConfig);
+      this.config = this.chart.createConfig(chartClassName, null);
       this.configLoaded = true;
+    },
 
-      // let savedMeta = this.chartsMeta()[chartName];
-
-      // Fetch meta from backend.
-      // if (!savedMeta) {
-      //   const res = await apiRequest({
-      //     path: API_ROUTES.CHARTS,
-      //   });
-      //   if (res.success) {
-      //     savedMeta = res.data.find((el) => el.name === chartName).config;
-      //   } else {
-      //     console.error(`error when try to get charts with API`);
-      //   }
+    async loadSavedConfig(chartClassName) {
+      const configInStore = this.getConfigs[chartClassName];
+      console.log(5, configInStore);
+      //
+      // if (configInStore) {
+      //   return configInStore;
       // }
       //
-
-      // const savedChart = this.chartsInstances()[chartName];
-      // const savedSettings = savedChart ? savedChart : null;
-      // this.settings = {settings: this.chart.loadSettings(savedSettings), meta: this.chart.loadMeta;
+      // const res = await apiRequest({
+      //   path: API_ROUTES.CHARTS,
+      // });
       //
+      // if (res.success) {
+      //   console.log("config from api", res);
+      //   const savedItem = res.data.find((el) => el.name === chartClassName);
+      //
+      //   if (savedItem.config) {
+      //     return savedItem.config;
+      //   }
+      // } else {
+      //   console.error(`error when try to get charts with API`);
+      // }
+
+      return null;
     },
 
     killChart() {
@@ -99,6 +115,7 @@ export default {
     },
 
     createChart() {
+      console.log("create chart");
       am5.ready(() => {
         this.killChart();
 
