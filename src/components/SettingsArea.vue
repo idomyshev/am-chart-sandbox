@@ -145,7 +145,6 @@ export default {
     parentConfig: Object,
   },
   beforeMount() {
-    console.log(3, this.parentConfig);
     this.updateConfig();
   },
   mounted() {
@@ -169,7 +168,6 @@ export default {
   },
   computed: {
     seriesItems() {
-      console.log(6, this.parentConfig);
       const items = [];
       this.config.meta.series.forEach((name, index) =>
         items.push({ index, name })
@@ -180,14 +178,12 @@ export default {
   watch: {
     parentConfig: {
       handler() {
-        console.log(2, this.parentConfig);
         this.updateConfig();
       },
       deep: true,
     },
     // config: {
     //   handler() {
-    //     console.log(2, this.parentConfig);
     //     this.updateConfig();
     //   },
     //   deep: true,
@@ -214,7 +210,6 @@ export default {
     },
     updateConfig() {
       this.config = this.parentConfig;
-      console.log(4, this.config);
     },
   },
 };

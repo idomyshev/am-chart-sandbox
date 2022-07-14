@@ -69,7 +69,6 @@ export default {
       }
 
       this.config = this.chart.createConfig(prototypeName);
-      console.log(1, this.config);
       this.configLoaded = true;
 
       // let savedMeta = this.chartsMeta()[chartName];

@@ -4,33 +4,33 @@ import { chartConfigs } from "@/settings/charts";
 
 export const ChartConstructor = class ChartConstructor {
   create(root) {
-    const { chart, series } = this.chart.init();
-
     this.root = root;
+    const { chart, series } = this.initChart();
     this.chart = chart;
     this.series = series;
 
-    if (this.chart.isFeatureEnabled("animation")) {
-      this.chart.addAnimation();
+    if (this.isFeatureEnabled("animation")) {
+      this.addAnimation();
     }
 
-    if (this.chart.isFeatureEnabled("bullets")) {
-      this.chart.addBullets();
+    if (this.isFeatureEnabled("bullets")) {
+      this.addBullets();
     }
   }
 
   createConfig(prototypeName) {
     const config = {};
 
-    if (!chartConfigs[name]) {
+    if (!chartConfigs[prototypeName]) {
       console.error(
-        "Config file for chart prototype ${prototypeName} is not defined!"
+        `Config file for chart's prototype ${prototypeName} is not defined!`
       );
     }
 
     const configFromFile = chartConfigs[prototypeName]();
     config.settings = this.createSettings(configFromFile);
     config.meta = configFromFile.meta;
+    this.config = config;
     return config;
   }
 
@@ -64,7 +64,7 @@ export const ChartConstructor = class ChartConstructor {
   }
 
   settingValue(groupName, settingName, seriesIndex) {
-    const settings = this.settings;
+    const settings = this.config.settings;
 
     if (!settings[groupName]) {
       console.error(`settingValue(): Settings group '${groupName}' not exist.`);
@@ -98,7 +98,9 @@ export const ChartConstructor = class ChartConstructor {
   }
 
   isFeatureEnabled(featureName) {
-    return !!this.config.enabledFeatures.find((el) => el === featureName);
+    return !!this.config.meta.enabledSettingsGroups.find(
+      (el) => el === featureName
+    );
   }
 
   addAnimation() {
