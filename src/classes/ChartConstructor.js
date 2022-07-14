@@ -1,50 +1,63 @@
 import * as am5 from "@amcharts/amcharts5";
 import { settingsModels } from "@/settings/charts/settingsModels";
+import { chartConfigs } from "@/settings/charts";
 
 export const ChartConstructor = class ChartConstructor {
-  init(root, chart, seriesArray) {
+  create(root) {
+    const { chart, series } = this.chart.initChart();
+
     this.root = root;
     this.chart = chart;
-    this.series = seriesArray;
-  }
+    this.series = series;
 
-  setChartConfig(config) {
-    this.config = config;
-  }
-
-  loadMeta(savedMeta) {
-    this.meta = savedMeta ? savedMeta : this.config.meta;
-    return this.meta;
-  }
-
-  loadSettings(savedSettings) {
-    if (savedSettings) {
-      this.settings = savedSettings;
-      return savedSettings;
+    if (this.chart.isFeatureEnabled("animation")) {
+      this.chart.addAnimation();
     }
 
-    const config = this.config.settings;
+    if (this.chart.isFeatureEnabled("bullets")) {
+      this.chart.addBullets();
+    }
+  }
+
+  createConfig(prototypeName) {
+    const config = {};
+    if (!chartConfigs[name]) {
+      console.error(
+        "Config file for chart prototype ${prototypeName} is not defined!"
+      );
+    }
+    const configFromFile = chartConfigs[prototypeName]();
+    config.settings = this.createSettings(configFromFile);
+    // config.meta = ...
+    return config;
+  }
+
+  // Create settings for the chart using the chart's model and the chart's config file.
+  createSettings(config) {
     const settings = {};
     Object.entries(settingsModels).forEach((modelArray) => {
       const [modelName, model] = modelArray;
       Object.entries(model).forEach((settingArray) => {
         const [settingName, setting] = settingArray;
         settings[modelName] = settings[modelName] ? settings[modelName] : {};
-        if (config[modelName] && config[modelName][settingName]) {
-          settings[modelName][settingName] = config[modelName][settingName];
+        if (
+          config.settings[modelName] &&
+          config.settings[modelName][settingName]
+        ) {
+          settings[modelName][settingName] =
+            config.settings[modelName][settingName];
         } else {
           if (!setting.serial) {
             settings[modelName][settingName] = setting.defaultValue;
           } else {
             settings[modelName][settingName] = [];
-            this.meta.series.forEach(() => {
+            config.meta.series.forEach(() => {
               settings[modelName][settingName].push(setting.defaultValue);
             });
           }
         }
       });
     });
-    this.settings = settings;
     return settings;
   }
 
