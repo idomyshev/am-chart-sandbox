@@ -4,7 +4,7 @@ import { chartConfigs } from "@/settings/charts";
 
 export const ChartConstructor = class ChartConstructor {
   create(root) {
-    const { chart, series } = this.chart.initChart();
+    const { chart, series } = this.chart.init();
 
     this.root = root;
     this.chart = chart;
@@ -21,14 +21,16 @@ export const ChartConstructor = class ChartConstructor {
 
   createConfig(prototypeName) {
     const config = {};
+
     if (!chartConfigs[name]) {
       console.error(
         "Config file for chart prototype ${prototypeName} is not defined!"
       );
     }
+
     const configFromFile = chartConfigs[prototypeName]();
     config.settings = this.createSettings(configFromFile);
-    // config.meta = ...
+    config.meta = configFromFile.meta;
     return config;
   }
 
@@ -94,16 +96,9 @@ export const ChartConstructor = class ChartConstructor {
     }
     return returnVal;
   }
-  setRoot(root) {
-    this.root = root;
-  }
-
-  setEnabledFeatures(val) {
-    this.enabledFeatures = val;
-  }
 
   isFeatureEnabled(featureName) {
-    return !!this.enabledFeatures.find((el) => el === featureName);
+    return !!this.config.enabledFeatures.find((el) => el === featureName);
   }
 
   addAnimation() {

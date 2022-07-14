@@ -4,7 +4,7 @@ import { diagramsMockData } from "@/mockData/diagramsData";
 import { ChartConstructor } from "@/classes/ChartConstructor";
 
 export const ChartA = class ChartA extends ChartConstructor {
-  initChart() {
+  init() {
     const root = this.root;
 
     const chart = root.container.children.push(

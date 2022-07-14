@@ -1,11 +1,7 @@
 <template>
   <v-row>
     <v-col cols="5">
-      <SettingsArea
-        v-if="configLoaded"
-        v-model="settings"
-        @updateEnabledFeatures="updateEnabledFeatures"
-      />
+      <SettingsArea v-if="configLoaded" v-model="config" />
     </v-col>
     <v-col cols="7">
       <div class="chart-wrapper">
@@ -19,12 +15,9 @@
 import SettingsArea from "@/components/SettingsArea";
 import * as am5 from "@amcharts/amcharts5";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-import { chartConfigs } from "@/settings/charts";
 import { ChartA } from "@/classes/customCharts/ChartA";
 import { ChartB } from "@/classes/customCharts/ChartB";
 import { mapGetters, mapMutations } from "vuex";
-import { apiRequest } from "@/api/api";
-import { API_ROUTES } from "@/settings/apiRoutes";
 
 export default {
   name: "BasicChart",
@@ -33,10 +26,9 @@ export default {
 
   data() {
     return {
-      settings: null,
-      chart: null,
+      config: null,
       configLoaded: false,
-      enabledFeatures: [],
+      chart: null,
       firstLoad: true,
     };
   },
@@ -50,24 +42,11 @@ export default {
   },
 
   watch: {
-    settings: {
+    config: {
       handler() {
-        this.setInstance({ name: this.$route.name, value: this.settings });
         this.createChart();
       },
       deep: true,
-    },
-    enabledFeatures: {
-      handler(val) {
-        if (!this.firstLoad) {
-          this.setMeta({
-            name: this.$route.name,
-            value: { ...this.chartMeta, features: val },
-          });
-        }
-        this.createChart();
-        this.firstLoad = false;
-      },
     },
     $route() {
       this.killChart();
@@ -78,10 +57,6 @@ export default {
   methods: {
     ...mapMutations("chart", ["setInstance", "setMeta"]),
     ...mapGetters("chart", ["chartsInstances", "chartsMeta"]),
-    updateEnabledFeatures(val) {
-      this.enabledFeatures = val;
-      this.chartMeta = { ...this.chartMeta, features: val };
-    },
     async updateChartConfig() {
       const prototypeName = this.$route.name;
       switch (prototypeName) {
@@ -94,6 +69,7 @@ export default {
       }
 
       this.config = this.chart.createConfig(prototypeName);
+      console.log(1, this.config);
       this.configLoaded = true;
 
       // let savedMeta = this.chartsMeta()[chartName];
@@ -123,16 +99,13 @@ export default {
       }
     },
 
-    async createChart() {
-      am5.ready(async () => {
+    createChart() {
+      am5.ready(() => {
         this.killChart();
 
         const root = am5.Root.new(this.$refs.amChart, {
           useSafeResolution: false,
         });
-
-        this.chart.setRoot(root);
-        this.chart.setEnabledFeatures(this.enabledFeatures);
 
         root.setThemes([am5themes_Animated.new(root)]);
 

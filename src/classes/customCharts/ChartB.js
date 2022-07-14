@@ -4,7 +4,7 @@ import { ChartConstructor } from "@/classes/ChartConstructor";
 import * as am5xy from "@amcharts/amcharts5/xy";
 
 export const ChartB = class ChartB extends ChartConstructor {
-  initChart() {
+  init() {
     const root = this.root;
 
     const chart = root.container.children.push(
