@@ -94,7 +94,7 @@ export default {
 
       if (res?.success) {
         const savedItem = res.data.find((el) => el.name === chartClassName);
-        if (savedItem.config) {
+        if (savedItem?.config) {
           return savedItem.config;
         }
       } else {

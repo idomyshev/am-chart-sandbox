@@ -17,7 +17,10 @@ export const apiRequest = async (config) => {
       console.error("Axios method not found:", method);
     }
   }
-  const url = `${process.env.VUE_APP_API_HOST}${process.env.VUE_APP_API_PATH}${config.path}`;
+  const apiPath = process.env.VUE_APP_API_PATH
+    ? process.env.VUE_APP_API_PATH
+    : "";
+  const url = `${process.env.VUE_APP_API_HOST}${apiPath}${config.path}`;
   const data = config.data || {};
   let headers = {};
   const bearerToken = localStorage.getItem(LOCAL_STORAGE_TOKEN_FIELD);
