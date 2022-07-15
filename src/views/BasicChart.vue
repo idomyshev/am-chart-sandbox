@@ -1,12 +1,7 @@
 <template>
   <v-row>
     <v-col cols="5">
-      <SettingsArea
-        v-if="settingsLoaded"
-        v-model="chartSettings"
-        @updateEnabledFeatures="updateEnabledFeatures"
-        :configMeta="configMeta"
-      />
+      <SettingsArea v-if="configLoaded" v-model="config" />
     </v-col>
     <v-col cols="7">
       <div class="chart-wrapper">
@@ -20,10 +15,13 @@
 import SettingsArea from "@/components/SettingsArea";
 import * as am5 from "@amcharts/amcharts5";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-import { chartConfigs } from "@/settings/charts";
 import { ChartA } from "@/classes/customCharts/ChartA";
 import { ChartB } from "@/classes/customCharts/ChartB";
 import { mapGetters, mapMutations } from "vuex";
+import { API_ROUTES } from "@/settings/apiRoutes";
+import { apiRequest } from "@/api/api";
+//import { API_ROUTES } from "@/settings/apiRoutes";
+//import { apiRequest } from "@/api/api";
 
 export default {
   name: "BasicChart",
@@ -32,50 +30,44 @@ export default {
 
   data() {
     return {
-      chartSettings: null,
+      config: null,
+      configLoaded: false,
       chart: null,
-      settingsLoaded: false,
-      enabledFeatures: [],
-      configMeta: {},
+      firstLoad: true,
     };
   },
 
   async beforeMount() {
-    this.runChart();
+    await this.loadChartClass();
   },
 
   beforeDestroy() {
-    this.stopChart();
+    this.killChart();
   },
 
   watch: {
-    chartSettings: {
-      handler() {
-        this.setInstance({ name: this.$route.name, value: this.chartSettings });
-        this.initDiagram();
+    config: {
+      handler(val) {
+        this.createChart();
+        // if (!this.firstLoad) {
+        this.saveConfig({ name: this.$route.name, config: val });
+        // }
+        // this.firstLoad = false;
       },
       deep: true,
     },
-    enabledFeatures: {
-      handler() {
-        this.initDiagram();
-      },
-    },
     $route() {
-      this.stopChart();
-      this.runChart();
+      this.killChart();
+      this.loadChartClass();
     },
   },
 
   methods: {
-    ...mapMutations("chart", ["setInstance"]),
-    ...mapGetters("chart", ["chartInstances"]),
-    updateEnabledFeatures(val) {
-      this.enabledFeatures = val;
-    },
-    runChart() {
-      const chartName = this.$route.name;
-      switch (chartName) {
+    ...mapMutations("chart", ["saveConfig"]),
+    ...mapGetters("chart", ["getConfigs"]),
+    async loadChartClass() {
+      const chartClassName = this.$route.name;
+      switch (chartClassName) {
         case "ChartA":
           this.chart = new ChartA();
           break;
@@ -83,60 +75,55 @@ export default {
           this.chart = new ChartB();
           break;
       }
-      if (!chartConfigs[chartName]) {
-        console.error("Config file for chart is not defined!");
-      }
-      const config = chartConfigs[chartName]();
-      this.chart.setChartConfig(config);
-      this.configMeta = config.meta;
-      const savedPlaygrounds = this.chartInstances();
-      const savedChart = savedPlaygrounds[chartName];
-      console.log(5, savedPlaygrounds);
-      console.log(4, savedChart);
-      const savedSettings = savedPlaygrounds[chartName]
-        ? savedPlaygrounds[chartName]
-        : null;
-      this.chartSettings = this.chart.loadSettings(savedSettings);
-      this.settingsLoaded = true;
+
+      const savedConfig = await this.loadSavedConfig(chartClassName);
+      this.config = this.chart.createConfig(chartClassName, savedConfig);
+      this.configLoaded = true;
     },
-    stopChart() {
+
+    async loadSavedConfig(chartClassName) {
+      const configInStore = this.getConfigs()[chartClassName];
+
+      if (configInStore) {
+        return configInStore;
+      }
+
+      const res = await apiRequest({
+        path: API_ROUTES.CHARTS,
+      });
+
+      if (res?.success) {
+        const savedItem = res.data.find((el) => el.name === chartClassName);
+        if (savedItem.config) {
+          return savedItem.config;
+        }
+      } else {
+        console.error(`error when try to get charts with API`);
+      }
+
+      return null;
+    },
+
+    killChart() {
       if (this.root) {
         this.root.dispose();
       }
     },
-    initDiagram() {
-      am5.ready(async () => {
-        await this.createDiagram();
+
+    createChart() {
+      am5.ready(() => {
+        this.killChart();
+
+        const root = am5.Root.new(this.$refs.amChart, {
+          useSafeResolution: false,
+        });
+
+        root.setThemes([am5themes_Animated.new(root)]);
+
+        this.chart.create(root);
+
+        this.root = root;
       });
-    },
-
-    async createDiagram() {
-      if (this.root) {
-        this.root.dispose();
-      }
-      const root = am5.Root.new(this.$refs.amChart, {
-        useSafeResolution: false,
-      });
-
-      this.chart.setRoot(root);
-      this.chart.setEnabledFeatures(this.enabledFeatures);
-
-      root.setThemes([am5themes_Animated.new(root)]);
-
-      const initChartResult = this.chart.initChart();
-
-      const { chart, series } = initChartResult;
-
-      this.chart.init(root, chart, series);
-      if (this.chart.isFeatureEnabled("animation")) {
-        this.chart.addAnimation();
-      }
-
-      if (this.chart.isFeatureEnabled("bullets")) {
-        this.chart.addBullets();
-      }
-
-      this.root = root;
     },
   },
 };

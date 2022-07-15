@@ -1,51 +1,78 @@
 import * as am5 from "@amcharts/amcharts5";
 import { settingsModels } from "@/settings/charts/settingsModels";
+import { chartConfigs } from "@/settings/charts";
 
 export const ChartConstructor = class ChartConstructor {
-  init(root, chart, seriesArray) {
+  create(root) {
     this.root = root;
+    const { chart, series } = this.initChart();
     this.chart = chart;
-    this.series = seriesArray;
-  }
+    this.series = series;
 
-  setChartConfig(config) {
-    this.config = config.settings;
-    this.configMeta = config.meta;
-  }
-
-  loadSettings(savedSettings) {
-    if (savedSettings) {
-      this.settings = savedSettings;
-      return savedSettings;
+    if (this.isFeatureEnabled("animation")) {
+      this.addAnimation();
     }
 
-    const config = this.config;
+    if (this.isFeatureEnabled("bullets")) {
+      this.addBullets();
+    }
+  }
+
+  createConfig(prototypeName, savedConfig) {
+    let config = {};
+
+    if (savedConfig) {
+      this.config = savedConfig;
+      return savedConfig;
+    }
+
+    if (!savedConfig) {
+      if (!chartConfigs[prototypeName]) {
+        console.error(
+          `Config file for chart's prototype ${prototypeName} is not defined!`
+        );
+      }
+
+      const configFromFile = chartConfigs[prototypeName]();
+      config.settings = this.createSettings(configFromFile);
+      config.meta = configFromFile.meta;
+    }
+
+    this.config = config;
+    return config;
+  }
+
+  // Create settings for the chart using the chart's model and the chart's config file.
+  createSettings(config) {
     const settings = {};
     Object.entries(settingsModels).forEach((modelArray) => {
       const [modelName, model] = modelArray;
       Object.entries(model).forEach((settingArray) => {
         const [settingName, setting] = settingArray;
         settings[modelName] = settings[modelName] ? settings[modelName] : {};
-        if (config[modelName] && config[modelName][settingName]) {
-          settings[modelName][settingName] = config[modelName][settingName];
+        if (
+          config.settings[modelName] &&
+          config.settings[modelName][settingName]
+        ) {
+          settings[modelName][settingName] =
+            config.settings[modelName][settingName];
         } else {
           if (!setting.serial) {
             settings[modelName][settingName] = setting.defaultValue;
           } else {
             settings[modelName][settingName] = [];
-            this.configMeta.series.forEach(() => {
+            config.meta.series.forEach(() => {
               settings[modelName][settingName].push(setting.defaultValue);
             });
           }
         }
       });
     });
-    this.settings = settings;
     return settings;
   }
 
   settingValue(groupName, settingName, seriesIndex) {
-    const settings = this.settings;
+    const settings = this.config.settings;
 
     if (!settings[groupName]) {
       console.error(`settingValue(): Settings group '${groupName}' not exist.`);
@@ -77,16 +104,11 @@ export const ChartConstructor = class ChartConstructor {
     }
     return returnVal;
   }
-  setRoot(root) {
-    this.root = root;
-  }
-
-  setEnabledFeatures(val) {
-    this.enabledFeatures = val;
-  }
 
   isFeatureEnabled(featureName) {
-    return !!this.enabledFeatures.find((el) => el === featureName);
+    return !!this.config.meta.enabledSettingsGroups.find(
+      (el) => el === featureName
+    );
   }
 
   addAnimation() {

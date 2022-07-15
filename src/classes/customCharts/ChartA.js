@@ -6,7 +6,6 @@ import { ChartConstructor } from "@/classes/ChartConstructor";
 export const ChartA = class ChartA extends ChartConstructor {
   initChart() {
     const root = this.root;
-
     const chart = root.container.children.push(
       am5percent.PieChart.new(root, {
         radius: am5.percent(70),
