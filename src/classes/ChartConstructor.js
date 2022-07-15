@@ -22,10 +22,6 @@ export const ChartConstructor = class ChartConstructor {
     let config = {};
 
     if (savedConfig) {
-      console.log(
-        "return saved config",
-        savedConfig.meta.enabledSettingsGroups
-      );
       this.config = savedConfig;
       return savedConfig;
     }

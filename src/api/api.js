@@ -46,5 +46,5 @@ export const apiRequest = async (config) => {
   } catch (e) {
     console.error("Axios error:", e);
   }
-  return res.data;
+  return res?.data;
 };

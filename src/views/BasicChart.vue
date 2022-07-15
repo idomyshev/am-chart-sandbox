@@ -18,6 +18,8 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { ChartA } from "@/classes/customCharts/ChartA";
 import { ChartB } from "@/classes/customCharts/ChartB";
 import { mapGetters, mapMutations } from "vuex";
+import { API_ROUTES } from "@/settings/apiRoutes";
+import { apiRequest } from "@/api/api";
 //import { API_ROUTES } from "@/settings/apiRoutes";
 //import { apiRequest } from "@/api/api";
 
@@ -86,20 +88,18 @@ export default {
         return configInStore;
       }
 
-      // const res = await apiRequest({
-      //   path: API_ROUTES.CHARTS,
-      // });
-      //
-      // if (res.success) {
-      //   console.log("config from api", res);
-      //   const savedItem = res.data.find((el) => el.name === chartClassName);
-      //
-      //   if (savedItem.config) {
-      //     return savedItem.config;
-      //   }
-      // } else {
-      //   console.error(`error when try to get charts with API`);
-      // }
+      const res = await apiRequest({
+        path: API_ROUTES.CHARTS,
+      });
+
+      if (res?.success) {
+        const savedItem = res.data.find((el) => el.name === chartClassName);
+        if (savedItem.config) {
+          return savedItem.config;
+        }
+      } else {
+        console.error(`error when try to get charts with API`);
+      }
 
       return null;
     },
