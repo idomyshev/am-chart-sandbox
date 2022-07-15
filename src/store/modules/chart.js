@@ -24,7 +24,7 @@ const mutations = {
       },
     });
     if (res.success) {
-      console.log(`Chart ${name} saved successfully`);
+      console.log(`Chart ${name} saved to API successfully`);
     } else {
       console.error(`Error when try to save chart ${name}`);
     }

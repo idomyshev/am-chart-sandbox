@@ -21,9 +21,16 @@ export const ChartConstructor = class ChartConstructor {
   createConfig(prototypeName, savedConfig) {
     let config = {};
 
-    console.log("saved config", savedConfig);
+    if (savedConfig) {
+      console.log(
+        "return saved config",
+        savedConfig.meta.enabledSettingsGroups
+      );
+      this.config = savedConfig;
+      return savedConfig;
+    }
+
     if (!savedConfig) {
-      console.log("var1");
       if (!chartConfigs[prototypeName]) {
         console.error(
           `Config file for chart's prototype ${prototypeName} is not defined!`
@@ -33,8 +40,6 @@ export const ChartConstructor = class ChartConstructor {
       const configFromFile = chartConfigs[prototypeName]();
       config.settings = this.createSettings(configFromFile);
       config.meta = configFromFile.meta;
-    } else {
-      config = savedConfig;
     }
 
     this.config = config;

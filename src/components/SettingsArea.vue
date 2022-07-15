@@ -201,6 +201,7 @@ export default {
     },
     updateConfig() {
       this.config = this.parentConfig;
+      this.enabledSettingsGroups = this.parentConfig.meta.enabledSettingsGroups;
     },
   },
 };

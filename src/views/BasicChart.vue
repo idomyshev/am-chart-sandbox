@@ -46,7 +46,6 @@ export default {
   watch: {
     config: {
       handler(val) {
-        console.log("update config in BasicChart.vue", val);
         this.createChart();
         // if (!this.firstLoad) {
         this.saveConfig({ name: this.$route.name, config: val });
@@ -65,7 +64,6 @@ export default {
     ...mapMutations("chart", ["saveConfig"]),
     ...mapGetters("chart", ["getConfigs"]),
     async loadChartClass() {
-      console.log("chart class loaded");
       const chartClassName = this.$route.name;
       switch (chartClassName) {
         case "ChartA":
@@ -77,19 +75,17 @@ export default {
       }
 
       const savedConfig = await this.loadSavedConfig(chartClassName);
-      console.log("saved config", savedConfig);
-      this.config = this.chart.createConfig(chartClassName, null);
+      this.config = this.chart.createConfig(chartClassName, savedConfig);
       this.configLoaded = true;
     },
 
     async loadSavedConfig(chartClassName) {
-      const configInStore = this.getConfigs[chartClassName];
-      console.log(5, configInStore);
-      //
-      // if (configInStore) {
-      //   return configInStore;
-      // }
-      //
+      const configInStore = this.getConfigs()[chartClassName];
+
+      if (configInStore) {
+        return configInStore;
+      }
+
       // const res = await apiRequest({
       //   path: API_ROUTES.CHARTS,
       // });
@@ -115,7 +111,6 @@ export default {
     },
 
     createChart() {
-      console.log("create chart");
       am5.ready(() => {
         this.killChart();
 
