@@ -73,6 +73,13 @@ export default {
       })
     );
 
+    let yRenderer = yAxis.get("renderer");
+
+    yRenderer.grid.template.setAll({
+      strokeWidth: 1,
+      strokeDasharray: [10, 5],
+    });
+
     // Add series
     let series = chart.series.push(
       am5xy.SmoothedXLineSeries.new(root, {
@@ -134,7 +141,7 @@ export default {
 <style lang="scss">
 .line-chart {
   .chart {
-    height: 600px;
+    height: 400px;
   }
   .chart-select {
     width: 160px;

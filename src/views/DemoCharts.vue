@@ -10,6 +10,9 @@
     <div class="chart-row">
       <LineChart />
     </div>
+    <div class="chart-row">
+      <DataTable />
+    </div>
   </div>
 </template>
 
@@ -18,10 +21,11 @@ import Donut from "@/components/styledCharts/Donut.vue";
 import LineChart from "@/components/styledCharts/LineChart.vue";
 import Progress from "@/components/styledCharts/Progress.vue";
 import Waffle from "@/components/styledCharts/Waffle.vue";
+import DataTable from "@/components/styledCharts/DataTable.vue";
 
 export default {
   name: "DemoCharts",
-  components: { Donut, LineChart, Progress, Waffle },
+  components: { Donut, LineChart, Progress, Waffle, DataTable },
 };
 </script>
 
@@ -33,10 +37,12 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  height: 400px;
+  /* height: 400px; */
   background-color: white;
   border-radius: 10px;
   margin: 10px 5px;
+  padding: 0;
+  padding-bottom: 20px;
 }
 .legend {
   height: 100px;
@@ -46,7 +52,6 @@ export default {
   display: flex;
   font-weight: 700;
   font-size: 30px;
-  padding-left: 20px;
 }
 .title:before {
   display: inline-block;
@@ -60,5 +65,43 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
+  padding: 0 32px;
+  padding-top: 32px;
+  padding-bottom: 52px;
+}
+.v-application--is-ltr .v-data-footer__select {
+  display: none;
+}
+th span {
+  font-weight: 600;
+  color: #222542;
+}
+.v-application .elevation-1 {
+  box-shadow: unset !important;
+}
+.v-data-footer {
+  padding-top: 16px;
+  position: relative;
+}
+.v-data-footer__icons-before {
+  position: absolute;
+  right: 3%;
+}
+.v-data-footer__icons-after {
+  position: absolute;
+  right: 1%;
+}
+.v-application--is-ltr .v-data-footer__pagination {
+  margin: 0 33px 0 34px;
+}
+tr th:first-child {
+  padding-left: 40px !important;
+}
+tr td:first-child {
+  padding-left: 40px !important;
+}
+.v-input--selection-controls {
+  margin-top: 0;
+  padding-top: 4px;
 }
 </style>
