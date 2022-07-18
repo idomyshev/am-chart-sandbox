@@ -100,4 +100,8 @@ tr th:first-child {
 tr td:first-child {
   padding-left: 40px !important;
 }
+.v-input--selection-controls {
+  margin-top: 0;
+  padding-top: 4px;
+}
 </style>
