@@ -3,10 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve"
+    "client:dev:local": "concurrently --kill-others \"npm run server:dev\" \"npm run serve -w @amchart/client\"",
+    "server:dev": "npm run dev -w @amchart/server"
   },
-
   "workspaces": [
-    "./packages/client"
-  ]
+    "./packages/client",
+    "./packages/server"
+  ],
+  "devDependencies": {
+    "concurrently": "^7.2.2"
+  }
 }
