@@ -8,7 +8,9 @@
     "client:clean": "rimraf packages/client/dist",
     "client:copy": "rimraf packages/server/ui && shx cp -r ./packages/client/dist ./packages/server/ui",
     "server:dev": "npm run dev -w @amchart/server",
-    "server:build-ui": "npm run client:build && npm run client:copy"
+    "server:build-ui": "npm run client:build && npm run client:copy",
+    "server:start": "npm run start -w @amchart/server",
+    "start": "npm run server:build-ui && npm run server:start"
   },
   "workspaces": [
     "./packages/client",

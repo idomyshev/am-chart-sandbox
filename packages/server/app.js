@@ -1,14 +1,17 @@
 import 'dotenv/config'
 import express from 'express';
+import history from 'connect-history-api-fallback';
 
 import {router} from "./router/index.js";
 import {LANG} from "./settings/lang.js";
 import {ROUTES_WITHOUT_AUTHORIZATION} from "./settings/routes.js";
+import {uiFilepath} from "./helpers/index.js";
 
 const app = express();
 
 // Express configuration.
 app.use(express.static("public")); // Use the express-static middleware.
+app.use(express.static(uiFilepath));
 app.use(express.json());       // To support JSON-encoded bodies.
 app.use(express.urlencoded()); // To support URL-encoded bodies.
 
@@ -51,5 +54,6 @@ app.use(async function (request, response, next) {
 const serverPort = process.env.PORT || 3040;
 app.listen(serverPort,() => console.log(LANG.serverIsRunning(serverPort)));
 
+app.use(history({ index: '/' }))
 // Initialize router.
 router(app, serverPort);

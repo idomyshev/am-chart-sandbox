@@ -4,10 +4,17 @@ import {
   showChart,
 } from "../controllers/chart.js";
 import { ROUTES } from "../settings/routes.js";
+import {uiFilepath} from "../helpers/index.js";
 
 export const router = (app, serverPort) => {
   // Root route.
-  app.get(ROUTES.ROOT, (req, res) => res.send(LANG.serverIsRunning(serverPort)))
+  // app.get(ROUTES.ROOT, (req, res) => res.send(LANG.serverIsRunning(serverPort)))
+
+  // Return frontend page.
+  app.get('/', (req, res) => {
+    res.sendFile(`${uiFilepath}/index.html`);
+  });
+
 
   // TODO In case of using authorization uncomment and add additional logic.
   // app.post(ROUTES.AUTH_WITH_ONE_TIME_TOKEN, authWithOneTimeToken);
@@ -16,5 +23,6 @@ export const router = (app, serverPort) => {
   app.get(`${ROUTES.CHARTS}`, listCharts);
   app.get(`${ROUTES.CHART}/:id`, showChart);
   app.post(ROUTES.CHART, createOrUpdateChart);
+
 }
 
