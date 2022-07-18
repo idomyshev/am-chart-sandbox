@@ -14,9 +14,6 @@
     }
   }
   &__line, &__line-block {
-    .limited-width {
-      max-width: 150px;
-    }
   }
   &__title {
     align-items: center;
@@ -32,6 +29,17 @@
     font-style: italic;
     max-width: 80%;
   }
+  &__color-picker-title {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  &__color-picker-box {
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    display: inline-block;
+  }
 }
 .chart-wrapper {
   margin: 40px auto auto;
@@ -46,4 +54,7 @@
   //margin: 40px auto 0;
 
   //background: #fff;
+}
+.limited-width {
+  max-width: 90%;
 }

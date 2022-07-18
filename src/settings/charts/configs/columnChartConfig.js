@@ -1,3 +1,5 @@
+import { __greenBullets } from "@/settings/charts/sharedSettings";
+
 export const columnChartConfig = () => {
   return {
     axes: {
@@ -5,38 +7,38 @@ export const columnChartConfig = () => {
         __type: "axis",
         strokeOpacity: {
           value: 0.5,
-          type: "text-field.number",
+          type: "number",
         },
         strokeWidth: {
           value: 2,
-          type: "text-field.number",
+          type: "number",
         },
         stroke: {
           value: "666",
-          type: "text-field.color",
+          type: "color",
         },
       },
       x: {
         __type: "axis",
         strokeOpacity: {
           value: 0.5,
-          type: "text-field.number",
+          type: "number",
         },
         strokeWidth: {
           value: 2,
-          type: "text-field.number",
+          type: "number",
         },
         stroke: {
           value: "666",
-          type: "text-field.color",
+          type: "color",
         },
         startLocation: {
           value: 0,
-          type: "text-field.number",
+          type: "number",
         },
         endLocation: {
           value: 1,
-          type: "text-field.number",
+          type: "number",
         },
       },
     },
@@ -52,22 +54,22 @@ export const columnChartConfig = () => {
         __type: "axis",
         stroke: {
           value: "666",
-          type: "text-field.color",
+          type: "color",
         },
         strokeWidth: {
           value: 2,
-          type: "text-field.number",
+          type: "number",
         },
       },
       x: {
         __type: "axis",
         stroke: {
           value: "666",
-          type: "text-field.color",
+          type: "color",
         },
         strokeWidth: {
           value: 2,
-          type: "text-field.number",
+          type: "number",
         },
       },
     },
@@ -75,17 +77,13 @@ export const columnChartConfig = () => {
     ticks: {
       y: {
         __type: "axis",
-        enabled: {
-          value: true,
-          type: "radio",
-        },
         stroke: {
           value: "666",
-          type: "text-field.color",
+          type: "color",
         },
         strokeWidth: {
           value: 2,
-          type: "text-field.number",
+          type: "number",
         },
       },
       x: {
@@ -96,11 +94,11 @@ export const columnChartConfig = () => {
         },
         stroke: {
           value: "666",
-          type: "text-field.color",
+          type: "color",
         },
         strokeWidth: {
           value: 2,
-          type: "text-field.number",
+          type: "number",
         },
       },
     },
@@ -110,22 +108,22 @@ export const columnChartConfig = () => {
         __type: "axis",
         fill: {
           value: "666",
-          type: "text-field.color",
+          type: "color",
         },
         fontSize: {
           value: 1,
-          type: "text-field.number",
+          type: "number",
         },
       },
       x: {
         __type: "axis",
         fill: {
           value: "666",
-          type: "text-field.color",
+          type: "color",
         },
         fontSize: {
           value: 1,
-          type: "text-field.number",
+          type: "number",
         },
       },
     },
@@ -144,17 +142,18 @@ export const columnChartConfig = () => {
         __type: "series",
         centerX: {
           value: 0,
-          type: "text-field.number",
+          type: "number",
         },
         x: {
           value: 10,
-          type: "text-field.number",
+          type: "number",
         },
         y: {
           value: 100,
-          type: "text-field.number",
+          type: "number",
         },
       },
     },
+    bullets: __greenBullets(),
   };
 };

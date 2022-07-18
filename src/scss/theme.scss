@@ -1,0 +1,37 @@
+@import "@/scss/custom_variables.scss";
+
+.v-application.theme--light {
+  color: $text-color-light !important;
+
+  .primary--text {
+    color: $text-color-light !important;
+    caret-color: $text-color-light !important;
+  }
+
+  .v-icon {
+    color: $text-color-light;
+    caret-color: $text-color-light;
+  }
+
+  &.page-bg {
+    background: linear-gradient(155.21deg, #DFE9F3 1.24%, #FFFFFF 54.95%, #DFE9F3 99.99%) !important;
+  }
+}
+
+.v-application.theme--dark {
+  color: $text-color-dark !important;
+
+  .primary--text {
+    color: $text-color-dark !important;
+    caret-color: $text-color-dark !important;
+  }
+
+  .v-icon {
+    color: $text-color-dark;
+    caret-color: $text-color-dark;
+  }
+
+  &.page-bg {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.33)), linear-gradient(155.21deg, #191B30 1.24%, #222542 99.99%) !important;
+  }
+}

@@ -1,6 +1,5 @@
 import axios from "axios";
-import { LOCAL_STORAGE_TOKEN_FIELD } from "@/settings/auth";
-import { lang } from "@/settings/lang";
+import { LOCAL_STORAGE_TOKEN_FIELD } from "@/settings";
 
 const AXIOS_METHODS = {
   get: "get",
@@ -18,7 +17,10 @@ export const apiRequest = async (config) => {
       console.error("Axios method not found:", method);
     }
   }
-  const url = `${process.env.VUE_APP_API_HOST}${process.env.VUE_APP_API_PATH}${config.path}`;
+  const apiPath = process.env.VUE_APP_API_PATH
+    ? process.env.VUE_APP_API_PATH
+    : "";
+  const url = `${process.env.VUE_APP_API_HOST}${apiPath}${config.path}`;
   const data = config.data || {};
   let headers = {};
   const bearerToken = localStorage.getItem(LOCAL_STORAGE_TOKEN_FIELD);
@@ -46,7 +48,6 @@ export const apiRequest = async (config) => {
     }
   } catch (e) {
     console.error("Axios error:", e);
-    this.toastError(lang.UNKNOWN_ERROR);
   }
-  return res.data;
+  return res?.data;
 };

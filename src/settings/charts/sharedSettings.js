@@ -1,66 +1,21 @@
-export const __animationSettings = () => {
+export const __greenBullets = () => {
   return {
     _noSubGroup: {
-      chartAppear: {
-        value: 100,
-        type: "text-field.number",
+      radius: {
+        value: 5,
+        type: "number",
       },
-      chartOpacityAppear: {
-        value: 1000,
-        type: "text-field.number",
+      fill: {
+        value: "#B0CB3543",
+        type: "color",
       },
-      seriesAppear: {
-        value: 1000,
-        type: "text-field.number",
+      strokeWidth: {
+        value: 2,
+        type: "number",
       },
-      animateSpeedOnDrop: {
-        value: 600,
-        type: "text-field.number",
-      },
-    },
-  };
-};
-
-export const __featureSettings = () => {
-  return {
-    __title: "Enabled features",
-    __bold: true,
-    _noSubGroup: {
-      __alignment: "flex",
-      features: {
-        value: true,
-      },
-      animation: {
-        value: true,
-        type: "checkbox",
-      },
-      axes: {
-        value: true,
-        type: "checkbox",
-      },
-      columnTemplate: {
-        value: true,
-        type: "checkbox",
-      },
-      cursor: {
-        value: true,
-        type: "checkbox",
-      },
-      grid: {
-        value: true,
-        type: "checkbox",
-      },
-      ticks: {
-        value: true,
-        type: "checkbox",
-      },
-      labels: {
-        value: true,
-        type: "checkbox",
-      },
-      legend: {
-        value: true,
-        type: "checkbox",
+      stroke: {
+        value: "#247A2DFF",
+        type: "color",
       },
     },
   };

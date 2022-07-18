@@ -77,16 +77,6 @@ const initChart = (root) => {
   );
 
   // series.strokes.template.set("strokeWidth", 2);
-  series.bullets.push(function () {
-    return am5.Bullet.new(root, {
-      sprite: am5.Circle.new(root, {
-        radius: 5,
-        fill: "#fff",
-        strokeWidth: 2,
-        stroke: "#f00",
-      }),
-    });
-  });
 
   let data = [
     {
@@ -167,4 +157,16 @@ const initChart = (root) => {
   return [chart, series];
 };
 
-export default { initChart, initConfig: () => {} };
+export default {
+  initChart,
+  initConfig: () => {
+    return {
+      bullets: {
+        radius: 25,
+        fill: "#f00",
+        strokeWidth: 2,
+        stroke: "#00f",
+      },
+    };
+  },
+};

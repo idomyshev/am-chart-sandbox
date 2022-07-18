@@ -1,62 +1,123 @@
 <template>
   <div class="diagram-settings">
+    <v-card class="mb-2">
+      <v-card-title>Settings customization</v-card-title>
+      <v-card-text>
+        <v-select
+          v-model="enabledSettingsGroups"
+          :items="settingsFeatures"
+          label="Select settings groups for customization"
+          multiple
+          chips
+          outlined
+        />
+        <v-select
+          v-if="seriesItems.length"
+          :items="seriesItems"
+          item-value="index"
+          item-text="name"
+          v-model="seriesSelector"
+          label="Customize settings for selected series"
+          multiple
+          outlined
+        />
+      </v-card-text>
+    </v-card>
     <v-expansion-panels v-model="panel" multiple>
-      <template v-for="group in getGroups()">
-        <v-expansion-panel
-          :key="group[0]"
-          v-if="
-            chartSettings.features._noSubGroup[group[0]] &&
-            chartSettings.features._noSubGroup[group[0]].value
-          "
-        >
-          <v-expansion-panel-header
-            :class="group[1].__bold && 'font-weight-bold'"
-          >
-            <span v-if="group[1].__title">{{ group[1].__title }}</span>
-            <span v-else>{{ capitalizeFirstLetter(group[0]) }}</span>
+      <template v-for="modelName in enabledSettingsGroups">
+        <v-expansion-panel :key="modelName">
+          <v-expansion-panel-header>
+            <span v-if="getSettingGroupMeta(modelName, 'title')">{{
+              getSettingGroupMeta(modelName, "title")
+            }}</span>
+            <span v-else>{{ capitalizeFirstLetter(modelName) }}</span>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <div
-              v-for="subGroup in getSubGroups(group[1])"
-              :key="`${group[0]}_${subGroup[0]}`"
-              :class="
-                subGroup[1].__alignment === 'flex'
-                  ? 'diagram-settings__line'
-                  : 'diagram-settings__line-block'
-              "
+              v-for="item in getSettingsModel(modelName)"
+              :key="`${modelName}_${item[0]}`"
             >
-              <div
-                v-for="item in getItems(subGroup[1])"
-                :key="`${group[0]}_${subGroup[0]}_${item[0]}`"
+              <!--              <v-switch-->
+              <!--                v-if="item[1].type === 'radio'"-->
+              <!--                v-model="config.settings[group[0]][subGroup[0]][item[0]].value"-->
+              <!--                :label="item[0]"-->
+              <!--                :disabled="item[1].disabled"-->
+              <!--              />-->
+              <!--              <v-checkbox-->
+              <!--                v-if="-->
+              <!--                  getSettingsModelProperty(group[0], item[0], 'type') ===-->
+              <!--                  'checkbox'-->
+              <!--                "-->
+              <!--                v-model="config.settings[group[0]][subGroup[0]][item[0]].value"-->
+              <!--                :label="item[0]"-->
+              <!--                :disabled="item[1].disabled"-->
+              <!--              />-->
+              <!--              {{ config.settings }}-->
+              <template
+                v-if="['number', 'text-field.text'].includes(item[1].type)"
               >
-                <v-switch
-                  v-if="item[1].type === 'radio'"
-                  v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
-                  :label="item[0]"
-                  :disabled="item[1].disabled"
-                />
-                <v-checkbox
-                  v-if="item[1].type === 'checkbox'"
-                  v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
-                  :label="item[0]"
-                  :disabled="item[1].disabled"
-                />
                 <v-text-field
-                  v-if="
-                    [
-                      'text-field.number',
-                      'text-field.color',
-                      'text-field.text',
-                    ].includes(item[1].type)
-                  "
-                  v-model="chartSettings[group[0]][subGroup[0]][item[0]].value"
+                  v-if="!item[1].serial"
+                  v-model="config.settings[modelName][item[0]]"
                   :label="item[0]"
                   :class="
                     item[1].type !== 'text-field.text' ? 'limited-width' : ''
                   "
                   :disabled="item[1].disabled"
                 />
-              </div>
+                <template v-else>
+                  <v-text-field
+                    v-for="(seriesSetting, key) in config.settings[modelName][
+                      item[0]
+                    ]"
+                    :key="`${modelName}_${item[0]}_${key}`"
+                    v-model="config.settings[modelName][item[0]][key]"
+                    :label="`${item[0]} (Series: ${getSeries(key)})`"
+                    :class="{
+                      'limited-width': item[1].type === 'number',
+                      'd-none': !seriesSelector.includes(key),
+                    }"
+                    :disabled="item[1].disabled"
+                    >{{ seriesSetting }}</v-text-field
+                  >
+                </template>
+              </template>
+              <template v-if="item[1].type === 'color'">
+                <template v-if="!item[1].serial">
+                  <div class="diagram-settings__color-picker-title">
+                    {{ item[0] }}
+                  </div>
+                  <div class="diagram-settings__color-picker-box">
+                    <v-color-picker
+                      v-model="config.settings[modelName][item[0]]"
+                    />
+                    <div>
+                      {{ config.settings[modelName][item[0]] }}
+                    </div>
+                  </div>
+                </template>
+                <template v-else>
+                  <div
+                    v-for="(seriesSetting, key) in config.settings[modelName][
+                      item[0]
+                    ]"
+                    :key="`${modelName}_${item[0]}_${key}`"
+                    :class="{ 'd-none': !seriesSelector.includes(key) }"
+                  >
+                    <div class="diagram-settings__color-picker-title">
+                      {{ `${item[0]} (Series: ${getSeries(key)})` }}
+                    </div>
+                    <div class="diagram-settings__color-picker-box">
+                      <v-color-picker
+                        v-model="config.settings[modelName][item[0]][key]"
+                      />
+                      <div>
+                        {{ config.settings[modelName][item[0]][key] }}
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </template>
             </div>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -67,47 +128,81 @@
 
 <script>
 import { capitalizeFirstLetter } from "@/helpers";
+import {
+  getSettingGroupMeta,
+  getSettingsModel,
+  getSettingsModelProperty,
+  settingsFeatures,
+  settingsModels,
+} from "@/settings/charts/settingsModels";
 
 export default {
   name: "SettingsArea",
   model: {
-    prop: "parentChartSettings",
+    prop: "parentConfig",
   },
   props: {
-    parentChartSettings: Object,
+    parentConfig: Object,
+  },
+  beforeMount() {
+    this.updateConfig();
   },
   data() {
     return {
+      settingsModels,
       panel: [],
-      chartSettings: {},
+      config: {},
       capitalizeFirstLetter,
+      getSettingsModelProperty,
+      settingsFeatures,
+      getSettingGroupMeta,
+      getSettingsModel,
+      seriesSelector: [0],
+      enabledSettingsGroups: (() => {
+        return this.parentConfig.meta.enabledSettingsGroups;
+      })(),
     };
   },
+  computed: {
+    seriesItems() {
+      const items = [];
+      this.config.meta.series.forEach((name, index) =>
+        items.push({ index, name })
+      );
+      return items;
+    },
+  },
   watch: {
-    parentChartSettings: {
+    parentConfig: {
       handler() {
-        this.chartSettings = this.parentChartSettings;
+        this.updateConfig();
       },
       deep: true,
     },
+    // "settings.meta": {
+    //   handler() {
+    //     this.enabledSettingsGroups = (() =>
+    //       this.config.meta.enabledSettingsGroups)();
+    //   },
+    //   deep: true,
+    // },
+    enabledSettingsGroups(val) {
+      this.config.meta.enabledSettingsGroups = val;
+    },
   },
   methods: {
-    getGroups() {
-      return Object.entries(this.chartSettings);
-    },
-    getSubGroups(subGroups) {
-      return Object.entries(subGroups).filter((el) => {
-        return el[0].substring(0, 2) !== "__";
-      });
+    getSeries(index) {
+      return this.config.meta.series[index];
     },
     getItems(subgroup) {
       return Object.entries(subgroup).filter((el) => {
         return el[0].substring(0, 2) !== "__" && el[1].type;
       });
     },
-  },
-  beforeMount() {
-    this.chartSettings = this.parentChartSettings;
+    updateConfig() {
+      this.config = this.parentConfig;
+      this.enabledSettingsGroups = this.parentConfig.meta.enabledSettingsGroups;
+    },
   },
 };
 </script>
