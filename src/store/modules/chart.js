@@ -12,6 +12,14 @@ const getters = {
 };
 const actions = {};
 const mutations = {
+  initialiseStore(state) {
+    // Check if the ID exists
+    if (localStorage.getItem("store")) {
+      this.replaceState(
+        Object.assign(state, JSON.parse(localStorage.getItem("store")))
+      );
+    }
+  },
   async saveConfig(state, val) {
     const { name, config } = val;
     state.configs[name] = config;

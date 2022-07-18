@@ -37,6 +37,9 @@ export default {
   data: () => ({
     ROUTES,
   }),
+  beforeCreate() {
+    this.$store.commit("chart/initialiseStore");
+  },
 };
 </script>
 <style lang="scss" scoped>
