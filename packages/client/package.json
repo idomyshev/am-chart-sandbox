@@ -4,17 +4,7 @@
   "description": "",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/idomyshev/sandbox.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/idomyshev/sandbox/issues"
+    "build": "vue-cli-service build"
   },
   "homepage": "https://github.com/idomyshev/sandbox#readme",
   "dependencies": {

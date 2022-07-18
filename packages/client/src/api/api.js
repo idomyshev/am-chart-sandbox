@@ -10,6 +10,7 @@ const AXIOS_METHODS = {
 };
 
 export const apiRequest = async (config) => {
+  console.log("i`m last mono build!");
   let method = AXIOS_METHODS.get;
   if (config.method) {
     method = config.method.toLowerCase();
