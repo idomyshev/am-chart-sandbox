@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "NPM_CONFIG_PRODUCTION=false; NODE_ENV=development; vue-cli-service build; NPM_CONFIG_PRODUCTION=true; NODE_ENV=production;"
+    "build": "vue-cli-service build"
   },
   "homepage": "https://github.com/idomyshev/sandbox#readme",
   "dependencies": {
