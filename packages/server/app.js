@@ -51,7 +51,7 @@ app.use(async function (request, response, next) {
 });
 
 // Run node.js web server.
-const serverPort = process.env.PORT || 3040;
+const serverPort = process.env.PORT || 3000;
 app.listen(serverPort,() => console.log(LANG.serverIsRunning(serverPort)));
 
 app.use(history({ index: '/' }))
