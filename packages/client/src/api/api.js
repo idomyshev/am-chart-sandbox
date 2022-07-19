@@ -20,7 +20,7 @@ export const apiRequest = async (config) => {
   }
   const apiHost = process.env.VUE_APP_API_HOST
     ? process.env.VUE_APP_API_HOST
-    : "http://localhost:3000";
+    : `http://localhost:3000`;
   const apiPath = process.env.VUE_APP_API_PATH
     ? process.env.VUE_APP_API_PATH
     : "";
