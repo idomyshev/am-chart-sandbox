@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "nodemon app.js"
+    "dev": "nodemon --trace-warnings --max-http-header-size=98304 --experimental-specifier-resolution=node app.js",
+    "start": "nodemon --max-http-header-size=98304 --experimental-specifier-resolution=node app.js"
   },
   "keywords": [],
   "author": "",
