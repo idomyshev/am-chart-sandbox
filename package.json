@@ -10,7 +10,7 @@
     "server:dev": "npm run dev -w @amchart/server",
     "server:build-ui": "npm run client:build && npm run client:copy",
     "server:start": "npm run start -w @amchart/server",
-    "start": "npm run server:build-ui && npm run server:start"
+    "start": "npm run server:start"
   },
   "workspaces": [
     "./packages/client",
