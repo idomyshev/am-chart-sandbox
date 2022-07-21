@@ -17,12 +17,13 @@
       :y="item.y"
       :w="item.w"
       :h="item.h"
-      :i="item.i"
-      :key="item.i"
+      :i="item.name"
+      :key="item.id"
       class="grid__item"
     >
-      <h3 class="grid__title">{{ item.i }}</h3>
+      <h3 class="grid__title">{{ item.name }}</h3>
       <component v-bind:is="item.componentName"></component>
+      <BasicChart v-if="!item.noConfig" :chart="item" />
     </grid-item>
   </grid-layout>
 </template>
@@ -31,35 +32,74 @@
 import Vue from "vue";
 import { GridLayout, GridItem } from "vue-grid-layout";
 import Statistics from "@/components/Statistics.vue";
+import { mapGetters } from "vuex";
+import BasicChart from "../views/BasicChart.vue";
 
 export default Vue.extend({
   name: "Grid",
 
   components: {
+    BasicChart,
     Statistics,
     GridLayout,
     GridItem,
   },
 
+  async beforeCreate() {
+    await this.$store.dispatch("chart/fetchCharts");
+    this.createLayout();
+  },
+
   data() {
     return {
       test: "Statistics",
-      layout: [
+      layout: [],
+      layoutInit: [
         {
           x: 0,
           y: 0,
           w: 12,
           h: 6,
           i: "Summary",
+          name: "Summary",
+          id: -1,
           moved: false,
           componentName: "Statistics",
+          noConfig: true,
         },
-        { x: 0, y: 6, w: 8, h: 8, i: "Line Chart", moved: false },
-        { x: 8, y: 6, w: 4, h: 8, i: "Progress Chart", moved: false },
-        { x: 0, y: 14, w: 6, h: 8, i: "Doughnut Chart", moved: false },
-        { x: 6, y: 14, w: 6, h: 8, i: "Waffle Chart", moved: false },
+        // { x: 0, y: 6, w: 8, h: 8, i: "Line Chart", moved: false },
+        // { x: 8, y: 6, w: 4, h: 8, i: "Progress Chart", moved: false },
+        // { x: 0, y: 14, w: 6, h: 8, i: "Doughnut Chart", moved: false },
+        // { x: 6, y: 14, w: 6, h: 8, i: "Waffle Chart", moved: false },
       ],
     };
+  },
+  computed: {
+    ...mapGetters("chart", ["charts"]),
+  },
+
+  watch: {
+    charts() {
+      this.createLayout();
+    },
+  },
+
+  methods: {
+    createLayout() {
+      this.layout = [...this.layoutInit];
+      this.charts.forEach((el, index) => {
+        this.layout.push({
+          ...el,
+          x: index % 2 ? 6 : 0,
+          y: 0,
+          w: 6,
+          h: 10,
+          i: el.name,
+          moved: false,
+          index,
+        });
+      });
+    },
   },
 });
 </script>

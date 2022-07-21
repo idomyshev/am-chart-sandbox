@@ -34,7 +34,10 @@ app.use(async function (request, response, next) {
     if (!request.headers['authorization']) {
       console.error('Auth error #1: try to access private route without access token.')
       console.log("Requested url: ", request.url)
-      response.status(403).json({error: 'token_not_presented'});
+      // TODO Enable authorization check for production.
+      // TODO Not it's disabled. To enable uncomment next line and remove 'return next()' line after next one.
+      //response.status(403).json({error: 'token_not_presented'});
+      return next();
     }
     // TODO In case of using authorization uncomment and add additional logic.
     // const authToken = request.headers['authorization']?.split(" ")[1];

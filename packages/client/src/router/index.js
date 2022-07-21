@@ -31,43 +31,8 @@ const routes = [
         component: DemoCharts,
       },
       {
-        path: ROUTES.PIE_CHART,
-        name: "ChartA",
-        component: BasicChart,
-      },
-      {
-        path: ROUTES.COLUMNS_CHART,
-        name: "ChartB",
-        component: BasicChart,
-      },
-      {
-        path: ROUTES.BAR_CHART,
-        name: "barChart",
-        component: BasicChart,
-      },
-      {
-        path: ROUTES.RADAR_CHART,
-        name: "radarChart",
-        component: BasicChart,
-      },
-      {
-        path: ROUTES.POLAR_CHART,
-        name: "polarChart",
-        component: BasicChart,
-      },
-      {
-        path: ROUTES.AREA_CHART,
-        name: "areaChart",
-        component: BasicChart,
-      },
-      {
-        path: ROUTES.XY_CHART,
-        name: "xyChart",
-        component: BasicChart,
-      },
-      {
-        path: ROUTES.HIERARCHY_CHART,
-        name: "hierarchyChart",
+        path: ROUTES.CHART,
+        name: "chart",
         component: BasicChart,
       },
     ],

@@ -33,9 +33,9 @@ export const listCharts = async (request, response) => {
 export const createOrUpdateChart = async (request, response) => {
   const chart = request.body;
   try {
-    const res = await pool.query("select * from charts where name=$1", [chart.name]);
+    const res = await pool.query("select * from charts where id=$1", [chart.id]);
     if (!res.rows || !res.rows.length) {
-      pool.query('insert into charts(name, config) values($1, $2)', [chart.name, chart.config], async (error, results) => {
+      pool.query('insert into charts(name, config, template) values($1, $2, $3)', [chart.name, chart.config, chart.template], async (error, results) => {
         if (error) {
           console.error('error add chart');
           throw error
@@ -44,7 +44,7 @@ export const createOrUpdateChart = async (request, response) => {
         response.send({success: true});
       });
     } else {
-      pool.query('update charts set config=$1 where name=$2', [chart.config, chart.name], async (error, results) => {
+      pool.query('update charts set config=$1 where id=$2', [chart.config, chart.id], async (error, results) => {
         if (error) {
           console.error('error update chart, name: ', chart.name);
           throw error

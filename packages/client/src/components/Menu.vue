@@ -23,24 +23,45 @@
           <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
           Benchmarking
         </router-link>
-        <router-link class="menu__item" to="/">
+        <v-btn
+          class="menu__item menu__item-button"
+          @click.prevent="createChart"
+          text
+        >
           <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
           Add New Page
-        </router-link>
+        </v-btn>
       </div>
     </div>
     <div class="menu__user">
       <p class="menu__user-title">Profile</p>
       <div></div>
     </div>
+    <ChartCard v-model="chartDialog" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import ChartCard from "./cards/ChartCard.vue";
 
 export default Vue.extend({
   name: "Menu",
+
+  components: { ChartCard },
+
+  data() {
+    return {
+      chartDialog: false,
+    };
+  },
+
+  methods: {
+    createChart() {
+      this.chartDialog = 0;
+      console.log("create chart", this.chartDialog);
+    },
+  },
 });
 </script>
 
@@ -68,6 +89,12 @@ export default Vue.extend({
     padding: 16px 0 16px 24px;
     font-size: 15px;
     border-radius: $border-radius;
+  }
+
+  &__item-button {
+    font-weight: normal;
+    text-transform: none;
+    padding-left: 24px !important;
   }
 
   &__item-icon {

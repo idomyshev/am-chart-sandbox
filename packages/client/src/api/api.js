@@ -10,7 +10,6 @@ const AXIOS_METHODS = {
 };
 
 export const apiRequest = async (config) => {
-  console.log("i`m last mono build!");
   let method = AXIOS_METHODS.get;
   if (config.method) {
     method = config.method.toLowerCase();
@@ -18,9 +17,7 @@ export const apiRequest = async (config) => {
       console.error("Axios method not found:", method);
     }
   }
-  const apiHost = process.env.VUE_APP_API_HOST
-    ? process.env.VUE_APP_API_HOST
-    : `http://localhost`;
+  const apiHost = process.env.VUE_APP_API_HOST;
   const apiPath = process.env.VUE_APP_API_PATH
     ? process.env.VUE_APP_API_PATH
     : "";

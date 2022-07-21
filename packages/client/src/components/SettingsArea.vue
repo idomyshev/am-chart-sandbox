@@ -1,28 +1,25 @@
 <template>
   <div class="diagram-settings">
-    <v-card class="mb-2">
-      <v-card-title>Settings customization</v-card-title>
-      <v-card-text>
-        <v-select
-          v-model="enabledSettingsGroups"
-          :items="settingsFeatures"
-          label="Select settings groups for customization"
-          multiple
-          chips
-          outlined
-        />
-        <v-select
-          v-if="seriesItems.length"
-          :items="seriesItems"
-          item-value="index"
-          item-text="name"
-          v-model="seriesSelector"
-          label="Customize settings for selected series"
-          multiple
-          outlined
-        />
-      </v-card-text>
-    </v-card>
+    <div>
+      <v-select
+        v-model="enabledSettingsGroups"
+        :items="settingsFeatures"
+        label="Only these settings groups will be customized"
+        multiple
+        chips
+        outlined
+      />
+      <v-select
+        v-if="seriesItems.length"
+        :items="seriesItems"
+        item-value="index"
+        item-text="name"
+        v-model="seriesSelector"
+        label="Show settings only for selected series"
+        multiple
+        outlined
+      />
+    </div>
     <v-expansion-panels v-model="panel" multiple>
       <template v-for="modelName in enabledSettingsGroups">
         <v-expansion-panel :key="modelName">

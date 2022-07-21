@@ -3,14 +3,30 @@ import { apiRequest } from "@/api/api";
 
 const state = () => ({
   configs: {},
+  charts: [],
 });
 
 const getters = {
   getConfigs(state) {
     return state.configs;
   },
+  charts(state) {
+    return state.charts;
+  },
 };
-const actions = {};
+const actions = {
+  async fetchCharts(context) {
+    const res = await apiRequest({
+      path: API_ROUTES.CHARTS,
+    });
+    if (res?.success && res.data?.length) {
+      context.commit("setCharts", res.data);
+    } else {
+      console.error(`error when try to get charts with API`);
+    }
+    return null;
+  },
+};
 const mutations = {
   initialiseStore(state) {
     // Check if the ID exists
@@ -20,19 +36,22 @@ const mutations = {
       );
     }
   },
+  setCharts(state, val) {
+    state.charts = val;
+  },
   async saveConfig(state, val) {
-    const { name, config } = val;
-    state.configs[name] = config;
+    const { id, config } = val;
+    state.configs[id] = config;
     const res = await apiRequest({
       path: API_ROUTES.CHART,
       method: "post",
       data: {
-        name,
+        id,
         config,
       },
     });
     if (!res?.success) {
-      console.error(`Error when try to save chart ${name}`);
+      console.error(`Error when try to save chart id, ${id}`);
     }
   },
 };

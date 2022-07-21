@@ -6,39 +6,64 @@
           <v-btn :to="ROUTES.DEMO_CHARTS" color="purple lighten-3">
             Demo charts
           </v-btn>
-          <div class="subtitle">
-            Configurable<br />
-            charts
-          </div>
-          <v-btn :to="ROUTES.PIE_CHART">Pie/donut chart</v-btn>
-          <v-btn :to="ROUTES.COLUMNS_CHART">Column chart</v-btn>
-          <!--          <v-btn :to="ROUTES.BAR_CHART" class="mr-3">Bar chart</v-btn>-->
-          <!--          <v-btn :to="ROUTES.RADAR_CHART" class="mr-3">Radar chart</v-btn>-->
-          <!--          <v-btn :to="ROUTES.POLAR_CHART" class="mr-3">Polar chart</v-btn>-->
-          <!--          <v-btn :to="ROUTES.AREA_CHART" class="mr-3">Line/Area chart</v-btn>-->
-          <!--          <v-btn :to="ROUTES.XY_CHART" class="mr-3">XY/Bubble chart</v-btn>-->
-          <!--          <v-btn :to="ROUTES.HIERARCHY_CHART" class="mr-3"-->
-          <!--            >Hierarchy chart</v-btn-->
+
+          <v-btn :to="ROUTES.GRID"> Global Overview </v-btn>
+
+          <!--          <div class="subtitle">-->
+          <!--            Configurable<br />-->
+          <!--            charts-->
+          <!--          </div>-->
+          <!--          <v-btn-->
+          <!--            v-for="chart in activeCharts"-->
+          <!--            :to="{ name: 'chart', params: { id: chart.id } }"-->
+          <!--            :key="chart.id"-->
+          <!--            >{{ chart.name }}</v-btn-->
+          <!--          >-->
+          <!--          <v-btn @click="createChart" color="success">-->
+          <!--            Create chart-->
+          <!--            <v-icon right>mdi-plus</v-icon></v-btn-->
           <!--          >-->
         </v-col>
         <v-col>
-          <router-view />
+          <template v-if="loaded">
+            <router-view />
+          </template>
         </v-col>
       </v-row>
+      <ChartCard v-model="chartDialog" />
     </v-main>
   </v-app>
 </template>
 
 <script>
 import { ROUTES } from "@/settings/routes";
+import ChartCard from "@/components/cards/ChartCard";
+import { mapGetters } from "vuex";
 
 export default {
   name: "SandboxApp",
+  components: { ChartCard },
+  async beforeCreate() {
+    // TODO Uncomment to save store to localstorage.
+    // this.$store.commit("chart/initialiseStore");
+    await this.$store.dispatch("chart/fetchCharts");
+    this.loaded = true;
+  },
   data: () => ({
     ROUTES,
+    chartDialog: false,
+    loaded: false,
   }),
-  beforeCreate() {
-    this.$store.commit("chart/initialiseStore");
+  computed: {
+    ...mapGetters("chart", ["charts"]),
+    activeCharts() {
+      return this.charts.filter((el) => !el.disabled);
+    },
+  },
+  methods: {
+    createChart() {
+      this.chartDialog = 0;
+    },
   },
 };
 </script>
@@ -51,7 +76,7 @@ export default {
   padding-top: 50px;
   padding-left: 50px;
   padding-right: 90px;
-  max-width: 300px;
+  max-width: 320px;
   a {
     margin-bottom: 15px !important;
     width: 100%;

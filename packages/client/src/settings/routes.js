@@ -9,4 +9,5 @@ export const ROUTES = {
   POLAR_CHART: "/sandbox/polar",
   XY_CHART: "/sandbox/xy",
   HIERARCHY_CHART: "/sandbox/hierarchy",
+  CHART: "/chart/:id",
 };
