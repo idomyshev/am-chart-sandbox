@@ -34,6 +34,9 @@ import { ChartB } from "@/classes/customCharts/ChartB";
 import { mapGetters, mapMutations } from "vuex";
 import { apiRequest } from "@/api/api";
 import { API_ROUTES } from "@/settings/apiRoutes";
+import { ChartC } from "@/classes/customCharts/ChartC";
+import { ChartD } from "@/classes/customCharts/ChartD";
+import { ChartE } from "@/classes/customCharts/ChartE";
 
 export default {
   name: "BasicChart",
@@ -94,6 +97,18 @@ export default {
         case "ChartB":
           this.chartObject = new ChartB();
           break;
+        case "ChartC":
+          this.chartObject = new ChartC();
+          break;
+        case "ChartD":
+          this.chartObject = new ChartD();
+          break;
+        case "ChartE":
+          this.chartObject = new ChartE();
+          break;
+        // case "ChartF":
+        //   this.chartObject = new ChartF();
+        //   break;
       }
 
       this.config = this.chartObject.createConfig(

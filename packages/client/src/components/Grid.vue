@@ -23,6 +23,7 @@
     >
       <h3 class="grid__title">{{ item.name }}</h3>
       <component v-bind:is="item.componentName"></component>
+      <!--      <LineChart />-->
       <BasicChart
         v-if="!item.noConfig"
         :chart="charts.find((el) => el.id === item.id)"
@@ -31,21 +32,25 @@
   </grid-layout>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import { GridLayout, GridItem } from "vue-grid-layout";
 import Statistics from "@/components/Statistics.vue";
 import { mapGetters } from "vuex";
 import BasicChart from "../views/BasicChart.vue";
+import WaffleChart from "./styledCharts/Waffle.vue";
+import LineChart from "@/components/styledCharts/LineChart.vue";
 
 export default Vue.extend({
   name: "Grid",
 
   components: {
+    WaffleChart,
     BasicChart,
     Statistics,
     GridLayout,
     GridItem,
+    LineChart,
   },
 
   async beforeCreate() {
