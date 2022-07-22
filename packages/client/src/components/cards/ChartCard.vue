@@ -19,7 +19,7 @@
           />
         </v-card-text>
         <v-card-actions class="justify-end">
-          <v-btn @click="$emit('input', false)" depressed>Close</v-btn>
+          <v-btn @click="close" depressed>Close</v-btn>
           <v-btn
             @click="createChart"
             color="light-green darken-1"
@@ -81,9 +81,14 @@ export default {
       if (res?.success) {
         await this.$store.dispatch("chart/fetchCharts");
         this.$emit("input", false);
+        this.$refs.form.reset();
       } else {
         console.error(`Error when try to create chart with name ${this.name}`);
       }
+    },
+    close() {
+      this.$emit("input", false);
+      this.$refs.form.reset();
     },
   },
 };

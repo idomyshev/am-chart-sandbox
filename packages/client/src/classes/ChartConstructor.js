@@ -9,37 +9,35 @@ export const ChartConstructor = class ChartConstructor {
     this.chart = chart;
     this.series = series;
 
-    if (this.isFeatureEnabled("animation")) {
+    if (this.isSettingsGroupEnabled("animation")) {
       this.addAnimation();
     }
 
-    if (this.isFeatureEnabled("bullets")) {
+    if (this.isSettingsGroupEnabled("bullets")) {
       this.addBullets();
     }
   }
 
   createConfig(prototypeName, savedConfig) {
-    let config = {};
-
-    if (savedConfig) {
+    if (savedConfig && Object.keys(savedConfig).length) {
       this.config = savedConfig;
       return savedConfig;
     }
 
-    if (!savedConfig) {
-      if (!chartConfigs[prototypeName]) {
-        console.error(
-          `Config file for chart's prototype ${prototypeName} is not defined!`
-        );
-      }
-
-      const configFromFile = chartConfigs[prototypeName]();
-      config.settings = this.createSettings(configFromFile);
-      config.meta = configFromFile.meta;
+    if (!chartConfigs[prototypeName]) {
+      console.error(
+        `Config file for chart's prototype ${prototypeName} is not defined!`
+      );
     }
 
-    this.config = config;
-    return config;
+    const configFromFile = chartConfigs[prototypeName]();
+    this.config = {
+      settings: this.createSettings(configFromFile),
+      series: configFromFile.series,
+      enabledSettingsGroups: configFromFile.enabledSettingsGroups,
+    };
+
+    return this.config;
   }
 
   // Create settings for the chart using the chart's model and the chart's config file.
@@ -61,7 +59,7 @@ export const ChartConstructor = class ChartConstructor {
             settings[modelName][settingName] = setting.defaultValue;
           } else {
             settings[modelName][settingName] = [];
-            config.meta.series.forEach(() => {
+            config.series.forEach(() => {
               settings[modelName][settingName].push(setting.defaultValue);
             });
           }
@@ -105,10 +103,8 @@ export const ChartConstructor = class ChartConstructor {
     return returnVal;
   }
 
-  isFeatureEnabled(featureName) {
-    return !!this.config.meta.enabledSettingsGroups.find(
-      (el) => el === featureName
-    );
+  isSettingsGroupEnabled(featureName) {
+    return !!this.config.enabledSettingsGroups.find((el) => el === featureName);
   }
 
   addAnimation() {

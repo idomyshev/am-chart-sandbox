@@ -2,14 +2,10 @@ import { API_ROUTES } from "@/settings/apiRoutes";
 import { apiRequest } from "@/api/api";
 
 const state = () => ({
-  configs: {},
   charts: [],
 });
 
 const getters = {
-  getConfigs(state) {
-    return state.configs;
-  },
   charts(state) {
     return state.charts;
   },
@@ -29,7 +25,6 @@ const actions = {
 };
 const mutations = {
   initialiseStore(state) {
-    // Check if the ID exists
     if (localStorage.getItem("store")) {
       this.replaceState(
         Object.assign(state, JSON.parse(localStorage.getItem("store")))
@@ -41,7 +36,6 @@ const mutations = {
   },
   async saveConfig(state, val) {
     const { id, config } = val;
-    state.configs[id] = config;
     const res = await apiRequest({
       path: API_ROUTES.CHART,
       method: "post",

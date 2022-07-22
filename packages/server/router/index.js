@@ -1,6 +1,6 @@
 import { LANG } from "../settings/lang.js";
 import {
-  createOrUpdateChart, listCharts,
+  createOrUpdateChart, deleteChart, listCharts,
   showChart,
 } from "../controllers/chart.js";
 import { ROUTES } from "../settings/routes.js";
@@ -23,6 +23,7 @@ export const router = (app, serverPort) => {
   app.get(`${ROUTES.CHARTS}`, listCharts);
   app.get(`${ROUTES.CHART}/:id`, showChart);
   app.post(ROUTES.CHART, createOrUpdateChart);
+  app.delete(`${ROUTES.CHART}`, deleteChart);
 
 }
 

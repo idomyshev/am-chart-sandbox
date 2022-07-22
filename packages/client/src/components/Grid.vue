@@ -23,7 +23,10 @@
     >
       <h3 class="grid__title">{{ item.name }}</h3>
       <component v-bind:is="item.componentName"></component>
-      <BasicChart v-if="!item.noConfig" :chart="item" />
+      <BasicChart
+        v-if="!item.noConfig"
+        :chart="charts.find((el) => el.id === item.id)"
+      />
     </grid-item>
   </grid-layout>
 </template>
@@ -46,8 +49,13 @@ export default Vue.extend({
   },
 
   async beforeCreate() {
+    const layout = JSON.parse(localStorage.getItem("layout"));
     await this.$store.dispatch("chart/fetchCharts");
-    this.createLayout();
+    if (layout) {
+      this.layout = layout;
+    } else {
+      this.createLayout();
+    }
   },
 
   data() {
@@ -82,6 +90,12 @@ export default Vue.extend({
     charts() {
       this.createLayout();
     },
+    layout: {
+      handler(val) {
+        localStorage.setItem("layout", JSON.stringify(val));
+      },
+      deep: true,
+    },
   },
 
   methods: {
@@ -89,12 +103,13 @@ export default Vue.extend({
       this.layout = [...this.layoutInit];
       this.charts.forEach((el, index) => {
         this.layout.push({
-          ...el,
           x: index % 2 ? 6 : 0,
           y: 0,
           w: 6,
           h: 10,
           i: el.name,
+          id: el.id,
+          name: el.name,
           moved: false,
           index,
         });

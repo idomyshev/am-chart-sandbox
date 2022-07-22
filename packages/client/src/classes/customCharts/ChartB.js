@@ -62,14 +62,14 @@ export const ChartB = class ChartB extends ChartConstructor {
     yRenderer.ticks.template.setAll({
       stroke: this.settingValue("ticks", "yStroke"),
       strokeWidth: this.settingValue("ticks", "yStrokeWidth"),
-      visible: this.isFeatureEnabled("ticks"),
+      visible: this.isSettingsGroupEnabled("ticks"),
     });
 
     // Ticks X.
     xRenderer.ticks.template.setAll({
       stroke: this.settingValue("ticks", "xStroke"),
       strokeWidth: this.settingValue("ticks", "xStrokeWidth"),
-      visible: this.isFeatureEnabled("ticks"),
+      visible: this.isSettingsGroupEnabled("ticks"),
     });
 
     // Labels Y.
@@ -108,7 +108,7 @@ export const ChartB = class ChartB extends ChartConstructor {
     legend.data.setAll(chart.series.values);
 
     // Cursor
-    if (this.isFeatureEnabled("cursor")) {
+    if (this.isSettingsGroupEnabled("cursor")) {
       chart.set("cursor", am5xy.XYCursor.new(root, {}));
     }
 

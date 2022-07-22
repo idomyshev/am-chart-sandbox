@@ -6,23 +6,7 @@
           <v-btn :to="ROUTES.DEMO_CHARTS" color="purple lighten-3">
             Demo charts
           </v-btn>
-
           <v-btn :to="ROUTES.GRID"> Global Overview </v-btn>
-
-          <!--          <div class="subtitle">-->
-          <!--            Configurable<br />-->
-          <!--            charts-->
-          <!--          </div>-->
-          <!--          <v-btn-->
-          <!--            v-for="chart in activeCharts"-->
-          <!--            :to="{ name: 'chart', params: { id: chart.id } }"-->
-          <!--            :key="chart.id"-->
-          <!--            >{{ chart.name }}</v-btn-->
-          <!--          >-->
-          <!--          <v-btn @click="createChart" color="success">-->
-          <!--            Create chart-->
-          <!--            <v-icon right>mdi-plus</v-icon></v-btn-->
-          <!--          >-->
         </v-col>
         <v-col>
           <template v-if="loaded">

@@ -57,3 +57,14 @@ export const createOrUpdateChart = async (request, response) => {
     console.error('error when try find chart for create/update operation', err);
   }
 }
+
+export const deleteChart = async (request, response) => {
+  pool.query("DELETE from charts where id=$1", [request.query.id], async (error, res) => {
+    if (error) {
+      console.error('error delete chart, id: ', request.query.id);
+      throw error
+    }
+    console.log('chart deleted, id: ', request.query.id);
+    response.send({success: true});
+  });
+}

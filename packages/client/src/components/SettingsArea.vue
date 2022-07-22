@@ -1,125 +1,141 @@
 <template>
-  <div class="diagram-settings">
+  <div class="chart-settings">
     <div>
       <v-select
         v-model="enabledSettingsGroups"
         :items="settingsFeatures"
-        label="Only these settings groups will be customized"
+        label="Which settings groups you want to customize?"
         multiple
         chips
         outlined
       />
-      <v-select
-        v-if="seriesItems.length"
-        :items="seriesItems"
-        item-value="index"
-        item-text="name"
+      <v-radio-group
         v-model="seriesSelector"
-        label="Show settings only for selected series"
-        multiple
-        outlined
-      />
+        label="Which series you want to customize?"
+      >
+        <v-radio
+          v-for="item in seriesItems"
+          :label="item.name"
+          :value="item.index"
+          :key="item.index + item.name"
+          >{{ item }}</v-radio
+        >
+      </v-radio-group>
+      <!--      <v-select-->
+      <!--        v-if="seriesItems.length"-->
+      <!--        :items="seriesItems"-->
+      <!--        item-value="index"-->
+      <!--        item-text="name"-->
+      <!--        v-model="seriesSelector"-->
+      <!--        label="Choose series which you want to customize"-->
+      <!--        class="chart-settings__series-selector"-->
+      <!--        outlined-->
+      <!--      />-->
     </div>
-    <v-expansion-panels v-model="panel" multiple>
-      <template v-for="modelName in enabledSettingsGroups">
-        <v-expansion-panel :key="modelName">
-          <v-expansion-panel-header>
-            <span v-if="getSettingGroupMeta(modelName, 'title')">{{
-              getSettingGroupMeta(modelName, "title")
-            }}</span>
-            <span v-else>{{ capitalizeFirstLetter(modelName) }}</span>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <div
-              v-for="item in getSettingsModel(modelName)"
-              :key="`${modelName}_${item[0]}`"
-            >
-              <!--              <v-switch-->
-              <!--                v-if="item[1].type === 'radio'"-->
-              <!--                v-model="config.settings[group[0]][subGroup[0]][item[0]].value"-->
-              <!--                :label="item[0]"-->
-              <!--                :disabled="item[1].disabled"-->
-              <!--              />-->
-              <!--              <v-checkbox-->
-              <!--                v-if="-->
-              <!--                  getSettingsModelProperty(group[0], item[0], 'type') ===-->
-              <!--                  'checkbox'-->
-              <!--                "-->
-              <!--                v-model="config.settings[group[0]][subGroup[0]][item[0]].value"-->
-              <!--                :label="item[0]"-->
-              <!--                :disabled="item[1].disabled"-->
-              <!--              />-->
-              <!--              {{ config.settings }}-->
-              <template
-                v-if="['number', 'text-field.text'].includes(item[1].type)"
+    <div>
+      <v-tabs v-model="tab" class="mb-5">
+        <v-tab v-for="modelName in enabledSettingsGroups" :key="modelName">
+          <span v-if="getSettingGroupMeta(modelName, 'title')">{{
+            getSettingGroupMeta(modelName, "title")
+          }}</span>
+          <span v-else>{{ capitalizeFirstLetter(modelName) }}</span>
+        </v-tab>
+      </v-tabs>
+    </div>
+    <v-tabs-items v-model="tab">
+      <v-tab-item v-for="modelName in enabledSettingsGroups" :key="modelName">
+        <!--        <v-expansion-panel>-->
+        <!--          <v-expansion-panel-header>-->
+        <!--            <span v-if="getSettingGroupMeta(modelName, 'title')">{{-->
+        <!--              getSettingGroupMeta(modelName, "title")-->
+        <!--            }}</span>-->
+        <!--            <span v-else>{{ capitalizeFirstLetter(modelName) }}</span>-->
+        <!--          </v-expansion-panel-header>-->
+        <!--          <v-expansion-panel-content>-->
+        <div
+          v-for="item in getSettingsModel(modelName)"
+          :key="`${modelName}_${item[0]}`"
+        >
+          <!--              <v-switch-->
+          <!--                v-if="item[1].type === 'radio'"-->
+          <!--                v-model="config.settings[group[0]][subGroup[0]][item[0]].value"-->
+          <!--                :label="item[0]"-->
+          <!--                :disabled="item[1].disabled"-->
+          <!--              />-->
+          <!--              <v-checkbox-->
+          <!--                v-if="-->
+          <!--                  getSettingsModelProperty(group[0], item[0], 'type') ===-->
+          <!--                  'checkbox'-->
+          <!--                "-->
+          <!--                v-model="config.settings[group[0]][subGroup[0]][item[0]].value"-->
+          <!--                :label="item[0]"-->
+          <!--                :disabled="item[1].disabled"-->
+          <!--              />-->
+          <!--              {{ config.settings }}-->
+          <template v-if="['number', 'text-field.text'].includes(item[1].type)">
+            <v-text-field
+              v-if="!item[1].serial"
+              v-model="config.settings[modelName][item[0]]"
+              :label="item[0]"
+              :class="item[1].type !== 'text-field.text' ? 'limited-width' : ''"
+              :disabled="item[1].disabled"
+            />
+            <template v-else>
+              <v-text-field
+                v-for="(seriesSetting, key) in config.settings[modelName][
+                  item[0]
+                ]"
+                :key="`${modelName}_${item[0]}_${key}`"
+                v-model="config.settings[modelName][item[0]][key]"
+                :label="`${item[0]} (Series: ${getSeries(key)})`"
+                :class="{
+                  'limited-width': item[1].type === 'number',
+                  'd-none': seriesSelector !== key,
+                }"
+                :disabled="item[1].disabled"
+                >{{ seriesSetting }}</v-text-field
               >
-                <v-text-field
-                  v-if="!item[1].serial"
-                  v-model="config.settings[modelName][item[0]]"
-                  :label="item[0]"
-                  :class="
-                    item[1].type !== 'text-field.text' ? 'limited-width' : ''
-                  "
-                  :disabled="item[1].disabled"
-                />
-                <template v-else>
-                  <v-text-field
-                    v-for="(seriesSetting, key) in config.settings[modelName][
-                      item[0]
-                    ]"
-                    :key="`${modelName}_${item[0]}_${key}`"
+            </template>
+          </template>
+          <template v-if="item[1].type === 'color'">
+            <template v-if="!item[1].serial">
+              <div class="chart-settings__color-picker-title">
+                {{ item[0] }}
+              </div>
+              <div class="chart-settings__color-picker-box">
+                <v-color-picker v-model="config.settings[modelName][item[0]]" />
+                <div>
+                  {{ config.settings[modelName][item[0]] }}
+                </div>
+              </div>
+            </template>
+            <template v-else>
+              <div
+                v-for="(seriesSetting, key) in config.settings[modelName][
+                  item[0]
+                ]"
+                :key="`${modelName}_${item[0]}_${key}`"
+                :class="{ 'd-none': seriesSelector !== key }"
+              >
+                <div class="chart-settings__color-picker-title">
+                  {{ `${item[0]} (Series: ${getSeries(key)})` }}
+                </div>
+                <div class="chart-settings__color-picker-box">
+                  <v-color-picker
                     v-model="config.settings[modelName][item[0]][key]"
-                    :label="`${item[0]} (Series: ${getSeries(key)})`"
-                    :class="{
-                      'limited-width': item[1].type === 'number',
-                      'd-none': !seriesSelector.includes(key),
-                    }"
-                    :disabled="item[1].disabled"
-                    >{{ seriesSetting }}</v-text-field
-                  >
-                </template>
-              </template>
-              <template v-if="item[1].type === 'color'">
-                <template v-if="!item[1].serial">
-                  <div class="diagram-settings__color-picker-title">
-                    {{ item[0] }}
+                  />
+                  <div>
+                    {{ config.settings[modelName][item[0]][key] }}
                   </div>
-                  <div class="diagram-settings__color-picker-box">
-                    <v-color-picker
-                      v-model="config.settings[modelName][item[0]]"
-                    />
-                    <div>
-                      {{ config.settings[modelName][item[0]] }}
-                    </div>
-                  </div>
-                </template>
-                <template v-else>
-                  <div
-                    v-for="(seriesSetting, key) in config.settings[modelName][
-                      item[0]
-                    ]"
-                    :key="`${modelName}_${item[0]}_${key}`"
-                    :class="{ 'd-none': !seriesSelector.includes(key) }"
-                  >
-                    <div class="diagram-settings__color-picker-title">
-                      {{ `${item[0]} (Series: ${getSeries(key)})` }}
-                    </div>
-                    <div class="diagram-settings__color-picker-box">
-                      <v-color-picker
-                        v-model="config.settings[modelName][item[0]][key]"
-                      />
-                      <div>
-                        {{ config.settings[modelName][item[0]][key] }}
-                      </div>
-                    </div>
-                  </div>
-                </template>
-              </template>
-            </div>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </template>
-    </v-expansion-panels>
+                </div>
+              </div>
+            </template>
+          </template>
+        </div>
+        <!--          </v-expansion-panel-content>-->
+        <!--        </v-expansion-panel>-->
+      </v-tab-item>
+    </v-tabs-items>
   </div>
 </template>
 
@@ -146,6 +162,8 @@ export default {
   },
   data() {
     return {
+      radioGroup: null,
+      tab: null,
       settingsModels,
       panel: [],
       config: {},
@@ -154,18 +172,16 @@ export default {
       settingsFeatures,
       getSettingGroupMeta,
       getSettingsModel,
-      seriesSelector: [0],
+      seriesSelector: 0,
       enabledSettingsGroups: (() => {
-        return this.parentConfig.meta.enabledSettingsGroups;
+        return this.parentConfig.enabledSettingsGroups;
       })(),
     };
   },
   computed: {
     seriesItems() {
       const items = [];
-      this.config.meta.series.forEach((name, index) =>
-        items.push({ index, name })
-      );
+      this.config.series.forEach((name, index) => items.push({ index, name }));
       return items;
     },
   },
@@ -176,20 +192,13 @@ export default {
       },
       deep: true,
     },
-    // "settings.meta": {
-    //   handler() {
-    //     this.enabledSettingsGroups = (() =>
-    //       this.config.meta.enabledSettingsGroups)();
-    //   },
-    //   deep: true,
-    // },
     enabledSettingsGroups(val) {
-      this.config.meta.enabledSettingsGroups = val;
+      this.config.enabledSettingsGroups = val;
     },
   },
   methods: {
     getSeries(index) {
-      return this.config.meta.series[index];
+      return this.config.series[index];
     },
     getItems(subgroup) {
       return Object.entries(subgroup).filter((el) => {
@@ -198,10 +207,54 @@ export default {
     },
     updateConfig() {
       this.config = this.parentConfig;
-      this.enabledSettingsGroups = this.parentConfig.meta.enabledSettingsGroups;
+      this.enabledSettingsGroups = this.parentConfig.enabledSettingsGroups;
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.chart-settings {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  &__series-selector {
+    max-width: 370px;
+  }
+  &__line {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    > div {
+      padding-right: 10px;
+    }
+  }
+  &__line,
+  &__line-block {
+  }
+  &__title {
+    align-items: center;
+    display: flex;
+    max-width: 80px;
+    padding-right: 120px;
+    text-align: center;
+  }
+  &__subgroup-title {
+    padding-bottom: 3px;
+    border-bottom: 1px dashed #aaa;
+    margin-bottom: 8px;
+    font-style: italic;
+    max-width: 80%;
+  }
+  &__color-picker-title {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  &__color-picker-box {
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    display: inline-block;
+  }
+}
+</style>

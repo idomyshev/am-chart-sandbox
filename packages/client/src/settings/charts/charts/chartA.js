@@ -1,9 +1,7 @@
 export default () => {
   return {
-    meta: {
-      enabledSettingsGroups: ["animation", "bullets"],
-      series: ["Cafe", "Food"],
-    },
+    enabledSettingsGroups: ["animation", "bullets"],
+    series: ["Cafe", "Food"],
     settings: {
       animation: {
         chartAppear: 200,
