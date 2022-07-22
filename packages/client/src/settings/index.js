@@ -1,9 +1,10 @@
 export const LOCAL_STORAGE_TOKEN_FIELD = "token";
 
 export const chartTemplates = [
-  { name: "ChartA", label: "Pie Chart (Custom)" },
-  { name: "ChartB", label: "Column Chart (Custom)" },
-  { name: "ChartC", label: "Line Chart (ArmCandy)" },
-  { name: "ChartD", label: "Progress Chart (ArmCandy)" },
-  { name: "ChartE", label: "Donut Chart (ArmCandy)" },
+  { name: "ChartF", label: "Waffle Chart" },
+  { name: "ChartD", label: "Progress Chart" },
+  { name: "ChartE", label: "Donut Chart" },
+  { name: "ChartC", label: "Line Chart" },
+  { name: "ChartA", label: "Base - Pie" },
+  { name: "ChartB", label: "Base - Column" },
 ];

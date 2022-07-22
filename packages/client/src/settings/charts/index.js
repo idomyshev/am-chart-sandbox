@@ -4,6 +4,7 @@ import ChartB from "@/settings/charts/charts/chartB";
 import ChartC from "@/settings/charts/charts/chartC";
 import ChartD from "@/settings/charts/charts/chartD";
 import ChartE from "@/settings/charts/charts/chartE";
+import ChartF from "@/settings/charts/charts/chartF";
 import barChart from "@/settings/charts/charts/barChart";
 import areaChart from "@/settings/charts/charts/areaChart";
 import columnChart from "@/settings/charts/charts/columnChart";
@@ -17,6 +18,7 @@ export const chartConfigs = {
   ChartC,
   ChartD,
   ChartE,
+  ChartF,
   radarChart,
   barChart,
   areaChart,

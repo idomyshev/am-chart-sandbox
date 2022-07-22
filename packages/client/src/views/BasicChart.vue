@@ -37,6 +37,7 @@ import { API_ROUTES } from "@/settings/apiRoutes";
 import { ChartC } from "@/classes/customCharts/ChartC";
 import { ChartD } from "@/classes/customCharts/ChartD";
 import { ChartE } from "@/classes/customCharts/ChartE";
+import { ChartF } from "@/classes/customCharts/ChartF";
 
 export default {
   name: "BasicChart",
@@ -106,9 +107,9 @@ export default {
         case "ChartE":
           this.chartObject = new ChartE();
           break;
-        // case "ChartF":
-        //   this.chartObject = new ChartF();
-        //   break;
+        case "ChartF":
+          this.chartObject = new ChartF();
+          break;
       }
 
       this.config = this.chartObject.createConfig(
