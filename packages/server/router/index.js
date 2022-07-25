@@ -4,7 +4,7 @@ import {
   showChart,
 } from "../controllers/chart.js";
 import { ROUTES } from "../settings/routes.js";
-import {uiFilepath} from "../helpers/index.js";
+import { uiFilepath } from "../helpers/index.js";
 
 export const router = (app, serverPort) => {
   // Root route.

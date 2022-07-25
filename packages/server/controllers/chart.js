@@ -59,6 +59,7 @@ export const createOrUpdateChart = async (request, response) => {
 }
 
 export const deleteChart = async (request, response) => {
+  console.log('delete+')
   pool.query("DELETE from charts where id=$1", [request.query.id], async (error, res) => {
     if (error) {
       console.error('error delete chart, id: ', request.query.id);

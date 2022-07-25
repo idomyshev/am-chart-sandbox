@@ -9,9 +9,9 @@ export const ChartE = class ChartE extends ChartConstructor {
 
     let chart = root.container.children.push(
       am5percent.PieChart.new(root, {
-        radius: am5.percent(90),
-        innerRadius: am5.percent(50),
-        layout: root.horizontalLayout,
+        radius: am5.percent(70),
+        innerRadius: am5.percent(40),
+        y: am5.percent(-8),
       })
     );
 
@@ -44,10 +44,9 @@ export const ChartE = class ChartE extends ChartConstructor {
         // width: am5.percent(100),
         centerX: am5.percent(50),
         x: am5.percent(50),
-        y: am5.percent(35),
+        y: am5.percent(90),
         layout: am5.GridLayout.new(root, {
-          maxColumns: 3,
-          fixedWidthGrid: true,
+          // fixedWidthGrid: true,
         }),
       })
     );

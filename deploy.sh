@@ -11,5 +11,5 @@ echo 'start commit files...'
 git commit -m 'build&deploy'
 echo 'commit finished'
 echo 'start deploy to heroku...'
-git push heroku "${CURRENT_BRANCH}":master
+git push heroku "${CURRENT_BRANCH}":master --force
 echo 'deploy to heroku finished'
