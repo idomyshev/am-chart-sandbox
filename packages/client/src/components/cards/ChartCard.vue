@@ -1,5 +1,5 @@
 <template>
-  <v-dialog :value="true" max-width="600">
+  <v-dialog v-model="show" max-width="700">
     <v-form ref="form" v-model="valid">
       <v-card class="pb-3 px-3">
         <v-card-title> Chart configuration </v-card-title>
