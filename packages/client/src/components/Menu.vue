@@ -24,14 +24,10 @@
             <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
             Benchmarking
           </router-link>
-          <v-btn
-            class="menu__item menu__item-button"
-            @click.prevent="createChart"
-            text
-          >
+          <router-link class="menu__item" to="/">
             <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
             Add New Page
-          </v-btn>
+          </router-link>
         </template>
         <template v-else>
           <router-link
@@ -89,7 +85,7 @@ export default Vue.extend({
   },
 
   methods: {
-    createChart() {
+    addNewWidget() {
       this.chartDialog = 0;
       console.log("create chart", this.chartDialog);
     },
