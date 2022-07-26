@@ -48,7 +48,7 @@ export default Vue.extend({
   data() {
     return {
       ROUTES,
-      isEditLayout: true,
+      isEditLayout: false,
     };
   },
 });

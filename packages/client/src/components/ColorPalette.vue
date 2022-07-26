@@ -1,5 +1,9 @@
 <template>
-  <div class="color-palette">
+  <div
+    class="color-palette"
+    :class="chosenPaletteNumber === paletteNumber && 'chosen-palette'"
+    @click="$emit('input', paletteNumber)"
+  >
     <div
       class="color-palette__left"
       :style="{
@@ -15,8 +19,13 @@
 export default {
   name: "ColorPalette",
 
+  model: {
+    prop: "chosenPaletteNumber",
+  },
+
   props: {
     paletteNumber: Number,
+    chosenPaletteNumber: Number,
   },
 
   data() {
@@ -49,9 +58,12 @@ export default {
 <style lang="scss" scoped>
 .color-palette {
   display: flex;
+  cursor: pointer;
   margin-left: 8px;
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
+  box-sizing: border-box;
+  border-radius: 13px;
   div {
     width: 16px;
     height: 48px;
@@ -66,5 +78,8 @@ export default {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
   }
+}
+.chosen-palette {
+  border: 2px solid #222542;
 }
 </style>

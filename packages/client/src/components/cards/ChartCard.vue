@@ -42,6 +42,7 @@
                 <ColorPalette
                   v-for="item in [1, 2, 3, 4, 5, 6]"
                   :key="item"
+                  v-model="chosenPaletteNumber"
                   :palette-number="item"
                 />
               </div>
@@ -95,6 +96,7 @@ export default {
       show: false,
       validationRules,
       valid: false,
+      chosenPaletteNumber: null,
     };
   },
   computed: {},
