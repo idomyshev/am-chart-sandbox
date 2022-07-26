@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="show" max-width="600">
+  <v-dialog :value="true" max-width="600">
     <v-form ref="form" v-model="valid">
       <v-card class="pb-3 px-3">
         <v-card-title> Chart configuration </v-card-title>
@@ -38,6 +38,13 @@
                 item-text="label"
                 filled
               />
+              <div class="d-flex">
+                <ColorPalette
+                  v-for="item in [1, 2, 3, 4, 5, 6]"
+                  :key="item"
+                  :palette-number="item"
+                />
+              </div>
             </v-col>
           </v-row>
           <v-divider class="mt-4 mb-4" />
@@ -69,9 +76,11 @@ import { chartTemplates } from "@/settings";
 import { validationRules } from "@/helpers/validationRules";
 import { apiRequest } from "@/api/api";
 import { API_ROUTES } from "@/settings/apiRoutes";
+import ColorPalette from "@/components/ColorPalette";
 
 export default {
   name: "ChartCard",
+  components: { ColorPalette },
   model: {
     prop: "id",
   },
