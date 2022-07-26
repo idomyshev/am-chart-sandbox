@@ -1,16 +1,27 @@
 <template>
   <div class="app-wrapper">
-    <Menu />
+    <Menu v-model="isEditLayout" />
     <div class="app-content">
       <div class="global-overview">
         <div class="header">
           <h1>Global Overview</h1>
           <v-btn
-            :to="ROUTES.DEMO_CHARTS"
+            v-if="!isEditLayout"
+            @click="isEditLayout = true"
             class="header__btn"
             depressed
             color="secondary"
+            min-width="150"
             >Edit Layout</v-btn
+          >
+          <v-btn
+            v-else
+            @click="isEditLayout = false"
+            class="header__btn"
+            depressed
+            color="secondary"
+            min-width="150"
+            >Save</v-btn
           >
         </div>
         <Filters />
@@ -37,6 +48,7 @@ export default Vue.extend({
   data() {
     return {
       ROUTES,
+      isEditLayout: false,
     };
   },
 });

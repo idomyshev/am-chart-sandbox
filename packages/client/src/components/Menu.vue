@@ -11,31 +11,50 @@
     <div class="menu__content">
       <p class="menu__content-title">Menu</p>
       <div class="menu__items">
-        <router-link class="menu__item active" to="/">
-          <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
-          Global Overview
-        </router-link>
-        <router-link class="menu__item" to="/">
-          <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
-          Campaign KPIs
-        </router-link>
-        <router-link class="menu__item" to="/">
-          <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
-          Benchmarking
-        </router-link>
-        <v-btn
-          class="menu__item menu__item-button"
-          @click.prevent="createChart"
-          text
-        >
-          <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
-          Add New Page
-        </v-btn>
+        <template v-if="!isEditLayout">
+          <router-link class="menu__item active" to="/">
+            <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
+            Global Overview
+          </router-link>
+          <router-link class="menu__item" to="/">
+            <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
+            Campaign KPIs
+          </router-link>
+          <router-link class="menu__item" to="/">
+            <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
+            Benchmarking
+          </router-link>
+          <v-btn
+            class="menu__item menu__item-button"
+            @click.prevent="createChart"
+            text
+          >
+            <v-icon class="menu__item-icon">mdi-view-dashboard</v-icon>
+            Add New Page
+          </v-btn>
+        </template>
+        <template v-else>
+          <router-link
+            v-for="chart in charts"
+            :key="chart.id"
+            class="menu__item"
+            to="/"
+          >
+            <v-icon class="menu__item-icon">mdi-menu</v-icon>
+            {{ chart.name }}
+          </router-link>
+        </template>
       </div>
     </div>
     <div class="menu__user">
       <p class="menu__user-title">Profile</p>
-      <div></div>
+      <div class="menu__items">
+        <template v-if="isEditLayout">
+          <v-btn @click="addNewWidget" depressed color="secondary-reverse"
+            >Add New Widget<v-icon>mdi-arrow-right-thin</v-icon></v-btn
+          >
+        </template>
+      </div>
     </div>
     <ChartCard v-model="chartDialog" />
   </div>
@@ -44,16 +63,29 @@
 <script lang="ts">
 import Vue from "vue";
 import ChartCard from "./cards/ChartCard.vue";
+import { mapGetters } from "vuex";
 
 export default Vue.extend({
   name: "Menu",
 
   components: { ChartCard },
 
+  model: {
+    prop: "isEditLayout",
+  },
+
+  props: {
+    isEditLayout: Boolean,
+  },
+
   data() {
     return {
       chartDialog: false,
     };
+  },
+
+  computed: {
+    ...mapGetters("chart", ["charts"]),
   },
 
   methods: {
@@ -99,6 +131,12 @@ export default Vue.extend({
 
   &__item-icon {
     margin-right: 14px;
+  }
+
+  ::v-deep {
+    &__btn {
+      color: var(--v-primary-base) !important;
+    }
   }
 }
 </style>

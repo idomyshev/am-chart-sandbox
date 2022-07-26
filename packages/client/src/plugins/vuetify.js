@@ -10,6 +10,7 @@ export default new Vuetify({
       light: {
         primary: "#fff",
         secondary: "#222542",
+        "secondary-reverse": "#F8F8FA",
         medium: "#F7F9FC",
         success: "#1BC574",
         error: "#F84949",
@@ -19,6 +20,7 @@ export default new Vuetify({
       dark: {
         primary: "#3D3F58",
         secondary: "#F8F8FA",
+        "secondary-reverse": "#222542",
         medium: "#333659",
         success: "#1BC574",
         error: "#F84949",
