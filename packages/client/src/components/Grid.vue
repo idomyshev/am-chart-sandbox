@@ -80,10 +80,6 @@ export default Vue.extend({
           componentName: "Statistics",
           noConfig: true,
         },
-        // { x: 0, y: 6, w: 8, h: 8, i: "Line Chart", moved: false },
-        // { x: 8, y: 6, w: 4, h: 8, i: "Progress Chart", moved: false },
-        // { x: 0, y: 14, w: 6, h: 8, i: "Doughnut Chart", moved: false },
-        // { x: 6, y: 14, w: 6, h: 8, i: "Waffle Chart", moved: false },
       ],
     };
   },

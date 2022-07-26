@@ -17,6 +17,7 @@ app.use(express.urlencoded()); // To support URL-encoded bodies.
 
 
 app.use(async function (request, response, next) {
+  console.log('run1', request)
   // Because Chrome doesn't support CORS for connections from localhost we need this for local development.
   // TODO Check that in heroku config it's false.
   if (process.env.ALLOW_ORIGIN_ALL === 'true') {
@@ -53,6 +54,8 @@ app.use(async function (request, response, next) {
     return next();
   }
 });
+
+
 
 // Run node.js web server.
 const serverPort = process.env.PORT || 3000;
