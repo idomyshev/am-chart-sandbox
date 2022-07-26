@@ -1,31 +1,62 @@
 <template>
-  <v-dialog v-model="show" max-width="400">
+  <v-dialog v-model="show" max-width="600">
     <v-form ref="form" v-model="valid">
-      <v-card>
-        <v-card-title> Create chart </v-card-title>
+      <v-card class="pb-3 px-3">
+        <v-card-title> Chart configuration </v-card-title>
         <v-card-text>
+          <v-divider class="mb-4" />
+          <v-row>
+            <v-col>
+              <img
+                v-if="template === 'ChartF'"
+                src="@/assets/images/waffle.png"
+                width="200"
+              />
+              <img
+                v-if="template === 'ChartD'"
+                src="@/assets/images/progress.png"
+                width="200"
+              />
+              <img
+                v-if="template === 'ChartE'"
+                src="@/assets/images/donut.png"
+                width="200"
+              />
+              <img
+                v-if="template === 'ChartC'"
+                src="@/assets/images/line.png"
+                width="200"
+              />
+            </v-col>
+            <v-col>
+              <v-select
+                v-model="template"
+                :items="chartTemplates"
+                :rules="[validationRules.chartTemplate]"
+                label="Chart Type"
+                item-value="name"
+                item-text="label"
+                filled
+              />
+            </v-col>
+          </v-row>
+          <v-divider class="mt-4 mb-4" />
           <v-text-field
             v-model="name"
-            label="Chart name"
+            label="Chart Title"
             :rules="[validationRules.chartName]"
-          />
-          <v-select
-            v-model="template"
-            :items="chartTemplates"
-            :rules="[validationRules.chartTemplate]"
-            label="Chart template"
-            item-value="name"
-            item-text="label"
+            outlined
           />
         </v-card-text>
         <v-card-actions class="justify-end">
-          <v-btn @click="close" depressed>Close</v-btn>
+          <v-btn @click="close" min-width="150" depressed>Close</v-btn>
           <v-btn
             @click="createChart"
-            color="light-green darken-1"
+            min-width="150"
+            color="secondary"
             depressed
             class="ml-6"
-            >Create</v-btn
+            >Add Widget</v-btn
           >
         </v-card-actions>
       </v-card>

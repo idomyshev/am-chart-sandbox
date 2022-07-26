@@ -5,6 +5,4 @@ export const chartTemplates = [
   { name: "ChartD", label: "Progress Chart" },
   { name: "ChartE", label: "Donut Chart" },
   { name: "ChartC", label: "Line Chart" },
-  { name: "ChartA", label: "Base - Pie" },
-  { name: "ChartB", label: "Base - Column" },
 ];
